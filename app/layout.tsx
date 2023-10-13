@@ -5,6 +5,8 @@ import { Gabarito, Inter } from "next/font/google"
 
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
+import NavigationBar from "@/components/navigationBar/navigationBar"
+import { ThemeProvider } from "@/components/themeProvider"
 
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" })
 const fontGabarito = Inter({ subsets: ["latin"], variable: "--font-title" })
@@ -56,14 +58,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
         )}
       >
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <NavigationBar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
