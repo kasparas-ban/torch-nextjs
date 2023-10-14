@@ -5,7 +5,7 @@ import { Gabarito, Inter } from "next/font/google"
 
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
-import NavigationBar from "@/components/navigationBar/navigationBar"
+import NavigationBar from "@/components/navigationBar/NavigationBar"
 import { ThemeProvider } from "@/components/themeProvider"
 
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" })

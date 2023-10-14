@@ -1,84 +1,84 @@
 "use client"
 
 import Image from "next/image"
+import accountIcon from "@/public/images/navigationIcons/account.svg"
 
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import { Button } from "../ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
 
 export default function AccountDropdown() {
+  const isSignedIn = false
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        {/* <Image
-          src="./images/navigationIcons/account.svg"
-          className="h-8 hover:cursor-pointer"
-          alt="Account icon"
-          height={24}
-          width={24}
-        /> */}
+        <Button
+          variant="ghost"
+          className="relative h-8 w-8 rounded-full focus-visible:ring-transparent"
+        >
+          <Avatar className="h-8 w-8">
+            <AvatarImage src={accountIcon} alt="Profile" />
+            <AvatarFallback className="bg-transparent hover:bg-slate-200">
+              <Image
+                src={accountIcon}
+                className="h-8 hover:cursor-pointer"
+                alt="Sign-up/Sign-In"
+              />
+            </AvatarFallback>
+          </Avatar>
+        </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Billing
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Keyboard shortcuts
-            <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>Team</DropdownMenuItem>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <DropdownMenuItem>Email</DropdownMenuItem>
-                <DropdownMenuItem>Message</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>More...</DropdownMenuItem>
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
-          <DropdownMenuItem>
-            New Team
-            <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>GitHub</DropdownMenuItem>
-        <DropdownMenuItem>Support</DropdownMenuItem>
-        <DropdownMenuItem disabled>API</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
+      {isSignedIn ? <SignedInContent /> : <NonSignedInContent />}
     </DropdownMenu>
+  )
+}
+
+function SignedInContent() {
+  return (
+    <DropdownMenuContent className="w-fit min-w-[140px]" align="end" forceMount>
+      <DropdownMenuLabel className="font-normal">
+        <div className="flex flex-col space-y-1">
+          <p className="text-sm font-medium leading-none">shadcn</p>
+          <p className="text-xs leading-none text-muted-foreground">
+            m@example.com
+          </p>
+        </div>
+      </DropdownMenuLabel>
+      <DropdownMenuSeparator />
+      <DropdownMenuGroup>
+        <DropdownMenuItem className="hover:cursor-pointer">
+          Profile
+        </DropdownMenuItem>
+        <DropdownMenuItem className="hover:cursor-pointer">
+          Billing
+        </DropdownMenuItem>
+      </DropdownMenuGroup>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem className="hover:cursor-pointer">
+        Log out
+      </DropdownMenuItem>
+    </DropdownMenuContent>
+  )
+}
+
+function NonSignedInContent() {
+  return (
+    <DropdownMenuContent className="w-8" align="end" forceMount>
+      <DropdownMenuItem className="hover:cursor-pointer">
+        Sign In
+      </DropdownMenuItem>
+      <DropdownMenuItem className="hover:cursor-pointer">
+        Sign Up
+      </DropdownMenuItem>
+    </DropdownMenuContent>
   )
 }
