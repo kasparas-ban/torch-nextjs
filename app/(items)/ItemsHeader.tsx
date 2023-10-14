@@ -41,7 +41,7 @@ function ItemsTypeDropdown() {
           <motion.div
             layout
             key={itemType}
-            className="flex flex-row top-2 cursor-pointer"
+            className="top-2 flex cursor-pointer flex-row"
             whileTap={{ scale: 0.96 }}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -50,25 +50,25 @@ function ItemsTypeDropdown() {
             <h1 className="flex items-center text-5xl font-bold text-gray-400">
               {capitalizeString(itemType)}
             </h1>
-            <ArrowIcon className="relative top-5 left-1 h-6 w-6 text-gray-400 stroke-1 transition-transform group-data-[state=open]:rotate-180" />
+            <ArrowIcon className="relative left-1 top-5 h-6 w-6 stroke-1 text-gray-400 transition-transform group-data-[state=open]:rotate-180" />
           </motion.div>
         </AnimatePresence>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="rounded-xl">
         <DropdownMenuItem
-          className="text-xl rounded-md text-gray-600 font-bold hover:bg-gray-200 cursor-pointer"
+          className="cursor-pointer rounded-md text-xl font-bold text-gray-600 hover:bg-gray-200"
           onClick={() => saveItemType("TASK")}
         >
           Tasks
         </DropdownMenuItem>
         <DropdownMenuItem
-          className="text-xl rounded-md text-gray-600 font-bold hover:bg-gray-200 cursor-pointer"
+          className="cursor-pointer rounded-md text-xl font-bold text-gray-600 hover:bg-gray-200"
           onClick={() => saveItemType("GOAL")}
         >
           Goals
         </DropdownMenuItem>
         <DropdownMenuItem
-          className="text-xl rounded-md text-gray-600 font-bold hover:bg-gray-200 cursor-pointer"
+          className="cursor-pointer rounded-md text-xl font-bold text-gray-600 hover:bg-gray-200"
           onClick={() => saveItemType("DREAM")}
         >
           Dreams
