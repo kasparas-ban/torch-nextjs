@@ -1,6 +1,6 @@
-import Image from "next/image"
 import Link from "next/link"
-import torchLogo from "@/public/images/torch_logo.svg"
+import TimerIcon from "@/public/images/navigationIcons/timer.svg"
+import TorchLogo from "@/public/images/torch_logo.svg"
 import { motion } from "framer-motion"
 
 import { ROUTES } from "@/config/routes"
@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 import { useScrollPosition } from "@/hooks/useScrollPosition"
 
 type NavigationLinkProps = {
-  iconPath: string
+  Icon: any
   path: string
   linkName: string
   highlight?: boolean
@@ -16,7 +16,7 @@ type NavigationLinkProps = {
 }
 
 export function NavigationLink({
-  iconPath,
+  Icon,
   path,
   linkName,
   highlight,
@@ -31,7 +31,7 @@ export function NavigationLink({
       )}
     >
       {highlight ? (
-        <TimerLink iconPath={iconPath} mobile={mobile} />
+        <TimerLink mobile={mobile} />
       ) : (
         <div
           className={cn(
@@ -39,11 +39,7 @@ export function NavigationLink({
             !mobile && "hover:bg-slate-300 max-[450px]:hidden"
           )}
         >
-          <Image
-            src={iconPath}
-            className="mx-auto h-6 w-6 text-slate-800"
-            alt="Nav icon"
-          />
+          <Icon className="mx-auto h-6 w-6 text-slate-800" alt="Nav icon" />
           {mobile && <span className="text-[11px]">{linkName}</span>}
         </div>
       )}
@@ -67,19 +63,13 @@ export const TorchLink = () => {
       animate={{ scale: yScroll ? 0.8 : 1, top: yScroll ? 0 : -4 }}
     >
       <Link href={ROUTES.index.path}>
-        <Image src={torchLogo} className="h-12 w-6" alt={"Logo"} />
+        <TorchLogo className="h-12 w-6" alt="Logo" />
       </Link>
     </motion.div>
   )
 }
 
-export const TimerLink = ({
-  iconPath,
-  mobile,
-}: {
-  iconPath: string
-  mobile?: boolean
-}) => {
+export const TimerLink = ({ mobile }: { mobile?: boolean }) => {
   const { yScroll } = useScrollPosition()
   const scale = mobile ? 0.9 : yScroll ? 0.8 : 1
 
@@ -88,9 +78,8 @@ export const TimerLink = ({
       className="bg-multi-color bg-multi-color-delay peer rounded-full px-2 py-2 brightness-150 transition-all hover:cursor-pointer hover:brightness-100"
       animate={{ scale }}
     >
-      <Image
-        src={iconPath}
-        className="mx-auto h-8 w-8 text-slate-800"
+      <TimerIcon
+        className="mx-auto relative flex items-center text-slate-800 h-8 w-8"
         alt="Nav icon"
       />
     </motion.div>

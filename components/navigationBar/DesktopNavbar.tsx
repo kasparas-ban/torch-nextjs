@@ -1,8 +1,8 @@
-import calendarIcon from "@/public/images/navigationIcons/calendar.svg"
-import goalsIcon from "@/public/images/navigationIcons/goals.svg"
-import statsIcon from "@/public/images/navigationIcons/stats.svg"
-import timerIcon from "@/public/images/navigationIcons/timer.svg"
-import worldIcon from "@/public/images/navigationIcons/world.svg"
+import CalendarIcon from "@/public/images/navigationIcons/calendar.svg"
+import GoalsIcon from "@/public/images/navigationIcons/goals.svg"
+import StatsIcon from "@/public/images/navigationIcons/stats.svg"
+import TimerIcon from "@/public/images/navigationIcons/timer.svg"
+import WorldIcon from "@/public/images/navigationIcons/world.svg"
 
 import { ROUTES } from "@/config/routes"
 import { cn } from "@/lib/utils"
@@ -24,29 +24,29 @@ export default function DesktopNavbar() {
           <TorchLink />
           <ul className="flex h-12 space-x-1 overflow-visible rounded-[16px] px-4">
             <NavigationLink
+              Icon={GoalsIcon}
               path={ROUTES.items.path}
-              iconPath={goalsIcon}
               linkName={ROUTES.items.label}
             />
             <NavigationLink
+              Icon={CalendarIcon}
               path={ROUTES.calendar.path}
-              iconPath={calendarIcon}
               linkName={ROUTES.calendar.label}
             />
             <NavigationLink
+              Icon={TimerIcon}
               path={ROUTES.timer.path}
-              iconPath={timerIcon}
               linkName={ROUTES.timer.label}
               highlight
             />
             <NavigationLink
+              Icon={WorldIcon}
               path={ROUTES.world.path}
-              iconPath={worldIcon}
               linkName={ROUTES.world.label}
             />
             <NavigationLink
+              Icon={StatsIcon}
               path={ROUTES.stats.path}
-              iconPath={statsIcon}
               linkName={ROUTES.stats.label}
             />
           </ul>

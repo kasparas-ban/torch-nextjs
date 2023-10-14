@@ -1,8 +1,8 @@
-import calendarIcon from "@/public/images/navigationIcons/calendar.svg"
-import goalsIcon from "@/public/images/navigationIcons/goals.svg"
-import statsIcon from "@/public/images/navigationIcons/stats.svg"
-import timerIcon from "@/public/images/navigationIcons/timer.svg"
-import worldIcon from "@/public/images/navigationIcons/world.svg"
+import CalendarIcon from "@/public/images/navigationIcons/calendar.svg"
+import GoalsIcon from "@/public/images/navigationIcons/goals.svg"
+import StatsIcon from "@/public/images/navigationIcons/stats.svg"
+import TimerIcon from "@/public/images/navigationIcons/timer.svg"
+import WorldIcon from "@/public/images/navigationIcons/world.svg"
 
 import { ROUTES } from "@/config/routes"
 import { cn } from "@/lib/utils"
@@ -31,32 +31,32 @@ function NavbarContentMobile() {
   return (
     <ul className="h-13 flex w-full justify-between space-x-1 overflow-visible rounded-[16px] px-3">
       <NavigationLink
-        iconPath={goalsIcon}
+        Icon={GoalsIcon}
         path={ROUTES.items.path}
         linkName={ROUTES.items.label}
         mobile
       />
       <NavigationLink
-        iconPath={calendarIcon}
+        Icon={CalendarIcon}
         path={ROUTES.stats.path}
         linkName={ROUTES.stats.label}
         mobile
       />
       <NavigationLink
-        iconPath={timerIcon}
+        Icon={TimerIcon}
         path={ROUTES.timer.path}
         linkName={ROUTES.index.label}
         highlight
         mobile
       />
       <NavigationLink
-        iconPath={worldIcon}
+        Icon={WorldIcon}
         path={ROUTES.world.path}
         linkName={ROUTES.world.label}
         mobile
       />
       <NavigationLink
-        iconPath={statsIcon}
+        Icon={StatsIcon}
         path={ROUTES.account.path}
         linkName={ROUTES.account.label}
         mobile

@@ -1,7 +1,6 @@
 "use client"
 
-import Image from "next/image"
-import accountIcon from "@/public/images/navigationIcons/account.svg"
+import AccountIcon from "@/public/images/navigationIcons/account.svg"
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { Button } from "../ui/button"
@@ -23,13 +22,12 @@ export default function AccountDropdown() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="relative h-8 w-8 rounded-full focus-visible:ring-transparent"
+          className="relative h-6 w-6 rounded-full focus-visible:ring-transparent hover:bg-transparent"
         >
-          <Avatar className="h-8 w-8">
-            <AvatarImage src={accountIcon} alt="Profile" />
+          <Avatar className="h-6 w-6">
+            <AvatarImage alt="Profile" />
             <AvatarFallback className="bg-transparent hover:bg-slate-200">
-              <Image
-                src={accountIcon}
+              <AccountIcon
                 className="h-8 hover:cursor-pointer"
                 alt="Sign-up/Sign-In"
               />
