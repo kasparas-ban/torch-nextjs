@@ -14,9 +14,10 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 export function ItemsHeader() {
+  console.log("ItemsHeader")
   return (
     <>
-      <div className="flex">
+      <div className="mb-6 flex">
         <ItemsTypeDropdown />
         <div className="relative bottom-1 ml-auto flex items-end space-x-4">
           <motion.div layout whileHover={{ scale: 1.2 }}>
@@ -50,7 +51,7 @@ function ItemsTypeDropdown() {
             <h1 className="flex items-center text-5xl font-bold text-gray-400">
               {capitalizeString(itemType)}
             </h1>
-            <ArrowIcon className="relative left-1 top-5 h-6 w-6 stroke-1 text-gray-400 transition-transform group-data-[state=open]:rotate-180" />
+            <ArrowIcon className="relative left-1 top-5 h-6 w-6 stroke-1 text-gray-500 transition-transform group-data-[state=open]:rotate-180" />
           </motion.div>
         </AnimatePresence>
       </DropdownMenuTrigger>

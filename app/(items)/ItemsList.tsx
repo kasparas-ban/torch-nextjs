@@ -1,54 +1,89 @@
-"use client"
+import PlusIcon from "@/public/images/plus.svg"
+import { motion } from "framer-motion"
 
-import { useEffect } from "react"
-import { groupItemsByParent } from "@/api/helpers"
-import { useItemsList } from "@/api/hooks/useItemsList"
-import { useUser } from "@clerk/nextjs"
-import { AnimatePresence } from "framer-motion"
+import { GeneralItem, GroupedItems, ItemType } from "@/types/itemTypes"
 
-import { GeneralItem } from "@/types/itemTypes"
-import useItemListConfig from "@/hooks/useItemListConfig"
+export default function ItemsList<T extends GeneralItem>({
+  groupedItems,
+  itemType,
+}: {
+  groupedItems?: GroupedItems<T>
+  itemType: ItemType
+}) {
+  // const { openTaskModal, openGoalModal, openDreamModal } = useModal()
 
-import { ItemsHeader } from "./ItemsHeader"
+  // const handleAddItem = () =>
+  //   itemType === "TASK"
+  //     ? openTaskModal()
+  //     : itemType === "GOAL"
+  //     ? openGoalModal()
+  //     : openDreamModal()
 
-function ItemsList() {
-  const { isSignedIn } = useUser()
-  const { itemType } = useItemListConfig()
-  const { data, error, isLoading } = useItemsList()
+  let totalIndex = 0
 
-  // const { toast } = useToast()
-
-  const items =
-    itemType === "TASK"
-      ? data?.tasks
-      : itemType === "GOAL"
-      ? data?.goals
-      : data?.dreams
-
-  const groupedItems = items ? groupItemsByParent(items, itemType) : {}
-
-  // useEffect(() => {
-  //   if (isSignedIn && !isLoading && error)
-  //     toast({ title: error.data?.title, description: error.data?.description })
-  // }, [error])
+  const isListEmpty = Object.values(groupedItems || {}).reduce(
+    (prev, curr) => prev && !curr.items.length,
+    true
+  )
 
   return (
-    <div className="flex justify-center max-[768px]:px-6 md:space-x-36">
-      <div className="w-full max-w-[650px]">
-        {/* <ItemsHeader /> */}
-        {/* <AnimatePresence mode="sync">
-          {isLoading ? (
-            <ItemListSkeleton />
-          ) : (
-            <ItemsList<GeneralItem>
-              groupedItems={groupedItems}
-              itemType={itemType}
-            />
-          )}
-        </AnimatePresence> */}
-      </div>
-    </div>
+    <>
+      {groupedItems && !isListEmpty ? (
+        <motion.ul key={`list_${itemType}`} className="space-y-3">
+          {Object.keys(groupedItems).map((groupKey, groupIdx) => {
+            const parentLabel = groupedItems[groupKey].parentLabel
+            const items = groupedItems[groupKey].items
+
+            if (groupIdx - 1 >= 0) {
+              const prevKey = Object.keys(groupedItems)[groupIdx - 1]
+              totalIndex += groupedItems[prevKey].items.length
+            }
+
+            return (
+              <motion.li key={`group_${groupKey}`}>
+                {parentLabel && (
+                  <motion.div
+                    layout
+                    className="mb-2 font-medium text-gray-500"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1 }}
+                  >
+                    {parentLabel}
+                  </motion.div>
+                )}
+                {/* {items?.length && (
+                  <motion.ul className="space-y-3">
+                    {items.map((item, itemIdx) => (
+                      <Item<T>
+                        idx={totalIndex + itemIdx}
+                        key={`${groupKey}_${itemType}_${item.id}`}
+                        item={item}
+                        itemType={itemType}
+                      />
+                    ))}
+                  </motion.ul>
+                )} */}
+              </motion.li>
+            )
+          })}
+        </motion.ul>
+      ) : (
+        <motion.div layout className="mt-6 text-center">
+          <div>No {itemType.toLowerCase()}s have been added.</div>
+          {/* <button className="mt-8 font-bold" onClick={handleAddItem}>
+            <motion.div className="flex" whileHover={{ scale: 1.05 }}>
+              <PlusIcon alt="Plus" />
+              Add new{" "}
+              {itemType === "TASK"
+                ? "task"
+                : itemType === "GOAL"
+                ? "goal"
+                : "dream"}
+            </motion.div>
+          </button> */}
+        </motion.div>
+      )}
+    </>
   )
 }
-
-export default ItemsList

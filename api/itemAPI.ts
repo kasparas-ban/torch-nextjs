@@ -1,4 +1,4 @@
-import { useAuth } from "@clerk/nextjs"
+import { useAuth } from "@clerk/clerk-react"
 import useSWR from "swr"
 
 import { FormattedItems, ResponseItem } from "@/types/itemTypes"

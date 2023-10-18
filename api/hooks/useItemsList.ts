@@ -1,4 +1,4 @@
-import { useAuth } from "@clerk/nextjs"
+import { useAuth } from "@clerk/clerk-react"
 import useSWR from "swr"
 
 import { FormattedItems, ResponseItem } from "@/types/itemTypes"
@@ -10,6 +10,8 @@ import { formatItemResponse } from "../responseFormatters"
 export const useItemsList = () => {
   const { getToken } = useAuth()
 
+  console.log("inside hook")
+
   const fetcher = async () => {
     let formattedItems = {
       tasks: [],
@@ -19,9 +21,11 @@ export const useItemsList = () => {
 
     try {
       const token = await getToken()
-      if (!token) throw new Error("Token not found")
+      // if (!token) throw new Error("Token not found")
 
-      const rawResponse = await fetch(`${HOST}/api/items`, {
+      console.log("BE_HOSTNAME_DEV")
+
+      const rawResponse = await fetch(`http://localhost:3003/api/items`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       const jsonResponse: ResponseItem[] = await rawResponse.json()

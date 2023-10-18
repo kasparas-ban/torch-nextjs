@@ -22,7 +22,7 @@ export default function AccountDropdown() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="relative h-6 w-6 rounded-full focus-visible:ring-transparent hover:bg-transparent"
+          className="relative h-6 w-6 rounded-full hover:bg-transparent focus-visible:ring-transparent"
         >
           <Avatar className="h-6 w-6">
             <AvatarImage alt="Profile" />

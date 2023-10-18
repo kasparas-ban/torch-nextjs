@@ -2,7 +2,6 @@ import "@/styles/globals.css"
 
 import type { Metadata } from "next"
 import { Gabarito, Inter } from "next/font/google"
-import { ClerkProvider } from "@clerk/nextjs"
 
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
@@ -59,20 +58,20 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider publishableKey={process.env.REACT_APP_CLERK_PUBLISHABLE_KEY}>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={cn(
-            "min-h-screen bg-background font-sans antialiased",
-            fontSans.variable
-          )}
-        >
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-            <NavigationBar />
-            {children}
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+      >
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <NavigationBar />
+          <div className="flex justify-center pt-4 max-[768px]:px-6 md:space-x-36">
+            <div className="w-full max-w-[650px]">{children}</div>
+          </div>
+        </ThemeProvider>
+      </body>
+    </html>
   )
 }

@@ -79,7 +79,7 @@ export const TimerLink = ({ mobile }: { mobile?: boolean }) => {
       animate={{ scale }}
     >
       <TimerIcon
-        className="mx-auto relative flex items-center text-slate-800 h-8 w-8"
+        className="relative mx-auto flex h-8 w-8 items-center text-slate-800"
         alt="Nav icon"
       />
     </motion.div>

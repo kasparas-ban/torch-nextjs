@@ -14,7 +14,7 @@ export default function NavbarMobile() {
   return (
     <div
       className={cn(
-        "fixed bottom-0 z-20 flex items-center w-full flex-col justify-center bg-transparent pb-4 pt-2 shadow-lg max-[768px]:px-3",
+        "fixed bottom-0 z-20 flex w-full flex-col items-center justify-center bg-transparent pb-4 pt-2 shadow-lg max-[768px]:px-3",
         "before:absolute before:top-[-30px] before:z-[-1] before:h-[calc(100%+30px)] before:w-full before:bg-gradient-to-t before:from-white/80 before:from-60% before:content-['']"
       )}
     >
