@@ -3,20 +3,22 @@ import { AnimatePresence, motion } from "framer-motion"
 import { RotateCw } from "lucide-react"
 import { useMediaQuery } from "react-responsive"
 
-import { Goal, Task } from "@/types/itemTypes"
+import { GeneralItem, Task } from "@/types/itemTypes"
 import { cn } from "@/lib/utils"
 import useEditItem from "@/hooks/useEditItem"
 
 import ItemEditPanel from "./ItemEditPanel"
 import { ItemStrip, RecurringItemStrip } from "./ItemStrip"
 
-export default function ItemSublist<T extends Task | Goal>({
+export default function ItemSublist({
+  parentID,
   subitems,
   subitemType,
   showSublist,
   isParentEditActive,
 }: {
-  subitems: T[]
+  parentID: number
+  subitems: GeneralItem[]
   subitemType: "TASK" | "GOAL"
   showSublist: boolean
   isParentEditActive: boolean
@@ -27,26 +29,20 @@ export default function ItemSublist<T extends Task | Goal>({
 
   const { editItem, setEditItem } = useEditItem()
 
-  const showEditPanel = (subitem: T) =>
+  const showEditPanel = (subitem: GeneralItem) =>
     subitem.type === editItem?.type && subitem.itemID === editItem?.itemID
 
   const toggleEditClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    subitem: T
+    subitem: GeneralItem
   ) => {
     e.stopPropagation()
     setEditItem(showEditPanel(subitem) ? undefined : subitem)
   }
-  const getSubitemKey = (subitem: Task | Goal) =>
-    `${
-      (subitem as Task).goal
-        ? (subitem as Task).goal?.itemID
-        : (subitem as Goal).dream?.itemID
-    }_${subitem.itemID}`
 
   const scaledWidth = isDesktop ? "90%" : "82%"
 
-  const isRecurring = (item: T) => !!(item as Task).recurring
+  const isRecurring = (item: GeneralItem) => !!item.recurring
 
   return (
     <motion.div layout>
@@ -58,7 +54,7 @@ export default function ItemSublist<T extends Task | Goal>({
         }}
       >
         {subitems.map((subitem, idx) => (
-          <Fragment key={getSubitemKey(subitem)}>
+          <Fragment key={`${parentID}_${subitem.itemID}`}>
             <motion.li
               layout
               className="relative flex"
@@ -96,7 +92,7 @@ export default function ItemSublist<T extends Task | Goal>({
             </motion.li>
             <AnimatePresence initial={false}>
               {showEditPanel(subitem) && (
-                <ItemEditPanel<T>
+                <ItemEditPanel
                   key={`task_${subitem.itemID}_edit_panel`}
                   item={subitem}
                   showBulletLine={idx !== subitems.length - 1}
@@ -110,15 +106,15 @@ export default function ItemSublist<T extends Task | Goal>({
   )
 }
 
-function BulletPoint<T extends Task | Goal>({
+function BulletPoint({
   idx,
   showSublist,
   subitems,
 }: {
   idx: number
   showSublist: boolean
-  showEditPanel: (subitem: T) => boolean
-  subitems: T[]
+  showEditPanel: (subitem: GeneralItem) => boolean
+  subitems: GeneralItem[]
 }) {
   const { editItem } = useEditItem()
   const currentItem = subitems[idx]

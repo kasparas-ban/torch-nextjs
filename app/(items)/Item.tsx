@@ -3,19 +3,12 @@
 import React, { useEffect, useState } from "react"
 import { AnimatePresence, motion, stagger, useAnimate } from "framer-motion"
 
-import { Dream, GeneralItem, Goal, ItemType, Task } from "@/types/itemTypes"
+import { Dream, Goal, ItemType, Task } from "@/types/itemTypes"
 import useEditItem from "@/hooks/useEditItem"
 import useItemListConfig from "@/hooks/useItemListConfig"
 import ItemEditPanel from "@/components/items/ItemEditPanel"
 import { ItemStrip, RecurringItemStrip } from "@/components/items/ItemStrip"
 import ItemSublist from "@/components/items/ItemSublist"
-
-// import { ItemStrip, RecurringItemStrip } from "./ItemStrip"
-
-// import ItemEditPanel from "./ItemEditPanel"
-// import useListStore from "../useListStore"
-// import useEditItem from "../useEditItem"
-// import ItemSublist from "./ItemSublist"
 
 export default function Item<T extends Task | Goal | Dream>({
   idx,
@@ -86,7 +79,7 @@ export default function Item<T extends Task | Goal | Dream>({
     setEditItem(showEditPanel ? undefined : item)
   }
 
-  const recurringInfo = itemType === "TASK" && (item as Task).recurring
+  const recurringInfo = itemType === "TASK" && !!(item as Task).recurring
 
   return (
     <motion.li
@@ -97,10 +90,8 @@ export default function Item<T extends Task | Goal | Dream>({
       {recurringInfo ? (
         <RecurringItemStrip
           item={item as Task}
-          showEditPanel={false}
-          toggleEditClick={() => console.log()}
-          // showEditPanel={showEditPanel}
-          // toggleEditClick={toggleEditClick}
+          showEditPanel={showEditPanel}
+          toggleEditClick={toggleEditClick}
         />
       ) : (
         <ItemStrip
@@ -108,10 +99,8 @@ export default function Item<T extends Task | Goal | Dream>({
           itemType={itemType}
           toggleSublist={toggleSublist}
           itemSublist={itemSublist}
-          showEditPanel={false}
-          toggleEditClick={() => console.log()}
-          // showEditPanel={showEditPanel}
-          // toggleEditClick={toggleEditClick}
+          showEditPanel={showEditPanel}
+          toggleEditClick={toggleEditClick}
         />
       )}
       {showSublist ? (
@@ -127,7 +116,8 @@ export default function Item<T extends Task | Goal | Dream>({
             )}
           </AnimatePresence>
           {containsSublist && (
-            <ItemSublist<Task | Goal>
+            <ItemSublist
+              parentID={item.itemID}
               key={`${itemType}_${item.itemID}_sublist`}
               subitems={itemSublist || []}
               subitemType={itemType === "DREAM" ? "GOAL" : "TASK"}
@@ -139,7 +129,8 @@ export default function Item<T extends Task | Goal | Dream>({
       ) : (
         <>
           {containsSublist && (
-            <ItemSublist<Task | Goal>
+            <ItemSublist
+              parentID={item.itemID}
               key={`${itemType}_${item.itemID}_sublist`}
               subitems={itemSublist || []}
               subitemType={itemType === "DREAM" ? "GOAL" : "TASK"}

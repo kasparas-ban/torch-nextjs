@@ -1,16 +1,11 @@
+import AddItemIcon from "@/public/images/add_item.svg"
+import DeleteIcon from "@/public/images/delete.svg"
+import EditIcon from "@/public/images/edit.svg"
+import StatsIcon from "@/public/images/stats.svg"
+import TickIcon from "@/public/images/tick.svg"
 import { motion } from "framer-motion"
-import useConfirmModal from "../../../components/Modals/ConfirmModal/useConfirmModal"
-import useModal from "../../../components/Modals/useModal"
-import { GeneralItem } from "../../../types"
-import {
-  MarkItemDoneModal,
-  RemoveItemModal,
-} from "@/components/Modals/ConfirmModal/ConfirmModals"
-import { ReactComponent as EditIcon } from "../../../assets/edit_pen.svg"
-import { ReactComponent as TickIcon } from "../../../assets/tick.svg"
-import { ReactComponent as AddItemIcon } from "../../../assets/add_item.svg"
-import { ReactComponent as StatsIcon } from "../../../assets/stats.svg"
-import { ReactComponent as DeleteIcon } from "../../../assets/delete.svg"
+
+import { GeneralItem } from "@/types/itemTypes"
 
 export default function ItemEditPanel<T extends GeneralItem>({
   item,
@@ -23,18 +18,18 @@ export default function ItemEditPanel<T extends GeneralItem>({
   showBulletLine?: boolean
   showAddTask?: boolean
 }) {
-  const { openTaskModal, openGoalModal, openDreamModal } = useModal()
-  const { openItemDoneModal, openRemoveItemModal } = useConfirmModal()
+  // const { openTaskModal, openGoalModal, openDreamModal } = useModal()
+  // const { openItemDoneModal, openRemoveItemModal } = useConfirmModal()
 
   const doneFn = async () => console.log("Marking this item as done")
   const removeFn = async () => console.log("Removing this item")
 
-  const openEditItemModal = (item: T, createTaskOnOpen = false) =>
-    item.type === "TASK"
-      ? openTaskModal(item)
-      : item.type === "GOAL"
-      ? openGoalModal(item, undefined, createTaskOnOpen)
-      : openDreamModal(item)
+  // const openEditItemModal = (item: T, createTaskOnOpen = false) =>
+  //   item.type === "TASK"
+  //     ? openTaskModal(item)
+  //     : item.type === "GOAL"
+  //     ? openGoalModal(item, undefined, createTaskOnOpen)
+  //     : openDreamModal(item)
 
   return (
     <motion.div
@@ -64,22 +59,22 @@ export default function ItemEditPanel<T extends GeneralItem>({
         }}
         exit={{ height: 0, opacity: 0 }}
       >
-        <MarkItemDoneModal>
-          <motion.div
-            className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
-            whileHover={{ scale: 1.1 }}
-            onClick={() => openItemDoneModal(doneFn)}
-          >
-            <TickIcon className="mx-auto h-5" />
-            Done
-          </motion.div>
-        </MarkItemDoneModal>
+        {/* <MarkItemDoneModal> */}
+        <motion.div
+          className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
+          whileHover={{ scale: 1.1 }}
+          // onClick={() => openItemDoneModal(doneFn)}
+        >
+          <TickIcon className="mx-auto h-5" />
+          Done
+        </motion.div>
+        {/* </MarkItemDoneModal> */}
 
         {showAddTask && (
           <motion.div
             className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
             whileHover={{ scale: 1.1 }}
-            onClick={() => openEditItemModal(item, true)}
+            // onClick={() => openEditItemModal(item, true)}
           >
             <AddItemIcon className="mx-auto h-5" />
             Add task
@@ -95,21 +90,21 @@ export default function ItemEditPanel<T extends GeneralItem>({
         <motion.div
           className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
           whileHover={{ scale: 1.1 }}
-          onClick={() => openEditItemModal(item)}
+          // onClick={() => openEditItemModal(item)}
         >
           <EditIcon className="mx-auto h-5" />
           Edit
         </motion.div>
-        <RemoveItemModal>
-          <motion.div
-            className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
-            whileHover={{ scale: 1.1 }}
-            onClick={() => openRemoveItemModal(removeFn)}
-          >
-            <DeleteIcon className="mx-auto h-5" />
-            Remove
-          </motion.div>
-        </RemoveItemModal>
+        {/* <RemoveItemModal> */}
+        <motion.div
+          className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
+          whileHover={{ scale: 1.1 }}
+          // onClick={() => openRemoveItemModal(removeFn)}
+        >
+          <DeleteIcon className="mx-auto h-5" />
+          Remove
+        </motion.div>
+        {/* </RemoveItemModal> */}
       </motion.div>
     </motion.div>
   )

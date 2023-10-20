@@ -1,8 +1,9 @@
 import DotsIcon from "@/public/images/dots.svg"
 import TimerIcon from "@/public/images/navigationIcons/timer.svg"
 import { AnimatePresence, motion } from "framer-motion"
+import { useMediaQuery } from "react-responsive"
 
-import { GeneralItem, Goal, ItemType, Task } from "@/types/itemTypes"
+import { GeneralItem, ItemType, Task } from "@/types/itemTypes"
 import { cn } from "@/lib/utils"
 import useEditItem from "@/hooks/useEditItem"
 
@@ -65,7 +66,7 @@ function ItemStrip<T extends GeneralItem>({
   return (
     <motion.div
       layout
-      // onClick={handleStripClick}
+      onClick={handleStripClick}
       className={cn("relative flex w-full min-w-0", containsSublist && "mb-3")}
       style={{ zIndex: itemSublist?.length }}
       whileTap={{ scale: itemSublist ? (showEditPanel ? 1 : 0.98) : 1 }}
@@ -103,7 +104,7 @@ function ItemStrip<T extends GeneralItem>({
             layout
             className="text-gray-600 group-hover:text-gray-800"
           >
-            <DotsIcon className="text-black" />
+            <DotsIcon className="h-6 w-6" />
           </motion.div>
         </div>
       </motion.div>
@@ -117,7 +118,7 @@ function ItemStrip<T extends GeneralItem>({
             animate={{ width: 48, opacity: 1, marginLeft: 12 }}
             exit={{ width: 0, opacity: 0, marginLeft: 0 }}
           >
-            <TimerIcon className="m-auto h-full" alt="Timer icon" />
+            <TimerIcon className="m-auto flex h-full w-6" alt="Timer icon" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -136,9 +137,9 @@ function RecurringItemStrip({
 }) {
   const { editItem } = useEditItem()
 
-  // const isDesktop = useMediaQuery({
-  //   query: "(min-width: 600px)",
-  // })
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 600px)",
+  })
 
   const itemProgress = item.recurring
     ? (item.recurring?.progress || 0) / item.recurring?.times
@@ -192,7 +193,7 @@ function RecurringItemStrip({
             layout
             className="text-gray-600 group-hover:text-gray-800"
           >
-            <DotsIcon />
+            <DotsIcon className="h-6 w-6" />
           </motion.div>
         </div>
       </motion.div>
@@ -204,11 +205,11 @@ function RecurringItemStrip({
             whileHover={{ scale: 1.1 }}
             // onClick={handleTimerClick}
             initial={{ width: 0, opacity: 0, marginLeft: 0 }}
-            // animate={{
-            //   width: isDesktop ? 48 : 64,
-            //   opacity: 1,
-            //   marginLeft: isDesktop ? 12 : 6,
-            // }}
+            animate={{
+              width: isDesktop ? 48 : 64,
+              opacity: 1,
+              marginLeft: isDesktop ? 12 : 6,
+            }}
             exit={{ width: 0, opacity: 0, marginLeft: 0 }}
           >
             +1
@@ -221,11 +222,11 @@ function RecurringItemStrip({
             whileHover={{ scale: 1.1 }}
             // onClick={handleTimerClick}
             initial={{ width: 0, opacity: 0, marginLeft: 0 }}
-            // animate={{
-            //   width: isDesktop ? 48 : 64,
-            //   opacity: 1,
-            //   marginLeft: isDesktop ? 12 : 6,
-            // }}
+            animate={{
+              width: isDesktop ? 48 : 64,
+              opacity: 1,
+              marginLeft: isDesktop ? 12 : 6,
+            }}
             exit={{ width: 0, opacity: 0, marginLeft: 0 }}
           >
             -1

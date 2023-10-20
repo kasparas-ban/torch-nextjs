@@ -3,6 +3,7 @@ import { Dream, Goal, ResponseItem, Task } from "@/types/itemTypes"
 const formatTaskResponse = (tasks: ResponseItem[]) => {
   return tasks.map(task => ({
     ...task,
+    recurring: task.recurring?.times ? task.recurring : null, // TODO: remove when BE returning null
     progress: getProgress(task.timeSpent, task.duration),
   }))
 }
@@ -23,6 +24,7 @@ const formatGoalResponse = (
 
     return {
       ...goal,
+      recurring: null, // TODO: remove when BE returning null
       progress: getProgress(tasksTimeSpent, tasksDuration),
       dream: dreams.find(dream => dream.itemID === goal.parentID) || null,
       totalTimeSpent: goal.timeSpent + tasksTimeSpent,
@@ -50,6 +52,7 @@ const formatDreamResponse = (
 
     return {
       ...dream,
+      recurring: null, // TODO: remove when BE returning null
       progress: getProgress(tasksTimeSpent, tasksDuration),
       totalTimeSpent: dream.timeSpent + tasksTimeSpent,
     }
