@@ -2,7 +2,6 @@ import "@/styles/globals.css"
 
 import type { Metadata } from "next"
 import { Gabarito, Inter } from "next/font/google"
-
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import NavigationBar from "@/components/navigationBar/NavigationBar"

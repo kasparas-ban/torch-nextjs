@@ -36,23 +36,22 @@ function ItemsTypeDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="group">
-          <AnimatePresence initial={false} mode="popLayout">
-            <motion.div
-              layout
-              key={itemType}
-              className="flex cursor-pointer flex-row"
-              whileTap={{ scale: 0.96 }}
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -40 }}
-            >
-              <p className="m-0 items-center overflow-clip p-0 text-5xl font-bold text-gray-400">
-                {capitalizeString(itemType)}
-              </p>
-              {/* <p className="leading-8">test</p> */}
-              <ArrowIcon className="relative top-5 ml-1 h-6 w-6 stroke-1 text-gray-500 transition-transform group-data-[state=open]:rotate-180" />
-            </motion.div>
-          </AnimatePresence>
+        <AnimatePresence initial={false} mode="popLayout">
+          <motion.div
+            layout
+            key={itemType}
+            className="flex cursor-pointer flex-row"
+            whileTap={{ scale: 0.96 }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
+          >
+            <h1 className="m-0 items-center overflow-clip p-0 text-5xl font-bold text-gray-400">
+              {capitalizeString(itemType)}
+            </h1>
+            <ArrowIcon className="relative top-5 ml-1 h-6 w-6 stroke-[0.5] text-gray-500 transition-transform group-data-[state=open]:rotate-180" />
+          </motion.div>
+        </AnimatePresence>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="rounded-xl">
         <DropdownMenuItem

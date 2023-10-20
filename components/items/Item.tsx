@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react"
 import { AnimatePresence, motion, stagger, useAnimate } from "framer-motion"
-
 import { Dream, Goal, ItemType, Task } from "@/types/itemTypes"
 import useEditItem from "@/hooks/useEditItem"
 import useItemListConfig from "@/hooks/useItemListConfig"
@@ -79,7 +78,7 @@ export default function Item<T extends Task | Goal | Dream>({
     setEditItem(showEditPanel ? undefined : item)
   }
 
-  const recurringInfo = itemType === "TASK" && !!(item as Task).recurring
+  const isRecurring = itemType === "TASK" && !!(item as Task).recurring
 
   return (
     <motion.li
@@ -87,7 +86,7 @@ export default function Item<T extends Task | Goal | Dream>({
       ref={item_scope}
       id={`li_${item.itemID}${showSublist ? "" : "_COLLAPSED"}`}
     >
-      {recurringInfo ? (
+      {isRecurring ? (
         <RecurringItemStrip
           item={item as Task}
           showEditPanel={showEditPanel}

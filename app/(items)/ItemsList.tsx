@@ -1,9 +1,7 @@
-import PlusIcon from "@/public/images/plus.svg"
 import { motion } from "framer-motion"
-
 import { Dream, Goal, GroupedItems, ItemType, Task } from "@/types/itemTypes"
-
-import Item from "./Item"
+import Item from "@/components/items/Item"
+import PlusIcon from "@/public/images/plus.svg"
 
 export default function ItemsList<T extends Task | Goal | Dream>({
   groupedItems,
@@ -24,7 +22,7 @@ export default function ItemsList<T extends Task | Goal | Dream>({
   let totalIndex = 0
 
   const isListEmpty = Object.values(groupedItems || {}).reduce(
-    (prev, curr) => prev && !curr.items.length,
+    (prev, group) => prev && !group.items.length,
     true
   )
 

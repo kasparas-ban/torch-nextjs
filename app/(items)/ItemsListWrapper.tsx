@@ -1,15 +1,14 @@
 "use client"
 
 import { useEffect } from "react"
-import { groupItemsByParent } from "@/api/helpers"
-import { useItemsList } from "@/api/hooks/useItemsList"
 import { useUser } from "@clerk/clerk-react"
 import { AnimatePresence } from "framer-motion"
-
-import { Dream, GeneralItem, Goal, Task } from "@/types/itemTypes"
+import { Dream, Goal, Task } from "@/types/itemTypes"
 import useItemListConfig from "@/hooks/useItemListConfig"
+import { groupItemsByParent } from "@/api/helpers"
+import { useItemsList } from "@/api/hooks/useItemsList"
+import ItemListSkeleton from "@/components/items/ItemListSkeleton"
 
-import ItemListSkeleton from "./goals/ItemListSkeleton"
 import ItemsList from "./ItemsList"
 
 function ItemsListWrapper() {

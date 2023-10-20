@@ -1,11 +1,10 @@
-import DotsIcon from "@/public/images/dots.svg"
-import TimerIcon from "@/public/images/navigationIcons/timer.svg"
 import { AnimatePresence, motion } from "framer-motion"
 import { useMediaQuery } from "react-responsive"
-
 import { GeneralItem, ItemType, Task } from "@/types/itemTypes"
 import { cn } from "@/lib/utils"
 import useEditItem from "@/hooks/useEditItem"
+import DotsIcon from "@/public/images/dots.svg"
+import TimerIcon from "@/public/images/navigationIcons/timer.svg"
 
 import ItemProgress from "./ProgressBar"
 
@@ -135,7 +134,7 @@ function RecurringItemStrip({
   showEditPanel: boolean
   toggleEditClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }) {
-  const { editItem } = useEditItem()
+  const { editItem, setEditItem } = useEditItem()
 
   const isDesktop = useMediaQuery({
     query: "(min-width: 600px)",
@@ -145,8 +144,18 @@ function RecurringItemStrip({
     ? (item.recurring?.progress || 0) / item.recurring?.times
     : 0
 
+  const handleStripClick = () => {
+    const itemInEdit =
+      item.itemID === editItem?.itemID && item.type === editItem?.type
+    if (itemInEdit) setEditItem(undefined)
+  }
+
   return (
-    <motion.div layout className="flex w-full min-w-0">
+    <motion.div
+      layout
+      className="flex w-full min-w-0"
+      onClick={handleStripClick}
+    >
       <motion.div
         layout
         className={cn(
@@ -212,7 +221,7 @@ function RecurringItemStrip({
             }}
             exit={{ width: 0, opacity: 0, marginLeft: 0 }}
           >
-            +1
+            -1
           </motion.div>
         )}
         {showEditPanel && (
@@ -229,7 +238,7 @@ function RecurringItemStrip({
             }}
             exit={{ width: 0, opacity: 0, marginLeft: 0 }}
           >
-            -1
+            +1
           </motion.div>
         )}
       </AnimatePresence>
