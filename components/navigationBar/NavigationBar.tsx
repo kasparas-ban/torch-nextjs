@@ -13,7 +13,7 @@ import NavbarMobile from "./MobileNavbar"
 export default function NavigationBar() {
   return (
     <>
-      <div className="hidden sm:block">
+      <div className="sticky top-0 z-20 hidden sm:block">
         <NavbarDesktop />
       </div>
       <div className="block sm:hidden">

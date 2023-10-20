@@ -29,7 +29,7 @@ export default function ItemsList<T extends Task | Goal | Dream>({
   return (
     <>
       {groupedItems && !isListEmpty ? (
-        <motion.ul key={`list_${itemType}`} className="space-y-3">
+        <motion.ul key={`list_${itemType}`} className="space-y-3 pb-32">
           {Object.keys(groupedItems).map((groupKey, groupIdx) => {
             const parentLabel = groupedItems[groupKey].parentLabel
             const items = groupedItems[groupKey].items

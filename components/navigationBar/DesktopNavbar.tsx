@@ -1,11 +1,10 @@
+import { ROUTES } from "@/config/routes"
+import { cn } from "@/lib/utils"
 import CalendarIcon from "@/public/images/navigationIcons/calendar.svg"
 import GoalsIcon from "@/public/images/navigationIcons/goals.svg"
 import StatsIcon from "@/public/images/navigationIcons/stats.svg"
 import TimerIcon from "@/public/images/navigationIcons/timer.svg"
 import WorldIcon from "@/public/images/navigationIcons/world.svg"
-
-import { ROUTES } from "@/config/routes"
-import { cn } from "@/lib/utils"
 
 import AccountDropdown from "./AccountDropdown"
 import { NavigationLink, TorchLink } from "./helpers"
@@ -15,8 +14,8 @@ export default function DesktopNavbar() {
   return (
     <div
       className={cn(
-        "sticky top-0 z-20 flex flex-col justify-center bg-transparent pt-4 max-[768px]:px-6"
-        // "before:absolute before:top-0 before:z-[-1] before:h-[calc(100%+35px)] before:w-full before:bg-gradient-to-b before:from-white/90 before:from-60% before:content-['']"
+        "flex flex-col justify-center bg-transparent pt-4 max-[768px]:px-6",
+        "before:absolute before:top-0 before:z-[-1] before:h-[calc(100%+35px)] before:w-full before:bg-gradient-to-b before:from-white/90 before:from-60% before:content-['']"
       )}
     >
       <div className="z-30 mx-auto w-full max-w-[650px]">

@@ -1,11 +1,10 @@
 import Link from "next/link"
-import TimerIcon from "@/public/images/navigationIcons/timer.svg"
-import TorchLogo from "@/public/images/torch_logo.svg"
 import { motion } from "framer-motion"
-
 import { ROUTES } from "@/config/routes"
 import { cn } from "@/lib/utils"
 import { useScrollPosition } from "@/hooks/useScrollPosition"
+import TimerIcon from "@/public/images/navigationIcons/timer.svg"
+import TorchLogo from "@/public/images/torch_logo.svg"
 
 type NavigationLinkProps = {
   Icon: any
@@ -35,7 +34,7 @@ export function NavigationLink({
       ) : (
         <div
           className={cn(
-            "peer flex flex-col rounded-lg px-3 py-2 pt-2 hover:cursor-pointer max-[600px]:pb-1",
+            "peer flex flex-col rounded-lg px-3 py-2 hover:cursor-pointer max-[600px]:pb-1",
             !mobile && "hover:bg-slate-300 max-[450px]:hidden"
           )}
         >
@@ -75,7 +74,7 @@ export const TimerLink = ({ mobile }: { mobile?: boolean }) => {
 
   return (
     <motion.div
-      className="bg-multi-color bg-multi-color-delay peer rounded-full px-2 py-2 brightness-150 transition-all hover:cursor-pointer hover:brightness-100"
+      className="bg-multi-color bg-multi-color-delay peer rounded-full p-2 brightness-150 transition-all hover:cursor-pointer hover:brightness-100"
       animate={{ scale }}
     >
       <TimerIcon
