@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 export function ItemsHeader() {
-  console.log("ItemsHeader")
   return (
     <>
       <div className="mb-6 flex">

@@ -1,9 +1,11 @@
 import PlusIcon from "@/public/images/plus.svg"
 import { motion } from "framer-motion"
 
-import { GeneralItem, GroupedItems, ItemType } from "@/types/itemTypes"
+import { Dream, Goal, GroupedItems, ItemType, Task } from "@/types/itemTypes"
 
-export default function ItemsList<T extends GeneralItem>({
+import Item from "./Item"
+
+export default function ItemsList<T extends Task | Goal | Dream>({
   groupedItems,
   itemType,
 }: {
@@ -52,18 +54,18 @@ export default function ItemsList<T extends GeneralItem>({
                     {parentLabel}
                   </motion.div>
                 )}
-                {/* {items?.length && (
+                {items?.length && (
                   <motion.ul className="space-y-3">
                     {items.map((item, itemIdx) => (
                       <Item<T>
                         idx={totalIndex + itemIdx}
-                        key={`${groupKey}_${itemType}_${item.id}`}
+                        key={`${groupKey}_${itemType}_${item.itemID}`}
                         item={item}
                         itemType={itemType}
                       />
                     ))}
                   </motion.ul>
-                )} */}
+                )}
               </motion.li>
             )
           })}

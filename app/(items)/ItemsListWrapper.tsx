@@ -6,10 +6,9 @@ import { useItemsList } from "@/api/hooks/useItemsList"
 import { useUser } from "@clerk/clerk-react"
 import { AnimatePresence } from "framer-motion"
 
-import { GeneralItem } from "@/types/itemTypes"
+import { Dream, GeneralItem, Goal, Task } from "@/types/itemTypes"
 import useItemListConfig from "@/hooks/useItemListConfig"
 
-import RootClerkProvider from "../ClerkProvider"
 import ItemListSkeleton from "./goals/ItemListSkeleton"
 import ItemsList from "./ItemsList"
 
@@ -22,16 +21,14 @@ function ItemsListWrapper() {
 
   // const { toast } = useToast()
 
-  // const items =
-  //   itemType === "TASK"
-  //     ? data?.tasks
-  //     : itemType === "GOAL"
-  //     ? data?.goals
-  //     : data?.dreams
+  const items =
+    itemType === "TASK"
+      ? data?.tasks
+      : itemType === "GOAL"
+      ? data?.goals
+      : data?.dreams
 
-  // const groupedItems = items ? groupItemsByParent(items, itemType) : {}
-
-  // console.log({ data })
+  const groupedItems = items ? groupItemsByParent(items, itemType) : {}
 
   // useEffect(() => {
   //   if (isSignedIn && !isLoading && error)
@@ -39,19 +36,16 @@ function ItemsListWrapper() {
   // }, [error])
 
   return (
-    <>
-      TEST
-      {/* <AnimatePresence mode="sync">
+    <AnimatePresence mode="sync">
       {isLoading ? (
         <ItemListSkeleton />
       ) : (
-        <ItemsList<GeneralItem>
+        <ItemsList<Task | Goal | Dream>
           groupedItems={groupedItems}
           itemType={itemType}
         />
       )}
-    </AnimatePresence> */}
-    </>
+    </AnimatePresence>
   )
 }
 

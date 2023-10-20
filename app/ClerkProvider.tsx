@@ -9,8 +9,6 @@ export default function RootClerkProvider({
 }) {
   const clerkKey = process.env.NEXT_PUBLIC_REACT_APP_CLERK_PUBLISHABLE_KEY
 
-  console.log({ clerkKey })
-
   return clerkKey ? (
     <ClerkProvider publishableKey={clerkKey}>{children}</ClerkProvider>
   ) : null

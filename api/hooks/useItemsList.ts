@@ -10,8 +10,6 @@ import { formatItemResponse } from "../responseFormatters"
 export const useItemsList = () => {
   const { getToken } = useAuth()
 
-  console.log("inside hook")
-
   const fetcher = async () => {
     let formattedItems = {
       tasks: [],
