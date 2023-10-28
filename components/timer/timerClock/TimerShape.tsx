@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion"
-import "./timer.css"
+
+import "@/styles/timer.css"
 
 export const TimerShape = ({
   initialTime,
@@ -50,7 +51,7 @@ export const TimerShape = ({
 const getPathProps = (
   size: number,
   strokeWidth: number,
-  rotation: "clockwise" | "counterclockwise",
+  rotation: "clockwise" | "counterclockwise"
 ) => {
   const halfSize = size / 2
   const halfStrokeWith = strokeWidth / 2
