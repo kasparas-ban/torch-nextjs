@@ -9,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import ItemModal from "@/components/itemModal/ItemModal"
 import ArrowIcon from "@/public/images/arrowDown.svg"
 import PlusIcon from "@/public/images/plus.svg"
 
@@ -18,9 +19,11 @@ export function ItemsHeader() {
       <div className="mb-6 flex">
         <ItemsTypeDropdown />
         <div className="relative bottom-1 ml-auto flex items-end space-x-4">
-          <motion.div layout whileHover={{ scale: 1.2 }}>
-            <PlusIcon className="h-6 hover:cursor-pointer" />
-          </motion.div>
+          <ItemModal content={<></>}>
+            <motion.button layout whileHover={{ scale: 1.2 }}>
+              <PlusIcon className="h-6 hover:cursor-pointer" />
+            </motion.button>
+          </ItemModal>
         </div>
       </div>
       {/* <div className="mb-8 mt-2">
