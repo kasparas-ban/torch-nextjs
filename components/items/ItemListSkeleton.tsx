@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import DotsIcon from "@/public/images/dots.svg"
+import DotsIcon from "@/public/icons/dots.svg"
 
 function ItemListSkeleton() {
   return (

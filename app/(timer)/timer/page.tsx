@@ -1,3 +1,5 @@
+import TimerContainer from "@/components/timer/timerClock/TimerContainer"
+
 export const metadata = {
   title: "Timer",
 }
@@ -8,6 +10,7 @@ export default function TimerPage() {
       <h1 className="mb-6 flex items-center text-5xl font-bold text-gray-400">
         Timer
       </h1>
+      <TimerContainer />
     </>
   )
 }

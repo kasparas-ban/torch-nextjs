@@ -3,8 +3,8 @@ import { useMediaQuery } from "react-responsive"
 import { GeneralItem, ItemType, Task } from "@/types/itemTypes"
 import { cn } from "@/lib/utils"
 import useEditItem from "@/hooks/useEditItem"
-import DotsIcon from "@/public/images/dots.svg"
-import TimerIcon from "@/public/images/navigationIcons/timer.svg"
+import DotsIcon from "@/public/icons/dots.svg"
+import TimerIcon from "@/public/icons/navigationIcons/timer.svg"
 
 import ItemProgress from "./ProgressBar"
 

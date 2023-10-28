@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 import { Dream, Goal, GroupedItems, ItemType, Task } from "@/types/itemTypes"
 import Item from "@/components/items/Item"
-import PlusIcon from "@/public/images/plus.svg"
+import PlusIcon from "@/public/icons/plus.svg"
 
 export default function ItemsList<T extends Task | Goal | Dream>({
   groupedItems,

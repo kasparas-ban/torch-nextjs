@@ -10,8 +10,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import ItemModal from "@/components/itemModal/ItemModal"
-import ArrowIcon from "@/public/images/arrowDown.svg"
-import PlusIcon from "@/public/images/plus.svg"
+import ArrowIcon from "@/public/icons/arrowDown.svg"
+import PlusIcon from "@/public/icons/plus.svg"
 
 export function ItemsHeader() {
   return (

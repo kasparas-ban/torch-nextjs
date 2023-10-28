@@ -3,8 +3,8 @@ import { motion } from "framer-motion"
 import { ROUTES } from "@/config/routes"
 import { cn } from "@/lib/utils"
 import { useScrollPosition } from "@/hooks/useScrollPosition"
-import TimerIcon from "@/public/images/navigationIcons/timer.svg"
-import TorchLogo from "@/public/images/torch_logo.svg"
+import TimerIcon from "@/public/icons/navigationIcons/timer.svg"
+import TorchLogo from "@/public/icons/torch_logo.svg"
 
 type NavigationLinkProps = {
   Icon: any

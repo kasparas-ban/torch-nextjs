@@ -1,6 +1,6 @@
 "use client"
 
-import AccountIcon from "@/public/images/navigationIcons/account.svg"
+import AccountIcon from "@/public/icons/navigationIcons/account.svg"
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { Button } from "../ui/button"
