@@ -1,6 +1,5 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
-
 import { GeneralItem, ItemType } from "@/types/itemTypes"
 
 type CollapsedItemState = {

@@ -1,11 +1,10 @@
+import { ROUTES } from "@/config/routes"
+import { cn } from "@/lib/utils"
 import CalendarIcon from "@/public/images/navigationIcons/calendar.svg"
 import GoalsIcon from "@/public/images/navigationIcons/goals.svg"
 import StatsIcon from "@/public/images/navigationIcons/stats.svg"
 import TimerIcon from "@/public/images/navigationIcons/timer.svg"
 import WorldIcon from "@/public/images/navigationIcons/world.svg"
-
-import { ROUTES } from "@/config/routes"
-import { cn } from "@/lib/utils"
 
 import { NavigationLink } from "./helpers"
 import { NavigationBarWrapper } from "./NavigationBar"

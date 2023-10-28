@@ -2,7 +2,6 @@ import React, { Fragment } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { RotateCw } from "lucide-react"
 import { useMediaQuery } from "react-responsive"
-
 import { GeneralItem, Task } from "@/types/itemTypes"
 import { cn } from "@/lib/utils"
 import useEditItem from "@/hooks/useEditItem"

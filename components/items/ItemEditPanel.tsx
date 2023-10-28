@@ -1,11 +1,10 @@
+import { motion } from "framer-motion"
+import { GeneralItem } from "@/types/itemTypes"
 import AddItemIcon from "@/public/images/add_item.svg"
 import DeleteIcon from "@/public/images/delete.svg"
 import EditIcon from "@/public/images/edit.svg"
 import StatsIcon from "@/public/images/stats.svg"
 import TickIcon from "@/public/images/tick.svg"
-import { motion } from "framer-motion"
-
-import { GeneralItem } from "@/types/itemTypes"
 
 export default function ItemEditPanel<T extends GeneralItem>({
   item,

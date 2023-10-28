@@ -1,6 +1,5 @@
 import { useAuth } from "@clerk/clerk-react"
 import useSWR from "swr"
-
 import { FormattedItems, ResponseItem } from "@/types/itemTypes"
 
 import { HOST } from "./apiConfig"
