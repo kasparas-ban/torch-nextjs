@@ -1,6 +1,4 @@
 import { forwardRef } from "react"
-// import { getItemsByType } from "@/API/helpers"
-// import { useItemsList } from "@/API/itemAPI"
 import { AnimatePresence, motion } from "framer-motion"
 import { GroupedOptionType, ItemOptionType } from "@/types/itemTypes"
 import { toPercent } from "@/utils/utils"
@@ -19,7 +17,7 @@ const focusTypeOptions = [
   { label: "Dreams", value: "DREAMS" as FocusType },
 ]
 
-const TimerFocusForm = forwardRef<HTMLDivElement>((_, ref) => {
+function TimerFocusForm() {
   const timerState = useTimerStore.use.timerState()
   const { focusOn, setFocusOn, focusType, setFocusType } = useTimerForm()
   // const { data } = useItemsList()
@@ -29,7 +27,6 @@ const TimerFocusForm = forwardRef<HTMLDivElement>((_, ref) => {
       {timerState !== "running" && (
         <motion.div
           layout
-          ref={ref}
           className="mx-auto max-w-sm max-[400px]:mx-4 max-[320px]:mx-0"
           initial={{ opacity: 0, y: 0 }}
           animate={{
@@ -40,7 +37,7 @@ const TimerFocusForm = forwardRef<HTMLDivElement>((_, ref) => {
           exit={{ opacity: 0, y: -40, transition: { duration: 0.2 } }}
         >
           <motion.div layout key="timer_focus_input">
-            <div className="mb-1 ml-2">Focus on</div>
+            <div className="mb-1 ml-3">Focus on</div>
             <div className="flex [&>div:first-child]:w-full">
               <SelectTypeFirstField
                 key={`${focusType}_focus_item`}
@@ -60,9 +57,7 @@ const TimerFocusForm = forwardRef<HTMLDivElement>((_, ref) => {
                   option => option.value === focusType
                 )}
                 // onChange={option => option && setFocusType(option.value)}
-                // options={focusTypeOptions.filter(
-                //   option => option.value !== focusType
-                // )}
+                options={focusTypeOptions}
               />
             </div>
           </motion.div>
@@ -70,7 +65,7 @@ const TimerFocusForm = forwardRef<HTMLDivElement>((_, ref) => {
       )}
     </AnimatePresence>
   )
-})
+}
 
 const optionLabel = (
   option: ItemOptionType,
@@ -94,4 +89,4 @@ const optionLabel = (
 
 const groupLabel = (data: GroupedOptionType) => <div>{data.label}</div>
 
-export default TimerFocusForm
+export default forwardRef(TimerFocusForm)

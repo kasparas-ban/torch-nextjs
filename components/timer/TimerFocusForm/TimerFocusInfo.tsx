@@ -1,42 +1,38 @@
-import { forwardRef } from "react"
 import { motion } from "framer-motion"
-import { ItemOptionType } from "@/types"
-import { formatPercentages, formatTimeSpent } from "@/helpers"
-import { ReactComponent as TimerBoldIcon } from "../../../assets/timer_bold.svg"
-import { ReactComponent as TimerIcon } from "../../../assets/navigation_icons/timer.svg"
+import { ItemOptionType } from "@/types/itemTypes"
+import { formatPercentages, formatTimeSpent } from "@/utils/utils"
+import TimerIcon from "@/public/icons/navigation_icons/timer.svg"
+import TimerBoldIcon from "@/public/icons/timer_bold.svg"
 
-const TimerFocusInfo = forwardRef<HTMLDivElement, { focusOn: ItemOptionType }>(
-  ({ focusOn }, ref) => {
-    const info =
-      focusOn.type === "TASK" ? (
-        <TaskInfo focusOn={focusOn} />
-      ) : (
-        <ParentInfo focusOn={focusOn} />
-      )
+function TimerFocusInfo({ focusOn }: { focusOn: ItemOptionType }) {
+  const info =
+    focusOn.type === "TASK" ? (
+      <TaskInfo focusOn={focusOn} />
+    ) : (
+      <ParentInfo focusOn={focusOn} />
+    )
 
-    return (
+  return (
+    <motion.div
+      layout
+      className="relative mt-4 flex flex-col justify-center"
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 0.6 },
+      }}
+      exit={{ opacity: 0, y: 20, transition: { duration: 0.1 } }}
+    >
       <motion.div
         layout
-        ref={ref}
-        className="relative mt-4 flex flex-col justify-center"
-        initial={{ opacity: 0 }}
-        animate={{
-          opacity: 1,
-          transition: { duration: 0.6 },
-        }}
-        exit={{ opacity: 0, y: 20, transition: { duration: 0.1 } }}
+        className="mx-auto max-w-2xl px-6 text-center text-xl font-semibold [text-wrap:balance]"
       >
-        <motion.div
-          layout
-          className="mx-auto max-w-2xl px-6 text-center text-xl font-semibold [text-wrap:balance]"
-        >
-          {focusOn?.label}
-        </motion.div>
-        {info}
+        {focusOn?.label}
       </motion.div>
-    )
-  },
-)
+      {info}
+    </motion.div>
+  )
+}
 
 const TaskInfo = ({ focusOn }: { focusOn: ItemOptionType }) => {
   const showProgress = !!focusOn.duration

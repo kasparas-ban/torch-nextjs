@@ -94,7 +94,7 @@ function TimerActionButtons() {
   )
 }
 
-function TimerSettingsButton(_: any, ref: Ref<HTMLDivElement>) {
+function TimerSettingsButton() {
   const timerState = useTimerStore.use.timerState()
 
   return (

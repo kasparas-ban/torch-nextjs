@@ -1,28 +1,14 @@
 "use client"
 
-import createCache from "@emotion/cache"
-import { CacheProvider } from "@emotion/react"
-import Select, { GroupBase, Props } from "react-select"
-import AsyncSelect, { AsyncProps } from "react-select/async"
+import Select, { components, GroupBase, Props } from "react-select"
 import { cn } from "@/lib/utils"
+import ChevronIcon from "@/public/icons/chevronDown.svg"
 
 type SelectProps<
   Option,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>,
 > = Props<Option, IsMulti, Group>
-
-type AsyncSelectProps<
-  Option,
-  IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>,
-> = AsyncProps<Option, IsMulti, Group>
-
-const getCache = () =>
-  createCache({
-    key: "with-tailwind",
-    insertionPoint: document.querySelector("title")!,
-  })
 
 export const SelectField = <
   Option,
@@ -31,24 +17,19 @@ export const SelectField = <
 >(
   props: SelectProps<Option, IsMulti, Group>
 ) => {
-  // if (typeof document === "undefined") return null
-
   return (
-    // <CacheProvider value={getCache()}>
     <Select
       {...props}
       instanceId="select-field"
       classNames={{
         control: ({ isFocused }) =>
           cn(
-            "h-10 w-full rounded-2xl bg-gray-200 px-2 text-gray-900 border-none",
-            isFocused && "!shadow-none !border-none !ring-2 !ring-ring bg-white"
+            "h-10 w-full rounded-2xl border-none bg-gray-200 px-2 text-gray-900",
+            isFocused && "!border-none bg-white !shadow-none !ring-2 !ring-ring"
           ),
         menu: () =>
-          cn(
-            "rounded-lg overflow-hidden max-[320px]:w-[calc(100vw-2rem)] max-[400px]:w-[calc(100vw-3rem)]"
-          ),
-        menuList: () => cn("p-0"),
+          "overflow-hidden rounded-lg max-[400px]:w-[calc(100vw-3rem)] max-[320px]:w-[calc(100vw-2rem)]",
+        menuList: () => "p-0",
         dropdownIndicator: ({ isFocused }) => cn(isFocused && "fill-red-300"),
       }}
       theme={theme => ({
@@ -62,7 +43,6 @@ export const SelectField = <
         },
       })}
     />
-    // </CacheProvider>
   )
 }
 
@@ -73,28 +53,29 @@ export const SelectTypeFirstField = <
 >(
   props: SelectProps<Option, IsMulti, Group>
 ) => {
-  // if (typeof document === "undefined") return null
-
   return (
-    // <CacheProvider value={getCache()}>
     <Select
       {...props}
+      unstyled
       instanceId="select-field-1"
+      components={{ DropdownIndicator }}
       classNames={{
         control: ({ isFocused }) =>
           cn(
-            "h-10 rounded-l-2xl rounded-r-none bg-gray-200 px-2 text-gray-900 border-0 border-r border-solid border-gray-300",
-            isFocused && "!shadow-none !border-none bg-gray-100"
+            "h-10 rounded-l-2xl rounded-r-none border-0 border-r border-solid border-gray-300 bg-gray-200 px-2 text-gray-900",
+            isFocused && "bg-gray-100 !shadow-none"
           ),
         menu: () =>
-          cn(
-            "rounded-lg overflow-hidden max-[320px]:w-[calc(100vw-2rem)] max-[400px]:w-[calc(100vw-3rem)]"
-          ),
-        menuList: () => cn("p-0"),
-        indicatorSeparator: () => cn("hidden"),
-        clearIndicator: () => cn("cursor-pointer"),
+          "overflow-hidden rounded-lg max-[400px]:w-[calc(100vw-3rem)] max-[320px]:w-[calc(100vw-2rem)] bg-white border mt-1 border-gray-200 drop-shadow-lg",
+        placeholder: () => "text-gray-500 pl-2 py-0.5",
+        input: () => "pl-2 py-0.5",
+        menuList: () => "p-2",
+        indicatorSeparator: () => "hidden",
+        clearIndicator: () => "cursor-pointer",
         option: state => cn("cursor-pointer", state.isSelected && "text-black"),
-        singleValue: () => cn("[&>div>div]:truncate"),
+        singleValue: () => "[&>div>div]:truncate",
+        indicatorsContainer: () => "mr-1 text-gray-400",
+        noOptionsMessage: () => "text-gray-500",
       }}
       theme={theme => ({
         ...theme,
@@ -107,35 +88,40 @@ export const SelectTypeFirstField = <
         },
       })}
     />
-    // </CacheProvider>
   )
 }
 
-export const SelectTypeSecondField = <
+export function SelectTypeSecondField<
   Option,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>,
->(
-  props: SelectProps<Option, IsMulti, Group>
-) => {
-  // if (typeof document === "undefined") return null
-
+>(props: SelectProps<Option, IsMulti, Group>) {
   return (
-    // <CacheProvider value={getCache()}>
     <Select
       {...props}
+      unstyled
       instanceId="select-field-2"
+      components={{ DropdownIndicator }}
       classNames={{
         control: ({ isFocused }) =>
           cn(
-            "w-28 h-10 rounded-l-none rounded-r-2xl bg-gray-200 text-gray-900 border-none",
-            isFocused && "!shadow-none !border-none bg-gray-100"
+            "h-10 w-28 rounded-l-none rounded-r-2xl border-none bg-gray-200 text-gray-900",
+            isFocused && "!border-none bg-gray-100 !shadow-none"
           ),
-        menu: () => cn("rounded-lg overflow-hidden"),
-        menuList: () => cn("p-0"),
-        indicatorSeparator: () => cn("hidden"),
-        clearIndicator: () => cn("cursor-pointer"),
-        option: () => cn("cursor-pointer"),
+        menu: () =>
+          "overflow-hidden rounded-lg border mt-1 border-gray-200 bg-white drop-shadow-lg",
+        input: () => "pl-2 py-0.5",
+        singleValue: () => "leading-7 ml-3",
+        menuList: () => "p-0",
+        indicatorSeparator: () => "hidden",
+        clearIndicator: () => "cursor-pointer",
+        option: ({ isSelected }) =>
+          cn(
+            "cursor-pointer px-3 py-2 hover:bg-gray-200",
+            isSelected && "bg-slate-200"
+          ),
+        indicatorsContainer: () => "mr-3 text-gray-400",
+        noOptionsMessage: () => "text-gray-500",
       }}
       theme={theme => ({
         ...theme,
@@ -147,8 +133,17 @@ export const SelectTypeSecondField = <
           primary: "rgb(200, 200, 200)",
         },
       })}
+      isClearable={false}
+      isSearchable={false}
     />
-    // </CacheProvider>
+  )
+}
+
+function DropdownIndicator(props: any) {
+  return (
+    <components.DropdownIndicator {...props}>
+      <ChevronIcon className="relative top-[1px] h-5 w-5" />
+    </components.DropdownIndicator>
   )
 }
 
