@@ -1,11 +1,13 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
-interface TimerSettingsStoreState {
+export type TimerSettingsState = {
   timerDuration: number
   breakDuration: number
   longBreakDuration: number
+}
 
+type TimerSettingsStoreState = TimerSettingsState & {
   setTimerDuration: (duration: number) => void
   setBreakDuration: (duration: number) => void
   setLongBreakDuration: (duration: number) => void
@@ -13,7 +15,7 @@ interface TimerSettingsStoreState {
   setDurations: (
     timerDuration: number,
     breakDuration: number,
-    longBreakDuration: number,
+    longBreakDuration: number
   ) => void
 }
 
@@ -32,7 +34,7 @@ const useTimerSettings = create<TimerSettingsStoreState>()(
       setDurations: (
         timerDuration: number,
         breakDuration: number,
-        longBreakDuration: number,
+        longBreakDuration: number
       ) =>
         set({
           timerDuration,
@@ -42,8 +44,8 @@ const useTimerSettings = create<TimerSettingsStoreState>()(
     }),
     {
       name: "timer-settings-storage",
-    },
-  ),
+    }
+  )
 )
 
 export default useTimerSettings

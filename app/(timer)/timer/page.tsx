@@ -1,4 +1,4 @@
-import TimerContainer from "@/components/timer/timerClock/TimerContainer"
+import TimerContainer from "@/components/timer/TimerContainer"
 
 export const metadata = {
   title: "Timer",

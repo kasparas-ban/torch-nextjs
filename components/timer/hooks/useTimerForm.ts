@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { ItemOptionType } from "../../../types"
+import { ItemOptionType } from "@/types/itemTypes"
 
 export type FocusType = "ALL" | "TASKS" | "GOALS" | "DREAMS"
 

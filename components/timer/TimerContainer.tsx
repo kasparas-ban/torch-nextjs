@@ -2,8 +2,9 @@
 
 import { AnimatePresence, motion } from "framer-motion"
 
-import timerButtons from "./TimerActionsButtons"
-import TimerClock from "./TimerClock"
+import timerButtons from "./timerClock/TimerActionsButtons"
+import TimerClock from "./timerClock/TimerClock"
+import TimerFocusForm from "./TimerFocusForm/TimerFocusForm"
 
 export default function TimerContainer() {
   // const { focusOn } = useTimerForm()
@@ -16,7 +17,7 @@ export default function TimerContainer() {
       transition={{ type: "tween" }}
     >
       <AnimatePresence mode="popLayout">
-        {/* <TimerFocusForm key="timer_focus_form" /> */}
+        <TimerFocusForm key="timer_focus_form" />
 
         {/* {focusOn && (
           <motion.div

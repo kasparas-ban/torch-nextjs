@@ -34,8 +34,6 @@ export type Dream = GeneralItem & {
 
 // === Rest ===
 
-// export type GeneralItem = Task | Goal | Dream
-
 export type GroupedItems<T> = {
   [parentId: number | string | "empty" | "other"]: {
     parentLabel?: string

@@ -7,6 +7,7 @@ import { TimerState } from "@/types/itemTypes"
 import { createSelectors, formatDate } from "@/utils/utils"
 
 import useTimerForm from "./useTimerForm"
+import { TimerSettingsState } from "./useTimerSettings"
 
 type TimerStoreState = {
   time: number
@@ -36,13 +37,26 @@ type TimerStoreState = {
   ) => void
 }
 
+const getStoredTimerSettings = () => {
+  if (typeof window !== "undefined") {
+    const storedValues = JSON.parse(
+      window.localStorage.getItem("timer-settings-storage") || "null"
+    ) as { state: TimerSettingsState } | null
+    return storedValues
+  }
+  return null
+}
+
 const DEFAULT_TIME = 25
 const DEFAULT_BREAK_TIME = 5
 const DEFAULT_LONG_BREAK_TIME = 15
 
-const defaultTime = DEFAULT_TIME * 60
-const breakTime = DEFAULT_BREAK_TIME * 60
-const longBreakTime = DEFAULT_LONG_BREAK_TIME * 60
+const timerSettings = getStoredTimerSettings()?.state
+
+const defaultTime = (timerSettings?.timerDuration ?? DEFAULT_TIME) * 60
+const breakTime = (timerSettings?.breakDuration || DEFAULT_BREAK_TIME) * 60
+const longBreakTime =
+  (timerSettings?.longBreakDuration || DEFAULT_LONG_BREAK_TIME) * 60
 
 const useTimerStoreBase = create<TimerStoreState>()(
   subscribeWithSelector(set => ({

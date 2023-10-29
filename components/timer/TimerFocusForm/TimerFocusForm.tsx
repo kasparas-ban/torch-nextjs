@@ -1,15 +1,16 @@
 import { forwardRef } from "react"
+// import { getItemsByType } from "@/API/helpers"
+// import { useItemsList } from "@/API/itemAPI"
 import { AnimatePresence, motion } from "framer-motion"
+import { GroupedOptionType, ItemOptionType } from "@/types/itemTypes"
+import { toPercent } from "@/utils/utils"
+
 import {
   SelectTypeFirstField,
   SelectTypeSecondField,
-} from "../../Inputs/SelectField"
-import { useItemsList } from "@/API/itemAPI"
-import { getItemsByType } from "@/API/helpers"
+} from "../../inputs/SelectField"
 import useTimerStore from "../hooks/useTimer"
-import { toPercent } from "../../../helpers"
 import useTimerForm, { FocusType } from "../hooks/useTimerForm"
-import { GroupedOptionType, ItemOptionType } from "../../../types"
 
 const focusTypeOptions = [
   { label: "All", value: "ALL" as FocusType },
@@ -21,7 +22,7 @@ const focusTypeOptions = [
 const TimerFocusForm = forwardRef<HTMLDivElement>((_, ref) => {
   const timerState = useTimerStore.use.timerState()
   const { focusOn, setFocusOn, focusType, setFocusType } = useTimerForm()
-  const { data } = useItemsList()
+  // const { data } = useItemsList()
 
   return (
     <AnimatePresence mode="popLayout">
@@ -44,24 +45,24 @@ const TimerFocusForm = forwardRef<HTMLDivElement>((_, ref) => {
               <SelectTypeFirstField
                 key={`${focusType}_focus_item`}
                 value={focusOn}
-                onChange={option => setFocusOn(option)}
-                options={getItemsByType({
-                  itemData: data,
-                  focusType,
-                  grouped: focusType === "TASKS" || focusType === "GOALS",
-                })}
+                // onChange={option => setFocusOn(option)}
+                // options={getItemsByType({
+                //   itemData: data,
+                //   focusType,
+                //   grouped: focusType === "TASKS" || focusType === "GOALS",
+                // })}
                 formatOptionLabel={optionLabel}
                 formatGroupLabel={groupLabel}
                 isClearable
               />
               <SelectTypeSecondField
                 value={focusTypeOptions.find(
-                  option => option.value === focusType,
+                  option => option.value === focusType
                 )}
-                onChange={option => option && setFocusType(option.value)}
-                options={focusTypeOptions.filter(
-                  option => option.value !== focusType,
-                )}
+                // onChange={option => option && setFocusType(option.value)}
+                // options={focusTypeOptions.filter(
+                //   option => option.value !== focusType
+                // )}
               />
             </div>
           </motion.div>
@@ -73,7 +74,7 @@ const TimerFocusForm = forwardRef<HTMLDivElement>((_, ref) => {
 
 const optionLabel = (
   option: ItemOptionType,
-  { context }: { context: "menu" | "value" },
+  { context }: { context: "menu" | "value" }
 ) => {
   return (
     <div className="flex w-full items-center gap-2">
