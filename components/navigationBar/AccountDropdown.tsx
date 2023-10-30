@@ -1,5 +1,7 @@
 "use client"
 
+import Link from "next/link"
+import { ROUTES } from "@/config/routes"
 import AccountIcon from "@/public/icons/navigationIcons/account.svg"
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
@@ -70,12 +72,12 @@ function SignedInContent() {
 
 function NonSignedInContent() {
   return (
-    <DropdownMenuContent className="w-8" align="end" forceMount>
-      <DropdownMenuItem className="hover:cursor-pointer">
-        Sign In
+    <DropdownMenuContent className="min-w-10" align="end" forceMount>
+      <DropdownMenuItem className="hover:cursor-pointer" asChild>
+        <Link href={ROUTES.signIn.path}>Sign In</Link>
       </DropdownMenuItem>
       <DropdownMenuItem className="hover:cursor-pointer">
-        Sign Up
+        <Link href={ROUTES.signUp.path}>Sign Up</Link>
       </DropdownMenuItem>
     </DropdownMenuContent>
   )

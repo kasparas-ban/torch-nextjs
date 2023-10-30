@@ -11,9 +11,7 @@ export default function ItemsPage() {
   return (
     <>
       <ItemsHeader />
-      <RootClerkProvider>
-        <ItemsListWrapper />
-      </RootClerkProvider>
+      <ItemsListWrapper />
     </>
   )
 }

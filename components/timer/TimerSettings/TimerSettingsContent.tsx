@@ -85,7 +85,7 @@ export default function TimerSettingsContent({
                         type="number"
                         min={1}
                         max={99}
-                        className="bg-gray-200 text-center text-lg placeholder:text-gray-400 focus:bg-white"
+                        className="bg-gray-200 pl-6 text-center text-lg placeholder:text-gray-400 focus:bg-white"
                         {...field}
                         onBlur={() => Number(field.value) || field.onChange(1)}
                         onChange={e => field.onChange(Number(e.target.value))}
@@ -110,7 +110,7 @@ export default function TimerSettingsContent({
                         type="number"
                         min={1}
                         max={99}
-                        className="bg-gray-200 text-center text-lg placeholder:text-gray-400 focus:bg-white"
+                        className="bg-gray-200 pl-6 text-center text-lg placeholder:text-gray-400 focus:bg-white"
                         {...field}
                         onBlur={() => Number(field.value) || field.onChange(1)}
                         onChange={e => field.onChange(Number(e.target.value))}
@@ -135,7 +135,7 @@ export default function TimerSettingsContent({
                         type="number"
                         min={1}
                         max={99}
-                        className="bg-gray-200 text-center text-lg placeholder:text-gray-400 focus:bg-white"
+                        className="bg-gray-200 pl-6 text-center text-lg placeholder:text-gray-400 focus:bg-white"
                         {...field}
                         onBlur={() => Number(field.value) || field.onChange(1)}
                         onChange={e => field.onChange(Number(e.target.value))}
