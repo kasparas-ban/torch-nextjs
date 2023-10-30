@@ -1,5 +1,5 @@
 import { forwardRef, Ref } from "react"
-import { motion } from "framer-motion"
+import { HTMLMotionProps, motion } from "framer-motion"
 import SettingsIcon from "@/public/icons/settings.svg"
 
 import useTimerStore from "../hooks/useTimer"
@@ -94,12 +94,16 @@ function TimerActionButtons() {
   )
 }
 
-function TimerSettingsButton() {
+function TimerSettingsButton(
+  props: HTMLMotionProps<"button">,
+  ref: Ref<HTMLDivElement>
+) {
   const timerState = useTimerStore.use.timerState()
 
   return (
     timerState !== "running" && (
       <motion.div
+        ref={ref}
         layout
         key="timer_settings"
         className="mt-2 flex justify-center"
@@ -110,13 +114,14 @@ function TimerSettingsButton() {
         }}
         exit={{ opacity: 0, height: 0, transition: { duration: 0.01 } }}
       >
-        <motion.div
+        <motion.button
+          {...props}
           className="flex cursor-pointer items-center rounded-xl px-3 py-1 text-gray-500 hover:bg-gray-200 hover:text-gray-700"
           whileHover={{ scale: 1.06 }}
         >
           <SettingsIcon className="mr-1 h-4 w-4" />
           Settings
-        </motion.div>
+        </motion.button>
       </motion.div>
     )
   )

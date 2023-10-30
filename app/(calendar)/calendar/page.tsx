@@ -10,7 +10,7 @@ export default function CalendarPage() {
       <h1 className="mb-6 flex items-center text-5xl font-bold text-gray-400">
         Calendar
       </h1>
-      {/* <ComingSoon /> */}
+      <ComingSoon />
     </>
   )
 }

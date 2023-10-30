@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import timerButtons from "./timerClock/TimerActionsButtons"
 import TimerClock from "./timerClock/TimerClock"
 import TimerFocusForm from "./TimerFocusForm/TimerFocusForm"
+import TimerSettingsModal from "./TimerSettings/TimerSettingsModal"
 
 export default function TimerContainer() {
   // const { focusOn } = useTimerForm()
@@ -33,7 +34,9 @@ export default function TimerContainer() {
         <TimerClock key="timer_clock" />
 
         <timerButtons.TimerActionButtons key="timer_action_buttons" />
-        <timerButtons.TimerSettingsButton />
+        <TimerSettingsModal>
+          <timerButtons.TimerSettingsButton />
+        </TimerSettingsModal>
       </AnimatePresence>
     </motion.div>
   )

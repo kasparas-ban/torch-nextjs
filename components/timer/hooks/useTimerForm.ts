@@ -14,7 +14,8 @@ const useTimerFormStoreBase = create<TimerFormStoreState>(set => ({
   focusOn: null,
   focusType: "GOALS",
   setFocusOn: (focusOn: ItemOptionType | null) => set(() => ({ focusOn })),
-  setFocusType: (focusType: FocusType) => set(() => ({ focusType })),
+  setFocusType: (focusType: FocusType) =>
+    set(() => ({ focusType, focusOn: null })),
 }))
 
 const useTimerForm = () => ({

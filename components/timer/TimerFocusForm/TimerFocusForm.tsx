@@ -56,7 +56,7 @@ function TimerFocusForm() {
                 value={focusTypeOptions.find(
                   option => option.value === focusType
                 )}
-                // onChange={option => option && setFocusType(option.value)}
+                onChange={option => option && setFocusType(option.value)}
                 options={focusTypeOptions}
               />
             </div>
