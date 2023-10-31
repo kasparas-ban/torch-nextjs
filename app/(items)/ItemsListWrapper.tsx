@@ -16,8 +16,6 @@ function ItemsListWrapper() {
   const { itemType } = useItemListConfig()
   const { data, error, isLoading } = useItemsList()
 
-  console.log("WRAPPER", data)
-
   // const { toast } = useToast()
 
   const items =

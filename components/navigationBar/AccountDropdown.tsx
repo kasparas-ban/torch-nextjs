@@ -24,11 +24,11 @@ export default function AccountDropdown() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="relative h-6 w-6 rounded-full p-0 hover:bg-transparent focus-visible:ring-2"
+          className="relative h-8 w-8 rounded-full p-0 hover:bg-slate-200 focus-visible:ring-2"
         >
           <Avatar className="h-6 w-6">
             <AvatarImage alt="Profile" />
-            <AvatarFallback className="bg-transparent hover:bg-slate-200">
+            <AvatarFallback className="bg-transparent">
               <AccountIcon
                 className="h-8 hover:cursor-pointer"
                 alt="Sign-up/Sign-In"
