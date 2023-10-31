@@ -6,6 +6,7 @@ import StatsIcon from "@/public/icons/navigationIcons/stats.svg"
 import TimerIcon from "@/public/icons/navigationIcons/timer.svg"
 import WorldIcon from "@/public/icons/navigationIcons/world.svg"
 
+import TimerToast from "../timerToast/TimerToast"
 import AccountDropdown from "./AccountDropdown"
 import { NavigationLink, TorchLink } from "./helpers"
 import { NavigationBarWrapper } from "./NavigationBar"
@@ -57,7 +58,7 @@ export default function DesktopNavbar() {
           </div>
         </NavigationBarWrapper>
       </div>
-      {/* <TimerToast /> */}
+      <TimerToast />
     </div>
   )
 }

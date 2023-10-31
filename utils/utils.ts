@@ -58,3 +58,11 @@ export const formatTimeSpent = (totalSeconds: number) => {
   if (seconds) return `${seconds} sec`
   return "0 h"
 }
+
+export const secondsToMinutes = (totalSeconds: number) => {
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds - minutes * 60
+  return `${minutes.toString().padStart(2, "0")}:${seconds
+    .toString()
+    .padStart(2, "0")}`
+}

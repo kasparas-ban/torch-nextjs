@@ -12,7 +12,7 @@ function TimerSettingsModal(
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]" ref={ref}>
+      <DialogContent className="sm:max-w-[450px]" ref={ref}>
         <TimerSettingsContent setModalOpen={setOpen} />
       </DialogContent>
     </Dialog>
