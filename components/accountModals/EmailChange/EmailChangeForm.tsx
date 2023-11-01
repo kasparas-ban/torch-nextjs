@@ -33,7 +33,10 @@ export default function EmailChangeForm({
   }
 
   return (
-    <div className="flex h-full flex-col px-0 pb-2 sm:px-10">
+    <motion.div
+      className="flex h-full flex-col px-0 pb-2 sm:px-10"
+      exit={{ opacity: 0, scale: 0.9 }}
+    >
       <h5 className="mb-5 flex justify-center text-4xl font-semibold">
         Change email
       </h5>
@@ -74,6 +77,6 @@ export default function EmailChangeForm({
           </div>
         </form>
       </Form>
-    </div>
+    </motion.div>
   )
 }

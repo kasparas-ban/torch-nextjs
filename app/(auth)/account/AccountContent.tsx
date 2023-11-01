@@ -15,7 +15,12 @@ import DeleteIcon from "@/public/icons/trash.svg"
 
 export default function AccountDetails() {
   return (
-    <div className="flex flex-col gap-4 max-sm:pb-32">
+    <motion.div
+      className="flex flex-col gap-4 max-sm:pb-32"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ type: "tween" }}
+    >
       <section className="flex flex-col gap-4 sm:flex-row">
         <section className="flex w-full items-center rounded-xl bg-gray-200 px-5 py-4 shadow-lg">
           <div className="h-24 w-24 rounded-full bg-gray-400" />
@@ -101,7 +106,6 @@ export default function AccountDetails() {
             <motion.button
               className="flex w-full items-center py-3"
               whileTap={{ scale: 0.99 }}
-              // onClick={openAccountInfoModal}
             >
               <AccountIcon className="mr-3 h-7 w-7" />
               <div className="font-medium">Edit account info</div>
@@ -113,7 +117,6 @@ export default function AccountDetails() {
             <motion.button
               className="flex w-full items-center py-3"
               whileTap={{ scale: 0.99 }}
-              // onClick={openEmailChangeModal}
             >
               <EmailIcon className="mr-3 h-7 w-7" />
               <div className="font-medium">Change email</div>
@@ -151,6 +154,6 @@ export default function AccountDetails() {
           </motion.button>
         </div>
       </section>
-    </div>
+    </motion.div>
   )
 }

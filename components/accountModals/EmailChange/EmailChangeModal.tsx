@@ -23,9 +23,12 @@ export default function EmailChangeModal({
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         {isComplete ? (
-          <EmailChangeComplete closeModal={() => setOpen(false)} />
+          <EmailChangeComplete
+            closeModal={() => setOpen(false)}
+            key="complete"
+          />
         ) : (
-          <EmailChangeForm setComplete={() => setComplete(true)} />
+          <EmailChangeForm setComplete={() => setComplete(true)} key="form" />
         )}
       </DialogContent>
     </Dialog>

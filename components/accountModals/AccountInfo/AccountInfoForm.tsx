@@ -13,7 +13,9 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import AvatarUploadInput from "@/components/inputs/FileUploadInput"
 import SelectField from "@/components/inputs/SelectField"
+import AvatarUpload from "@/public/icons/avatarUpload.svg"
 
 const accountFormSchema = z.object({
   username: z
@@ -72,6 +74,43 @@ export default function AccountDetailsForm() {
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <div className="flex flex-col gap-2">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="pl-3 tracking-wide">Avatar</FormLabel>
+                  <FormControl>
+                    <div className="w-fit">
+                      <AvatarUploadInput>
+                        <div className="h-28 w-28 cursor-pointer rounded-full bg-gray-300">
+                          <motion.div
+                            className="group flex h-full items-center justify-center rounded-full"
+                            whileHover={{ scale: 1.04 }}
+                          >
+                            <AvatarUpload className="h-14 w-14 text-gray-400 group-hover:text-gray-600" />
+                          </motion.div>
+                        </div>
+                      </AvatarUploadInput>
+                    </div>
+                  </FormControl>
+                  <FormMessage className="pl-3" />
+                </FormItem>
+              )}
+            />
+            {/* <div className="mx-auto flex">
+              <AvatarUploadInput>
+                <div className="h-28 w-28 cursor-pointer rounded-full bg-gray-300">
+                  <motion.div
+                    className="group flex h-full items-center justify-center rounded-full"
+                    whileHover={{ scale: 1.04 }}
+                  >
+                    <AvatarUpload className="h-14 w-14 text-gray-500 group-hover:text-gray-600" />
+                  </motion.div>
+                </div>
+              </AvatarUploadInput>
+            </div> */}
+
             <FormField
               control={form.control}
               name="username"

@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { SignOutButton, useAuth, useUser } from "@clerk/clerk-react"
 import { ROUTES } from "@/config/routes"
 import AccountIcon from "@/public/icons/navigationIcons/account.svg"
 
@@ -17,14 +18,14 @@ import {
 } from "../ui/dropdown-menu"
 
 export default function AccountDropdown() {
-  const isSignedIn = false
+  const { isSignedIn } = useAuth()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="relative h-8 w-8 rounded-full p-0 hover:bg-slate-200 focus-visible:ring-2"
+          className="relative h-8 w-8 rounded-full bg-white p-0 outline-offset-8 hover:bg-slate-200"
         >
           <Avatar className="h-6 w-6">
             <AvatarImage alt="Profile" />
@@ -43,29 +44,39 @@ export default function AccountDropdown() {
 }
 
 function SignedInContent() {
+  const { user } = useUser()
+
   return (
     <DropdownMenuContent className="w-fit min-w-[140px]" align="end" forceMount>
       <DropdownMenuLabel className="font-normal">
         <div className="flex flex-col space-y-1">
-          <p className="text-sm font-medium leading-none">shadcn</p>
+          <p className="font-medium leading-none">{user?.username}</p>
           <p className="text-xs leading-none text-muted-foreground">
-            m@example.com
+            {user?.primaryEmailAddress?.emailAddress}
           </p>
         </div>
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
       <DropdownMenuGroup>
-        <DropdownMenuItem className="hover:cursor-pointer">
-          Profile
-        </DropdownMenuItem>
-        <DropdownMenuItem className="hover:cursor-pointer">
-          Billing
-        </DropdownMenuItem>
+        <Link href={ROUTES.account.path}>
+          <DropdownMenuItem className="hover:cursor-pointer">
+            Profile
+          </DropdownMenuItem>
+        </Link>
+        <Link href={ROUTES.account.path}>
+          <DropdownMenuItem className="hover:cursor-pointer">
+            Billing
+          </DropdownMenuItem>
+        </Link>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <DropdownMenuItem className="hover:cursor-pointer">
-        Log out
-      </DropdownMenuItem>
+      <SignOutButton
+      // signOutCallback={showSignOutToast}
+      >
+        <DropdownMenuItem className="hover:cursor-pointer">
+          Log out
+        </DropdownMenuItem>
+      </SignOutButton>
     </DropdownMenuContent>
   )
 }
