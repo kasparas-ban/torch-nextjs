@@ -20,6 +20,7 @@ export const SelectField = <
   return (
     <Select
       {...props}
+      unstyled
       instanceId="select-field"
       classNames={{
         control: ({ isFocused }) =>
@@ -27,10 +28,22 @@ export const SelectField = <
             "h-10 w-full rounded-2xl border-none bg-gray-200 px-2 text-gray-900",
             isFocused && "!border-none bg-white !shadow-none !ring-2 !ring-ring"
           ),
+        placeholder: () => "text-gray-500 pl-2 py-0.5",
+        input: () => "pl-2 py-0.5",
         menu: () =>
-          "overflow-hidden rounded-lg max-[400px]:w-[calc(100vw-3rem)] max-[320px]:w-[calc(100vw-2rem)]",
-        menuList: () => "p-0",
-        dropdownIndicator: ({ isFocused }) => cn(isFocused && "fill-red-300"),
+          "overflow-hidden rounded-lg max-[400px]:w-[calc(100vw-3rem)] max-[320px]:w-[calc(100vw-2rem)] bg-white border mt-1 border-gray-200 drop-shadow-lg",
+        singleValue: () => "ml-2 [&>div>div]:truncate",
+        indicatorSeparator: () => "my-2 bg-gray-300 mx-2",
+        clearIndicator: ({ hasValue }) =>
+          cn("cursor-pointer hover:text-gray-600", hasValue && "text-gray-400"),
+        option: state =>
+          cn(
+            "cursor-pointer py-2 px-3 hover:bg-gray-300",
+            state.isSelected && "bg-slate-200"
+          ),
+        indicatorsContainer: () => "mr-1 text-gray-300",
+        dropdownIndicator: () => "hover:text-gray-600",
+        noOptionsMessage: () => "text-gray-500",
       }}
       theme={theme => ({
         ...theme,

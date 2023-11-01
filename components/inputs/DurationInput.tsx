@@ -85,4 +85,6 @@ function DateSegment({
   )
 }
 
+DurationField.displayName = "DurationField"
+
 export default DurationField

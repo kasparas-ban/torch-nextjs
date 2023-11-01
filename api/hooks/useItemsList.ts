@@ -1,5 +1,4 @@
 import { useAuth } from "@clerk/clerk-react"
-import useSWR from "swr"
 import { FormattedItems, ResponseItem } from "@/types/itemTypes"
 
 import { HOST } from "../apiConfig"
@@ -20,8 +19,6 @@ export const useItemsList = () => {
       const token = await getToken()
       // if (!token) throw new Error("Token not found")
 
-      console.log("BE_HOSTNAME_DEV")
-
       const rawResponse = await fetch(`http://localhost:3003/api/items`, {
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -35,5 +32,10 @@ export const useItemsList = () => {
     return formattedItems
   }
 
-  return useSWR("items", fetcher)
+  // return useSWR("items", fetcher)
+  return {
+    data: { tasks: [], goals: [], dreams: [] },
+    isLoading: false,
+    error: false,
+  }
 }
