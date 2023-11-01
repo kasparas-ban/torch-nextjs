@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import clsx from "clsx"
 import { motion } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -62,7 +61,11 @@ export default function AccountDetailsForm() {
   }
 
   return (
-    <div className="mt-4 h-full px-0 pb-2 sm:mt-0 sm:px-10">
+    <div className="mt-4 flex h-full flex-col px-0 pb-2 sm:mt-0 sm:px-10">
+      <h5 className="mb-4 flex justify-center text-4xl font-semibold">
+        Edit Account
+      </h5>
+
       <Form {...form}>
         <form
           className="flex h-full flex-col"
@@ -96,10 +99,7 @@ export default function AccountDetailsForm() {
                   <FormControl>
                     <Input
                       {...field}
-                      className={clsx(
-                        "bg-gray-200 placeholder:text-red-200 focus:bg-white",
-                        field.value ? "text-gray-800" : "text-gray-400"
-                      )}
+                      className="bg-gray-200 placeholder:text-gray-400 focus:bg-white"
                       type="date"
                       min={new Date().toLocaleDateString("en-CA")}
                       onFocus={e => e.target.showPicker()}
@@ -129,7 +129,6 @@ export default function AccountDetailsForm() {
                         value={field.value}
                         onChange={field.onChange}
                         options={genderOptions}
-                        // menuPosition="absolute"
                         isSearchable={false}
                         isClearable
                       />
@@ -154,7 +153,6 @@ export default function AccountDetailsForm() {
                         value={field.value}
                         onChange={field.onChange}
                         options={countryOptions}
-                        // menuPosition="absolute"
                         isClearable
                       />
                     </FormControl>
@@ -164,10 +162,10 @@ export default function AccountDetailsForm() {
             />
           </div>
 
-          <div className="relative mt-auto flex justify-center">
+          <div className="relative mb-8 mt-auto flex justify-center pt-6 sm:mb-0">
             <motion.button
               layout
-              className="mt-8 px-3 py-1 text-xl font-medium"
+              className="px-3 py-1 text-xl font-medium"
               whileTap={{ scale: 0.95 }}
             >
               Save

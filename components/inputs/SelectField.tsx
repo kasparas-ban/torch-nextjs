@@ -34,8 +34,7 @@ export const SelectField = <
           "overflow-hidden rounded-lg max-[400px]:w-[calc(100vw-3rem)] max-[320px]:w-[calc(100vw-2rem)] bg-white border mt-1 border-gray-200 drop-shadow-lg",
         singleValue: () => "ml-2 [&>div>div]:truncate",
         indicatorSeparator: () => "my-2 bg-gray-300 mx-2",
-        clearIndicator: ({ hasValue }) =>
-          cn("cursor-pointer hover:text-gray-600", hasValue && "text-gray-400"),
+        clearIndicator: () => "cursor-pointer hover:text-gray-600",
         option: state =>
           cn(
             "cursor-pointer py-2 px-3 hover:bg-gray-300",
