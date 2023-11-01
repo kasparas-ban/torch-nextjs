@@ -4,6 +4,7 @@ import { SignOutButton, useUser } from "@clerk/clerk-react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import AccountInfoModal from "@/components/accountModals/AccountInfo/AccountInfoModal"
+import EmailChangeModal from "@/components/accountModals/EmailChange/EmailChangeModal"
 import AccountIcon from "@/public/icons/account.svg"
 import ArrowIcon from "@/public/icons/arrow.svg"
 import EmailIcon from "@/public/icons/email.svg"
@@ -108,15 +109,17 @@ export default function AccountDetails() {
             </motion.button>
           </AccountInfoModal>
           <div className="h-px bg-gray-200" />
-          <motion.button
-            className="flex w-full items-center py-3"
-            whileTap={{ scale: 0.99 }}
-            // onClick={openEmailChangeModal}
-          >
-            <EmailIcon className="mr-3 h-7 w-7" />
-            <div className="font-medium">Change email</div>
-            <ArrowIcon className="ml-auto h-4 w-4 rotate-[270deg]" />
-          </motion.button>
+          <EmailChangeModal>
+            <motion.button
+              className="flex w-full items-center py-3"
+              whileTap={{ scale: 0.99 }}
+              // onClick={openEmailChangeModal}
+            >
+              <EmailIcon className="mr-3 h-7 w-7" />
+              <div className="font-medium">Change email</div>
+              <ArrowIcon className="ml-auto h-4 w-4 rotate-[270deg]" />
+            </motion.button>
+          </EmailChangeModal>
           <div className="h-px bg-gray-200" />
           <motion.button
             className="flex w-full items-center py-3"

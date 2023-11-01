@@ -1,9 +1,9 @@
 import { ReactNode } from "react"
 
 import { Dialog, DialogContent, DialogTrigger } from "../../ui/dialog"
-import AccountDetailsForm from "./AccountInfoForm"
+import PasswordChangeForm from "./PasswordChangeForm"
 
-export default function AccountDetailsModal({
+export default function PasswordChangeModal({
   children,
 }: {
   children: ReactNode
@@ -12,7 +12,7 @@ export default function AccountDetailsModal({
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
-        <AccountDetailsForm />
+        <PasswordChangeForm />
       </DialogContent>
     </Dialog>
   )

@@ -61,7 +61,7 @@ export default function AccountDetailsForm() {
   }
 
   return (
-    <div className="mt-4 flex h-full flex-col px-0 pb-2 sm:mt-0 sm:px-10">
+    <div className="flex h-full flex-col px-0 pb-2 sm:px-10">
       <h5 className="mb-4 flex justify-center text-4xl font-semibold">
         Edit Account
       </h5>
@@ -162,7 +162,7 @@ export default function AccountDetailsForm() {
             />
           </div>
 
-          <div className="relative mb-8 mt-auto flex justify-center pt-6 sm:mb-0">
+          <div className="relative mb-6 mt-auto flex justify-center pt-6 sm:mb-0">
             <motion.button
               layout
               className="px-3 py-1 text-xl font-medium"
