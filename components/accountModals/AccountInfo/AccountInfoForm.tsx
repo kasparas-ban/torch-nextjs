@@ -13,9 +13,8 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import AvatarUploadInput from "@/components/inputs/FileUploadInput"
+import AvatarUploadInput from "@/components/inputs/AvatarUploadInput"
 import SelectField from "@/components/inputs/SelectField"
-import AvatarUpload from "@/public/icons/avatarUpload.svg"
 
 const accountFormSchema = z.object({
   username: z
@@ -82,16 +81,7 @@ export default function AccountDetailsForm() {
                   <FormLabel className="pl-3 tracking-wide">Avatar</FormLabel>
                   <FormControl>
                     <div className="w-fit">
-                      <AvatarUploadInput>
-                        <div className="h-28 w-28 cursor-pointer rounded-full bg-gray-300">
-                          <motion.div
-                            className="group flex h-full items-center justify-center rounded-full"
-                            whileHover={{ scale: 1.04 }}
-                          >
-                            <AvatarUpload className="h-14 w-14 text-gray-400 group-hover:text-gray-600" />
-                          </motion.div>
-                        </div>
-                      </AvatarUploadInput>
+                      <AvatarUploadInput inputProps={undefined} />
                     </div>
                   </FormControl>
                   <FormMessage className="pl-3" />
