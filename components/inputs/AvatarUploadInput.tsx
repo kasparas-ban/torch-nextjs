@@ -1,67 +1,51 @@
 "use client"
 
-import {
-  ChangeEventHandler,
-  InputHTMLAttributes,
-  ReactNode,
-  useCallback,
-  useRef,
-  useState,
-} from "react"
+import { forwardRef, LegacyRef, useCallback, useRef } from "react"
 import { motion } from "framer-motion"
 import { useDropzone } from "react-dropzone"
+import { cn } from "@/lib/utils"
 import AvatarUpload from "@/public/icons/avatarUpload.svg"
 
-export default function AvatarUploadInput({
-  inputProps,
-}: {
-  inputProps: InputHTMLAttributes<HTMLInputElement>
-}) {
+function AvatarUploadInput(
+  {
+    value,
+    onChange,
+  }: { value: string | File | undefined; onChange: (...event: any[]) => void },
+  ref: LegacyRef<HTMLInputElement>
+) {
   const avatarImageRef = useRef<HTMLImageElement | null>(null)
-  const [avatar, setAvatar] = useState<File | null>(null)
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    // Do something with the files
-    console.log(acceptedFiles)
-    // setAvatar(acceptedFiles[0])
-
     if (avatarImageRef.current) {
       avatarImageRef.current.src = URL.createObjectURL(acceptedFiles[0])
+      onChange?.(acceptedFiles[0] as any)
     }
   }, [])
 
-  const { getRootProps, getInputProps, isDragActive, onDropAccepted } =
-    useDropzone({ onDrop })
-
-  // console.log(getInputProps())
-
-  // const onInputChange = (e: ChangeEventHandler<HTMLInputElement>) => {
-  //   getInputProps().onChange?(e)
-
-  // }
+  const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
   return (
-    <div {...getRootProps()}>
-      <input {...inputProps} {...getInputProps()} />
-      {/* {isDragActive ? <p>Upload</p> : <p>+</p>} */}
-      <div className="h-28 w-28 cursor-pointer rounded-full bg-gray-300">
-        <img
-          id="avatar"
-          src=""
-          ref={avatarImageRef}
-          className="relative h-28 w-28 rounded-full"
-        />
-        {onDropAccepted ? (
-          <img id="avatar" src="" ref={avatarImageRef} />
-        ) : (
-          <motion.div
-            className="group flex h-full items-center justify-center rounded-full"
-            whileHover={{ scale: 1.04 }}
-          >
-            <AvatarUpload className="h-14 w-14 text-gray-400 group-hover:text-gray-600" />
-          </motion.div>
-        )}
+    <div {...getRootProps()} className="rounded-full">
+      <input ref={ref} {...getInputProps()} className="rounded-full" />
+      <div className="relative h-28 w-28 cursor-pointer rounded-full bg-gray-300">
+        <motion.div
+          className="group peer absolute top-0 flex h-full w-full items-center justify-center rounded-full"
+          whileHover={{ scale: 1.04 }}
+        >
+          <img
+            id="avatar"
+            src=""
+            ref={avatarImageRef}
+            className={cn(
+              "absolute h-28 w-28 rounded-full object-cover indent-[-20000px]",
+              avatarImageRef?.current?.src && "hover:opacity-30"
+            )}
+          />
+          <AvatarUpload className="h-14 w-14 text-gray-400 group-hover:text-gray-600" />
+        </motion.div>
       </div>
     </div>
   )
 }
+
+export default forwardRef(AvatarUploadInput)

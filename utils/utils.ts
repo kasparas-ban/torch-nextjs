@@ -87,3 +87,8 @@ export const getAllCountries = (lang = "en") => {
     .map(([key, value]) => ({ label: value as string, value: key }))
   return countryOptions
 }
+
+export const getCountryName = (countryCode: string) => {
+  let regionNames = new Intl.DisplayNames(["en"], { type: "region" })
+  return regionNames.of(countryCode)
+}

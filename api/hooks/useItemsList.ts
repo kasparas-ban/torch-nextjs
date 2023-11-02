@@ -1,9 +1,9 @@
 import { useAuth } from "@clerk/clerk-react"
 import { FormattedItems, ResponseItem } from "@/types/itemTypes"
 
-import { HOST } from "../apiConfig"
-import { CustomError, ItemLoadFetchErrorMsg } from "../errorMsgs"
-import { formatItemResponse } from "../responseFormatters"
+import { HOST } from "../utils/apiConfig"
+import { CustomError, ItemLoadFetchErrorMsg } from "../utils/errorMsgs"
+import { formatItemResponse } from "../utils/responseFormatters"
 
 export const useItemsList = () => {
   const { getToken } = useAuth()

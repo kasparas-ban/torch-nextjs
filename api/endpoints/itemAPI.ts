@@ -2,15 +2,15 @@ import { useAuth } from "@clerk/clerk-react"
 // import useSWR from "swr"
 import { FormattedItems, ResponseItem } from "@/types/itemTypes"
 
-import { HOST } from "./apiConfig"
+import { HOST } from "../utils/apiConfig"
 import {
   CustomError,
   ItemLoadFetchErrorMsg,
   ItemLoadNotSignedInErrorMsg,
   ItemLoadServerErrorMsg,
   PostFetchErrorMsg,
-} from "./errorMsgs"
-import { formatItemResponse } from "./responseFormatters"
+} from "../utils/errorMsgs"
+import { formatItemResponse } from "../utils/responseFormatters"
 
 // export const useItemsList = (enabled = true) => {
 //   const { getToken } = useAuth()

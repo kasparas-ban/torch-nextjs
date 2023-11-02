@@ -15,6 +15,7 @@ export default function SignUpPage() {
     >
       <SignUp
         signInUrl="/sign-in"
+        afterSignUpUrl="/?signUpSuccess=true"
         appearance={{
           elements: {
             formButtonPrimary: "bg-multi-color",

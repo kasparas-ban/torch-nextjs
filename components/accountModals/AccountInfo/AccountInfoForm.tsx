@@ -1,9 +1,16 @@
+import { useUser } from "@clerk/clerk-react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { GenderOption, Profile } from "@/types/itemTypes"
-import { getAllCountries } from "@/utils/utils"
+import { GenderOption, UpdateProfileReq } from "@/types/userTypes"
+import { useUpdateUser } from "@/api/hooks/useUser"
+import {
+  capitalizeString,
+  formatDate,
+  getAllCountries,
+  getCountryName,
+} from "@/utils/utils"
 import {
   Form,
   FormControl,
@@ -30,6 +37,7 @@ const accountFormSchema = z.object({
     ])
     .optional(),
   country: z.object({ label: z.string(), value: z.string() }).optional(),
+  avatarImage: z.instanceof(File).or(z.string()).optional(),
 })
 
 type AccountFormType = z.infer<typeof accountFormSchema>
@@ -42,23 +50,54 @@ const genderOptions: GenderOption[] = [
 
 const countryOptions = getAllCountries()
 
-const profileData: Profile = {
-  username: "kaspis245",
-  email: "kasparas@gmail.com",
-  birthday: new Date("1997-02-04"),
-  gender: { label: "Male", value: "MALE" },
-  joinedSince: new Date(),
-  country: { label: "Lithuania", value: "LT" },
-}
-
 export default function AccountDetailsForm() {
+  const { user } = useUser()
+  const { mutateAsync: updateUser } = useUpdateUser()
+
+  const defaultValues = {
+    username: user?.username ?? "",
+    avatarImage: user?.imageUrl,
+    birthday: user?.publicMetadata.birthday as Date | undefined,
+    gender: user?.publicMetadata.gender
+      ? ({
+          label: capitalizeString(user?.publicMetadata.gender as string),
+          value: user?.publicMetadata.gender,
+        } as GenderOption)
+      : undefined,
+    joinedSince: user?.publicMetadata.joinedSince,
+    country: user?.publicMetadata.country
+      ? {
+          label: getCountryName(user.publicMetadata.country as string),
+          value: user?.publicMetadata.country as string,
+        }
+      : undefined,
+  }
+
+  console.log("defaultValues", defaultValues)
+
   const form = useForm<AccountFormType>({
     resolver: zodResolver(accountFormSchema),
-    defaultValues: profileData,
+    defaultValues: defaultValues,
   })
 
   const onSubmit = (data: AccountFormType) => {
     console.log("onSubmit", data)
+    const updatedProfile: UpdateProfileReq = {
+      username: data.username,
+      birthday: data.birthday ? formatDate(data.birthday) : undefined,
+      gender: data.gender?.value,
+      country: data.country?.value,
+    }
+
+    updateUser(updatedProfile)
+      .then(() => {
+        // SUCCESS
+        console.log("success")
+      })
+      .catch(e => {
+        // FAIl
+        console.log("fail")
+      })
   }
 
   return (
@@ -75,31 +114,22 @@ export default function AccountDetailsForm() {
           <div className="flex flex-col gap-2">
             <FormField
               control={form.control}
-              name="username"
+              name="avatarImage"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="pl-3 tracking-wide">Avatar</FormLabel>
                   <FormControl>
                     <div className="w-fit">
-                      <AvatarUploadInput inputProps={undefined} />
+                      <AvatarUploadInput
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
                     </div>
                   </FormControl>
                   <FormMessage className="pl-3" />
                 </FormItem>
               )}
             />
-            {/* <div className="mx-auto flex">
-              <AvatarUploadInput>
-                <div className="h-28 w-28 cursor-pointer rounded-full bg-gray-300">
-                  <motion.div
-                    className="group flex h-full items-center justify-center rounded-full"
-                    whileHover={{ scale: 1.04 }}
-                  >
-                    <AvatarUpload className="h-14 w-14 text-gray-500 group-hover:text-gray-600" />
-                  </motion.div>
-                </div>
-              </AvatarUploadInput>
-            </div> */}
 
             <FormField
               control={form.control}
@@ -130,7 +160,6 @@ export default function AccountDetailsForm() {
                       {...field}
                       className="bg-gray-200 placeholder:text-gray-400 focus:bg-white"
                       type="date"
-                      min={new Date().toLocaleDateString("en-CA")}
                       onFocus={e => e.target.showPicker()}
                       onClick={e => (e.target as HTMLInputElement).showPicker()}
                       value={
