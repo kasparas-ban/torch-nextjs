@@ -15,6 +15,11 @@ export type GenderOption =
   | { label: "Female"; value: "FEMALE" }
   | { label: "Other"; value: "OTHER" }
 
+export type AddUserReq = {
+  username: string
+  email: string
+}
+
 export type UpdateProfileReq = {
   username: string
   birthday?: string

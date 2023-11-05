@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { SignOutButton, useAuth, useUser } from "@clerk/clerk-react"
 import { ROUTES } from "@/config/routes"
 import AccountIcon from "@/public/icons/navigationIcons/account.svg"
@@ -45,6 +46,7 @@ export default function AccountDropdown() {
 
 function SignedInContent() {
   const { user } = useUser()
+  const router = useRouter()
 
   return (
     <DropdownMenuContent className="w-fit min-w-[140px]" align="end" forceMount>
@@ -70,9 +72,7 @@ function SignedInContent() {
         </Link>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <SignOutButton
-      // signOutCallback={showSignOutToast}
-      >
+      <SignOutButton signOutCallback={() => router.push(ROUTES.index.path)}>
         <DropdownMenuItem className="hover:cursor-pointer">
           Log out
         </DropdownMenuItem>
