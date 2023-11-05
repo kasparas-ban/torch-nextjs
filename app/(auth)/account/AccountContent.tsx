@@ -1,7 +1,9 @@
 "use client"
 
-import { SignOutButton, useUser } from "@clerk/clerk-react"
+import dayjs from "dayjs"
 import { motion } from "framer-motion"
+import useUserInfo from "@/hooks/useUserInfo"
+import { capitalizeString } from "@/utils/utils"
 import { Button } from "@/components/ui/button"
 import AccountInfoModal from "@/components/accountModals/AccountInfo/AccountInfoModal"
 import EmailChangeModal from "@/components/accountModals/EmailChange/EmailChangeModal"
@@ -14,6 +16,8 @@ import SignOutIcon from "@/public/icons/sign_out.svg"
 import DeleteIcon from "@/public/icons/trash.svg"
 
 export default function AccountDetails() {
+  const { data: userInfo } = useUserInfo()
+
   return (
     <motion.div
       className="flex flex-col gap-4 max-sm:pb-32"
@@ -89,12 +93,22 @@ export default function AccountDetails() {
             <div>Location</div>
           </div>
           <div className="flex flex-col space-y-2 font-semibold text-gray-800">
-            <div>kaspis245</div>
-            <div>kasparas@gmail.com</div>
-            <div>26</div>
-            <div>Male</div>
-            <div>September 23rd, 2023</div>
-            <div>Lithuania, Vilnius 🇱🇹</div>
+            <div>{userInfo?.username || "-"}</div>
+            <div>{userInfo?.email || "-"}</div>
+            <div>
+              {userInfo?.birthday
+                ? dayjs().diff(userInfo.birthday, "year")
+                : "-"}
+            </div>
+            <div>
+              {userInfo?.gender ? capitalizeString(userInfo.gender) : "-"}
+            </div>
+            <div>
+              {userInfo?.createdAt
+                ? dayjs(userInfo.createdAt).format("MMMM D, YYYY")
+                : "-"}
+            </div>
+            <div>{userInfo?.country || "-"}</div>
           </div>
         </div>
       </section>

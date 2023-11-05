@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { GenderOption, UpdateProfileReq } from "@/types/userTypes"
+import useUserInfo from "@/hooks/useUserInfo"
 import { useUpdateUser } from "@/api/hooks/useUser"
 import {
   capitalizeString,
@@ -28,7 +29,7 @@ const accountFormSchema = z.object({
     .string()
     .min(5, { message: "Username must contain at least 5 characters" })
     .max(20, { message: "Username cannot exceed 20 characters" }),
-  birthday: z.date().optional(),
+  birthday: z.date().nullable().optional(),
   gender: z
     .union([
       z.object({ label: z.literal("Male"), value: z.literal("MALE") }),
@@ -37,7 +38,17 @@ const accountFormSchema = z.object({
     ])
     .optional(),
   country: z.object({ label: z.string(), value: z.string() }).optional(),
-  avatarImage: z.instanceof(File).or(z.string()).optional(),
+  avatarImage: z
+    .any()
+    .refine(files => files?.length == 1, "Image is required.")
+    .refine(
+      files =>
+        ["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(
+          files?.[0]?.type
+        ),
+      ".jpg, .jpeg, .png and .webp files are accepted."
+    )
+    .optional(),
 })
 
 type AccountFormType = z.infer<typeof accountFormSchema>
@@ -51,53 +62,50 @@ const genderOptions: GenderOption[] = [
 const countryOptions = getAllCountries()
 
 export default function AccountDetailsForm() {
+  const { data: userInfo } = useUserInfo()
   const { user } = useUser()
   const { mutateAsync: updateUser } = useUpdateUser()
 
   const defaultValues = {
-    username: user?.username ?? "",
-    avatarImage: user?.imageUrl,
-    birthday: user?.publicMetadata.birthday as Date | undefined,
-    gender: user?.publicMetadata.gender
+    username: userInfo?.username,
+    birthday: userInfo?.birthday,
+    gender: userInfo?.gender
       ? ({
-          label: capitalizeString(user?.publicMetadata.gender as string),
-          value: user?.publicMetadata.gender,
+          label: capitalizeString(userInfo?.gender),
+          value: userInfo?.gender,
         } as GenderOption)
       : undefined,
-    joinedSince: user?.publicMetadata.joinedSince,
-    country: user?.publicMetadata.country
+    country: userInfo?.country
       ? {
-          label: getCountryName(user.publicMetadata.country as string),
-          value: user?.publicMetadata.country as string,
+          label: getCountryName(userInfo.country),
+          value: userInfo?.country,
         }
       : undefined,
   }
-
-  console.log("defaultValues", defaultValues)
 
   const form = useForm<AccountFormType>({
     resolver: zodResolver(accountFormSchema),
     defaultValues: defaultValues,
   })
 
-  const onSubmit = (data: AccountFormType) => {
+  const onSubmit = async (data: AccountFormType) => {
     console.log("onSubmit", data)
     const updatedProfile: UpdateProfileReq = {
       username: data.username,
       birthday: data.birthday ? formatDate(data.birthday) : undefined,
       gender: data.gender?.value,
-      country: data.country?.value,
+      countryCode: data.country?.value,
     }
 
-    updateUser(updatedProfile)
-      .then(() => {
-        // SUCCESS
-        console.log("success")
-      })
-      .catch(e => {
-        // FAIl
-        console.log("fail")
-      })
+    try {
+      if (data.avatarImage)
+        await user?.setProfileImage({ file: data.avatarImage })
+
+      await updateUser(updatedProfile)
+      console.log("SUCCESS")
+    } catch (e) {
+      console.error("Failed to update user", e)
+    }
   }
 
   return (
@@ -160,6 +168,7 @@ export default function AccountDetailsForm() {
                       {...field}
                       className="bg-gray-200 placeholder:text-gray-400 focus:bg-white"
                       type="date"
+                      max={new Date().toLocaleDateString("en-CA")}
                       onFocus={e => e.target.showPicker()}
                       onClick={e => (e.target as HTMLInputElement).showPicker()}
                       value={

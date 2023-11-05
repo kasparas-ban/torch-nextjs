@@ -3,23 +3,18 @@
 import { Suspense } from "react"
 import { redirect } from "next/navigation"
 import { useUser } from "@clerk/clerk-react"
+import { ROUTES } from "@/config/routes"
 import { Skeleton } from "@/components/ui/skeleton"
 
 import AccountContent from "./AccountContent"
 import AccountTitle from "./AccountTitle"
 
 export default function AccountPage() {
-  // const {
-  //   openAccountInfoModal,
-  //   openEmailChangeModal,
-  //   openPasswordChangeModal,
-  //   openAccountDeleteModal,
-  // } = useModal()
-
-  const { isSignedIn } = useUser()
+  const { isSignedIn, isLoaded } = useUser()
   // const { toast } = useToast()
 
-  // if (!isSignedIn) redirect(ROUTES.signIn.path)
+  if (!isLoaded) return null
+  if (!isSignedIn) redirect(ROUTES.signIn.path)
 
   // const showSignOutToast = async () => {
   //   toast({ description: "You signed-out successfully." })

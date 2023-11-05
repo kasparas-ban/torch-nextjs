@@ -4,7 +4,7 @@ export type ProfileResp = {
   email: string
   birthday: string | null
   gender: GenderType | null
-  joinedSince: string
+  createdAt: string
   country: string
 }
 
@@ -24,5 +24,5 @@ export type UpdateProfileReq = {
   username: string
   birthday?: string
   gender?: string
-  country?: string
+  countryCode?: string
 }
