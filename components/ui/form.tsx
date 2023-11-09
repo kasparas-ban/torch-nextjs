@@ -1,6 +1,7 @@
 import * as React from "react"
 import * as LabelPrimitive from "@radix-ui/react-label"
 import { Slot } from "@radix-ui/react-slot"
+import { AnimatePresence, motion } from "framer-motion"
 import {
   Controller,
   ControllerProps,
@@ -77,7 +78,7 @@ const FormItem = React.forwardRef<
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn("space-y-2", className)} {...props} />
+      <div ref={ref} className={className} {...props} />
     </FormItemContext.Provider>
   )
 })
@@ -119,6 +120,7 @@ const FormControl = React.forwardRef<
           : `${formDescriptionId} ${formMessageId}`
       }
       aria-invalid={!!error}
+      className="mt-1"
       {...props}
     />
   )
@@ -149,19 +151,26 @@ const FormMessage = React.forwardRef<
   const { error, formMessageId } = useFormField()
   const body = error ? String(error?.message) : children
 
-  if (!body) {
-    return null
-  }
-
   return (
-    <p
-      ref={ref}
-      id={formMessageId}
-      className={cn("text-sm font-medium text-destructive", className)}
-      {...props}
-    >
-      {body}
-    </p>
+    <AnimatePresence>
+      {body ? (
+        <motion.div
+          layout
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+        >
+          <p
+            ref={ref}
+            id={formMessageId}
+            className={cn("text-sm font-medium text-destructive", className)}
+            {...props}
+          >
+            {body}
+          </p>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
   )
 })
 FormMessage.displayName = "FormMessage"

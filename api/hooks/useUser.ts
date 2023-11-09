@@ -1,5 +1,5 @@
 import { useAuth } from "@clerk/clerk-react"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { UpdateProfileReq } from "@/types/userTypes"
 
 import { updateUser } from "../endpoints/userAPI"
@@ -7,6 +7,7 @@ import { CustomError, ItemLoadFetchErrorMsg } from "../utils/errorMsgs"
 
 export const useUpdateUser = () => {
   const { getToken } = useAuth()
+  const queryClient = useQueryClient()
 
   const fetcher = async (data: UpdateProfileReq) => {
     try {
@@ -22,5 +23,8 @@ export const useUpdateUser = () => {
 
   return useMutation({
     mutationFn: (data: UpdateProfileReq) => fetcher(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] })
+    },
   })
 }

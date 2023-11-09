@@ -3,7 +3,7 @@
 import dayjs from "dayjs"
 import { motion } from "framer-motion"
 import useUserInfo from "@/hooks/useUserInfo"
-import { capitalizeString } from "@/utils/utils"
+import { capitalizeString, getCountryName } from "@/utils/utils"
 import { Button } from "@/components/ui/button"
 import AccountInfoModal from "@/components/accountModals/AccountInfo/AccountInfoModal"
 import EmailChangeModal from "@/components/accountModals/EmailChange/EmailChangeModal"
@@ -108,7 +108,11 @@ export default function AccountDetails() {
                 ? dayjs(userInfo.createdAt).format("MMMM D, YYYY")
                 : "-"}
             </div>
-            <div>{userInfo?.country || "-"}</div>
+            <div>
+              {userInfo?.countryCode
+                ? getCountryName(userInfo.countryCode)
+                : "-"}
+            </div>
           </div>
         </div>
       </section>

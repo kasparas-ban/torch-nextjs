@@ -1,6 +1,5 @@
 import { useUser } from "@clerk/clerk-react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { motion } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { GenderOption, UpdateProfileReq } from "@/types/userTypes"
@@ -23,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input"
 import AvatarUploadInput from "@/components/inputs/AvatarUploadInput"
 import SelectField from "@/components/inputs/SelectField"
+import SubmitButton from "@/components/submitButton/SubmitButton"
 
 const accountFormSchema = z.object({
   username: z
@@ -36,6 +36,7 @@ const accountFormSchema = z.object({
       z.object({ label: z.literal("Female"), value: z.literal("FEMALE") }),
       z.object({ label: z.literal("Other"), value: z.literal("OTHER") }),
     ])
+    .nullable()
     .optional(),
   country: z.object({ label: z.string(), value: z.string() }).optional(),
   avatarImage: z
@@ -64,21 +65,26 @@ const countryOptions = getAllCountries()
 export default function AccountDetailsForm() {
   const { data: userInfo } = useUserInfo()
   const { user } = useUser()
-  const { mutateAsync: updateUser } = useUpdateUser()
+  const {
+    mutateAsync: updateUser,
+    isPending,
+    isSuccess,
+    isError,
+  } = useUpdateUser()
 
   const defaultValues = {
     username: userInfo?.username,
-    birthday: userInfo?.birthday,
-    gender: userInfo?.gender
-      ? ({
-          label: capitalizeString(userInfo?.gender),
-          value: userInfo?.gender,
-        } as GenderOption)
-      : undefined,
-    country: userInfo?.country
+    birthday: userInfo?.birthday ? new Date(userInfo.birthday) : undefined,
+    gender:
+      userInfo?.gender &&
+      ({
+        label: capitalizeString(userInfo?.gender),
+        value: userInfo?.gender,
+      } as GenderOption),
+    country: userInfo?.countryCode
       ? {
-          label: getCountryName(userInfo.country),
-          value: userInfo?.country,
+          label: getCountryName(userInfo.countryCode),
+          value: userInfo?.countryCode,
         }
       : undefined,
   }
@@ -89,7 +95,6 @@ export default function AccountDetailsForm() {
   })
 
   const onSubmit = async (data: AccountFormType) => {
-    console.log("onSubmit", data)
     const updatedProfile: UpdateProfileReq = {
       username: data.username,
       birthday: data.birthday ? formatDate(data.birthday) : undefined,
@@ -102,7 +107,6 @@ export default function AccountDetailsForm() {
         await user?.setProfileImage({ file: data.avatarImage })
 
       await updateUser(updatedProfile)
-      console.log("SUCCESS")
     } catch (e) {
       console.error("Failed to update user", e)
     }
@@ -230,13 +234,11 @@ export default function AccountDetailsForm() {
           </div>
 
           <div className="relative mb-6 mt-auto flex justify-center pt-6 sm:mb-0">
-            <motion.button
-              layout
-              className="px-3 py-1 text-xl font-medium"
-              whileTap={{ scale: 0.95 }}
-            >
-              Save
-            </motion.button>
+            <SubmitButton
+              isSuccess={isSuccess}
+              isError={isError}
+              isLoading={isPending}
+            />
           </div>
         </form>
       </Form>

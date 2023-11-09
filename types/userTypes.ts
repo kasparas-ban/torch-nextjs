@@ -5,7 +5,7 @@ export type ProfileResp = {
   birthday: string | null
   gender: GenderType | null
   createdAt: string
-  country: string
+  countryCode: string
 }
 
 type GenderType = "MALE" | "FEMALE" | "OTHER"
