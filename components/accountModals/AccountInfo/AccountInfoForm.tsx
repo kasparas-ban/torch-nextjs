@@ -41,11 +41,10 @@ const accountFormSchema = z.object({
   country: z.object({ label: z.string(), value: z.string() }).optional(),
   avatarImage: z
     .any()
-    .refine(files => files?.length == 1, "Image is required.")
     .refine(
-      files =>
+      file =>
         ["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(
-          files?.[0]?.type
+          file.type
         ),
       ".jpg, .jpeg, .png and .webp files are accepted."
     )
@@ -62,7 +61,11 @@ const genderOptions: GenderOption[] = [
 
 const countryOptions = getAllCountries()
 
-export default function AccountDetailsForm() {
+export default function AccountDetailsForm({
+  closeModal,
+}: {
+  closeModal: () => void
+}) {
   const { data: userInfo } = useUserInfo()
   const { user } = useUser()
   const {
@@ -127,15 +130,13 @@ export default function AccountDetailsForm() {
             <FormField
               control={form.control}
               name="avatarImage"
+              disabled={true}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="pl-3 tracking-wide">Avatar</FormLabel>
                   <FormControl>
                     <div className="w-fit">
-                      <AvatarUploadInput
-                        value={field.value}
-                        onChange={field.onChange}
-                      />
+                      <AvatarUploadInput onChange={field.onChange} />
                     </div>
                   </FormControl>
                   <FormMessage className="pl-3" />
@@ -146,6 +147,7 @@ export default function AccountDetailsForm() {
             <FormField
               control={form.control}
               name="username"
+              disabled={isPending || isSuccess}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="pl-3 tracking-wide">Username</FormLabel>
@@ -164,6 +166,7 @@ export default function AccountDetailsForm() {
             <FormField
               control={form.control}
               name="birthday"
+              disabled={isPending || isSuccess}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="pl-3 tracking-wide">Birthday</FormLabel>
@@ -201,6 +204,7 @@ export default function AccountDetailsForm() {
                         onChange={field.onChange}
                         options={genderOptions}
                         isSearchable={false}
+                        isDisabled={isPending || isSuccess}
                         isClearable
                       />
                     </FormControl>
@@ -224,6 +228,7 @@ export default function AccountDetailsForm() {
                         value={field.value}
                         onChange={field.onChange}
                         options={countryOptions}
+                        isDisabled={isPending || isSuccess}
                         isClearable
                       />
                     </FormControl>
@@ -238,6 +243,7 @@ export default function AccountDetailsForm() {
               isSuccess={isSuccess}
               isError={isError}
               isLoading={isPending}
+              onSuccess={closeModal}
             />
           </div>
         </form>

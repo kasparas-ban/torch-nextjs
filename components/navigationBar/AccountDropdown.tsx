@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { SignOutButton, useAuth, useUser } from "@clerk/clerk-react"
 import { ROUTES } from "@/config/routes"
+import { cn } from "@/lib/utils"
 import AccountIcon from "@/public/icons/navigationIcons/account.svg"
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
@@ -20,6 +21,7 @@ import {
 
 export default function AccountDropdown() {
   const { isSignedIn } = useAuth()
+  const { user } = useUser()
 
   return (
     <DropdownMenu>
@@ -28,8 +30,8 @@ export default function AccountDropdown() {
           variant="ghost"
           className="relative h-8 w-8 rounded-full bg-white p-0 outline-offset-8 hover:bg-slate-200"
         >
-          <Avatar className="h-6 w-6">
-            <AvatarImage alt="Profile" />
+          <Avatar className={cn(user?.imageUrl ? "h-9 w-9" : "h-6 w-6")}>
+            <AvatarImage src={user?.imageUrl} alt="Profile image" />
             <AvatarFallback className="bg-transparent">
               <AccountIcon
                 className="h-8 hover:cursor-pointer"

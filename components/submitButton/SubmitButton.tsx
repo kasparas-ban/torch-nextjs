@@ -6,22 +6,31 @@ type SubmitButtonProps = {
   isLoading?: boolean
   isSuccess?: boolean
   isError?: boolean
+  onSuccess: () => void
 }
 
 export default function SubmitButton({
   isLoading,
   isSuccess,
   isError,
+  onSuccess,
 }: SubmitButtonProps) {
   const [isFailed, setIsFailed] = useState(false)
 
   useEffect(() => {
     if (isError) {
       setIsFailed(true)
-      const timeoutID = setTimeout(() => setIsFailed(false), 2000)
+      const timeoutID = setTimeout(() => {
+        setIsFailed(false)
+      }, 2000)
       return () => clearTimeout(timeoutID)
     }
-  }, [isError])
+
+    if (isSuccess) {
+      const timeoutID = setTimeout(() => onSuccess(), 1000)
+      return () => clearTimeout(timeoutID)
+    }
+  }, [isSuccess, isError, onSuccess])
 
   return (
     <AnimatePresence initial={false} mode="popLayout">

@@ -1,9 +1,11 @@
 "use client"
 
+import { useUser } from "@clerk/clerk-react"
 import dayjs from "dayjs"
 import { motion } from "framer-motion"
 import useUserInfo from "@/hooks/useUserInfo"
 import { capitalizeString, getCountryName } from "@/utils/utils"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import AccountInfoModal from "@/components/accountModals/AccountInfo/AccountInfoModal"
 import EmailChangeModal from "@/components/accountModals/EmailChange/EmailChangeModal"
@@ -16,6 +18,7 @@ import SignOutIcon from "@/public/icons/sign_out.svg"
 import DeleteIcon from "@/public/icons/trash.svg"
 
 export default function AccountDetails() {
+  const { user } = useUser()
   const { data: userInfo } = useUserInfo()
 
   return (
@@ -27,7 +30,15 @@ export default function AccountDetails() {
     >
       <section className="flex flex-col gap-4 sm:flex-row">
         <section className="flex w-full items-center rounded-xl bg-gray-200 px-5 py-4 shadow-lg">
-          <div className="h-24 w-24 rounded-full bg-gray-400" />
+          <Avatar className="h-24 w-24 rounded-full bg-gray-400">
+            <AvatarImage src={user?.imageUrl} alt="Profile image" />
+            <AvatarFallback className="bg-transparent">
+              <AccountIcon
+                className="h-8 hover:cursor-pointer"
+                alt="Sign-up/Sign-In"
+              />
+            </AvatarFallback>
+          </Avatar>
           <div className="flex flex-col justify-between px-5">
             <div className="font-bold">kaspis245</div>
             <div className="flex items-end">

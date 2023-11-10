@@ -8,21 +8,21 @@ import { cn } from "@/lib/utils"
 import AvatarUpload from "@/public/icons/avatarUpload.svg"
 
 function AvatarUploadInput(
-  {
-    value,
-    onChange,
-  }: { value: string | File | undefined; onChange: (...event: any[]) => void },
+  { onChange }: { onChange: (...event: any[]) => void },
   ref: LegacyRef<HTMLInputElement>
 ) {
   const { user } = useUser()
   const avatarImageRef = useRef<HTMLImageElement | null>(null)
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    if (avatarImageRef.current) {
-      avatarImageRef.current.src = URL.createObjectURL(acceptedFiles[0])
-      onChange?.(acceptedFiles[0] as any)
-    }
-  }, [])
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      if (avatarImageRef.current) {
+        avatarImageRef.current.src = URL.createObjectURL(acceptedFiles[0])
+        onChange?.(acceptedFiles[0] as any)
+      }
+    },
+    [onChange]
+  )
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
@@ -42,6 +42,7 @@ function AvatarUploadInput(
               "absolute h-28 w-28 scale-[1.02] rounded-full object-cover text-transparent",
               avatarImageRef?.current?.src && "hover:opacity-10"
             )}
+            alt="Profile image"
           />
           <AvatarUpload className="h-14 w-14 text-gray-400 group-hover:text-gray-600" />
         </motion.div>

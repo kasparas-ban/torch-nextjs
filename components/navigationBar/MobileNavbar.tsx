@@ -1,6 +1,6 @@
 import { ROUTES } from "@/config/routes"
 import { cn } from "@/lib/utils"
-import CalendarIcon from "@/public/icons/navigationIcons/calendar.svg"
+import AccountIcon from "@/public/icons/navigationIcons/account.svg"
 import GoalsIcon from "@/public/icons/navigationIcons/goals.svg"
 import StatsIcon from "@/public/icons/navigationIcons/stats.svg"
 import TimerIcon from "@/public/icons/navigationIcons/timer.svg"
@@ -36,7 +36,7 @@ function NavbarContentMobile() {
         mobile
       />
       <NavigationLink
-        Icon={CalendarIcon}
+        Icon={StatsIcon}
         path={ROUTES.stats.path}
         linkName={ROUTES.stats.label}
         mobile
@@ -55,7 +55,7 @@ function NavbarContentMobile() {
         mobile
       />
       <NavigationLink
-        Icon={StatsIcon}
+        Icon={AccountIcon}
         path={ROUTES.account.path}
         linkName={ROUTES.account.label}
         mobile
