@@ -18,7 +18,7 @@ function AvatarUploadInput(
     (acceptedFiles: File[]) => {
       if (avatarImageRef.current) {
         avatarImageRef.current.src = URL.createObjectURL(acceptedFiles[0])
-        onChange?.(acceptedFiles[0] as any)
+        onChange?.(acceptedFiles[0])
       }
     },
     [onChange]
@@ -36,7 +36,7 @@ function AvatarUploadInput(
         >
           <img
             id="avatar"
-            src={user?.imageUrl}
+            src={user?.hasImage ? user.imageUrl : undefined}
             ref={avatarImageRef}
             className={cn(
               "absolute h-28 w-28 scale-[1.02] rounded-full object-cover text-transparent",

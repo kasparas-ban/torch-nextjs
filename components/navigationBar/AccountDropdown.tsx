@@ -30,8 +30,11 @@ export default function AccountDropdown() {
           variant="ghost"
           className="relative h-8 w-8 rounded-full bg-white p-0 outline-offset-8 hover:bg-slate-200"
         >
-          <Avatar className={cn(user?.imageUrl ? "h-9 w-9" : "h-6 w-6")}>
-            <AvatarImage src={user?.imageUrl} alt="Profile image" />
+          <Avatar className={cn(user?.hasImage ? "h-9 w-9" : "h-6 w-6")}>
+            <AvatarImage
+              src={user?.hasImage ? user.imageUrl : undefined}
+              alt="Profile image"
+            />
             <AvatarFallback className="bg-transparent">
               <AccountIcon
                 className="h-8 hover:cursor-pointer"

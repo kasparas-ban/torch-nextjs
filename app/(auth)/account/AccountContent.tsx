@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import AccountInfoModal from "@/components/accountModals/AccountInfo/AccountInfoModal"
 import EmailChangeModal from "@/components/accountModals/EmailChange/EmailChangeModal"
 import AccountIcon from "@/public/icons/account.svg"
+import AccountIcon2 from "@/public/icons/account2.svg"
 import ArrowIcon from "@/public/icons/arrow.svg"
 import EmailIcon from "@/public/icons/email.svg"
 import LockIcon from "@/public/icons/lock.svg"
@@ -31,10 +32,13 @@ export default function AccountDetails() {
       <section className="flex flex-col gap-4 sm:flex-row">
         <section className="flex w-full items-center rounded-xl bg-gray-200 px-5 py-4 shadow-lg">
           <Avatar className="h-24 w-24 rounded-full bg-gray-400">
-            <AvatarImage src={user?.imageUrl} alt="Profile image" />
+            <AvatarImage
+              src={user?.hasImage ? user.imageUrl : undefined}
+              alt="Profile image"
+            />
             <AvatarFallback className="bg-transparent">
-              <AccountIcon
-                className="h-8 hover:cursor-pointer"
+              <AccountIcon2
+                className="h-12 text-gray-200"
                 alt="Sign-up/Sign-In"
               />
             </AvatarFallback>
