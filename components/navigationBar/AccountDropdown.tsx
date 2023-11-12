@@ -18,6 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
+import UserAvatar from "../userAvatar/UserAvatar"
 
 export default function AccountDropdown() {
   const { isSignedIn } = useAuth()
@@ -28,20 +29,14 @@ export default function AccountDropdown() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="relative h-8 w-8 rounded-full bg-white p-0 outline-offset-8 hover:bg-slate-200"
+          className="relative h-9 w-9 rounded-full bg-white p-0 hover:bg-slate-200"
         >
-          <Avatar className={cn(user?.hasImage ? "h-9 w-9" : "h-6 w-6")}>
-            <AvatarImage
-              src={user?.hasImage ? user.imageUrl : undefined}
-              alt="Profile image"
+          <UserAvatar className="h-9 w-9 justify-center outline-offset-2">
+            <AccountIcon
+              className="h-6 hover:cursor-pointer"
+              alt="Sign-up/Sign-In"
             />
-            <AvatarFallback className="bg-transparent">
-              <AccountIcon
-                className="h-8 hover:cursor-pointer"
-                alt="Sign-up/Sign-In"
-              />
-            </AvatarFallback>
-          </Avatar>
+          </UserAvatar>
         </Button>
       </DropdownMenuTrigger>
       {isSignedIn ? <SignedInContent /> : <NonSignedInContent />}

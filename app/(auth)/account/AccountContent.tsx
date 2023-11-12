@@ -5,10 +5,10 @@ import dayjs from "dayjs"
 import { motion } from "framer-motion"
 import useUserInfo from "@/hooks/useUserInfo"
 import { capitalizeString, getCountryName } from "@/utils/utils"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import AccountInfoModal from "@/components/accountModals/AccountInfo/AccountInfoModal"
 import EmailChangeModal from "@/components/accountModals/EmailChange/EmailChangeModal"
+import UserAvatar from "@/components/userAvatar/UserAvatar"
 import AccountIcon from "@/public/icons/account.svg"
 import AccountIcon2 from "@/public/icons/account2.svg"
 import ArrowIcon from "@/public/icons/arrow.svg"
@@ -31,18 +31,14 @@ export default function AccountDetails() {
     >
       <section className="flex flex-col gap-4 sm:flex-row">
         <section className="flex w-full items-center rounded-xl bg-gray-200 px-5 py-4 shadow-lg">
-          <Avatar className="h-24 w-24 rounded-full bg-gray-400">
-            <AvatarImage
-              src={user?.hasImage ? user.imageUrl : undefined}
-              alt="Profile image"
-            />
-            <AvatarFallback className="bg-transparent">
+          <UserAvatar className="h-24 w-24">
+            <div className="flex h-24 w-24 rounded-full bg-gray-400">
               <AccountIcon2
-                className="h-12 text-gray-200"
-                alt="Sign-up/Sign-In"
+                className="m-auto h-12 text-gray-200"
+                alt="Profile image"
               />
-            </AvatarFallback>
-          </Avatar>
+            </div>
+          </UserAvatar>
           <div className="flex flex-col justify-between px-5">
             <div className="font-bold">kaspis245</div>
             <div className="flex items-end">
