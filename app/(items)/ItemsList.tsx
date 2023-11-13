@@ -26,11 +26,19 @@ export default function ItemsList<T extends Task | Goal | Dream>({
     true
   )
 
+  const sortedItems = groupedItems
+    ? Object.keys(groupedItems).sort((a, b) => {
+        if (a === "other") return 1
+        if (b === "other") return -1
+        return 0
+      })
+    : undefined
+
   return (
     <>
-      {groupedItems && !isListEmpty ? (
+      {groupedItems && sortedItems && !isListEmpty ? (
         <motion.ul key={`list_${itemType}`} className="space-y-3 pb-32">
-          {Object.keys(groupedItems).map((groupKey, groupIdx) => {
+          {sortedItems.map((groupKey, groupIdx) => {
             const parentLabel = groupedItems[groupKey].parentLabel
             const items = groupedItems[groupKey].items
 

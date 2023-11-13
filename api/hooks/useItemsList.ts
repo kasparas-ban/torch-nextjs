@@ -1,4 +1,5 @@
 import { useAuth } from "@clerk/clerk-react"
+import { useQuery } from "@tanstack/react-query"
 import { FormattedItems, ResponseItem } from "@/types/itemTypes"
 
 import { HOST } from "../utils/apiConfig"
@@ -17,9 +18,9 @@ export const useItemsList = () => {
 
     try {
       const token = await getToken()
-      // if (!token) throw new Error("Token not found")
+      if (!token) throw new Error("Token not found")
 
-      const rawResponse = await fetch(`http://localhost:3003/api/items`, {
+      const rawResponse = await fetch(`${HOST}/api/items`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       const jsonResponse: ResponseItem[] = await rawResponse.json()
@@ -32,10 +33,5 @@ export const useItemsList = () => {
     return formattedItems
   }
 
-  // return useSWR("items", fetcher)
-  return {
-    data: { tasks: [], goals: [], dreams: [] },
-    isLoading: false,
-    error: false,
-  }
+  return useQuery({ queryKey: ["items"], queryFn: fetcher })
 }
