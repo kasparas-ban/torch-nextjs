@@ -1,10 +1,7 @@
-import { useUser } from "@clerk/clerk-react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation } from "@tanstack/react-query"
 import { motion } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { FE_HOST } from "@/api/utils/apiConfig"
 import {
   Form,
   FormControl,
@@ -14,43 +11,25 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import SubmitButton from "@/components/submitButton/SubmitButton"
 
 const emailFormSchema = z.object({ email: z.string().email() })
 
 type EmailFormType = z.infer<typeof emailFormSchema>
+
+const defaultEmail = "kasparas@gmail.com"
 
 export default function EmailChangeForm({
   setComplete,
 }: {
   setComplete: () => void
 }) {
-  const { user } = useUser()
-
   const form = useForm<EmailFormType>({
     resolver: zodResolver(emailFormSchema),
-    defaultValues: user?.primaryEmailAddress
-      ? { email: user?.primaryEmailAddress.toString() }
-      : undefined,
-  })
-
-  const updateEmail = async (data: EmailFormType) =>
-    user
-      ?.createEmailAddress({ email: data.email })
-      .then(emailInfo => {
-        emailInfo.prepareVerification({
-          strategy: "email_link",
-          redirectUrl: `${FE_HOST}?emailChangeSuccess=true`,
-        })
-      })
-      .catch(err => console.error("Failed to update user", err))
-
-  const { isPending, isSuccess, isError, mutateAsync } = useMutation({
-    mutationFn: (data: EmailFormType) => updateEmail(data),
+    defaultValues: { email: defaultEmail },
   })
 
   const onSubmit = (data: EmailFormType) => {
-    // mutateAsync(data)
+    setComplete()
   }
 
   return (
@@ -64,7 +43,7 @@ export default function EmailChangeForm({
 
       <Form {...form}>
         <form
-          className="flex h-full flex-col gap-5"
+          className="flex h-full flex-col"
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <FormField
@@ -77,7 +56,7 @@ export default function EmailChangeForm({
                 </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="name@email.com"
+                    placeholder="name@host.com"
                     className="bg-gray-200 placeholder:text-gray-400 focus:bg-white"
                     {...field}
                   />
@@ -88,12 +67,13 @@ export default function EmailChangeForm({
           />
 
           <div className="relative mb-6 mt-auto flex justify-center sm:mb-0">
-            <SubmitButton
-              isSuccess={isSuccess}
-              isError={isError}
-              isLoading={isPending}
-              onSuccess={setComplete}
-            />
+            <motion.button
+              layout
+              className="mt-6 px-3 py-1 text-xl font-medium"
+              whileTap={{ scale: 0.95 }}
+            >
+              Save
+            </motion.button>
           </div>
         </form>
       </Form>

@@ -1,9 +1,4 @@
-import {
-  AddUserReq,
-  ProfileResp,
-  UpdateEmailReq,
-  UpdateProfileReq,
-} from "@/types/userTypes"
+import { AddUserReq, ProfileResp, UpdateProfileReq } from "@/types/userTypes"
 
 import { HOST } from "../utils/apiConfig"
 
@@ -19,13 +14,6 @@ export const updateUser = (token: string, user: UpdateProfileReq) =>
     method: "PUT",
     headers: { Authorization: `Bearer ${token}` },
     body: JSON.stringify(user),
-  }).then(res => res.json() as Promise<ProfileResp>)
-
-export const updateUserEmail = (token: string, emailData: UpdateEmailReq) =>
-  fetch(`${HOST}/api/update-user-email`, {
-    method: "PUT",
-    headers: { Authorization: `Bearer ${token}` },
-    body: JSON.stringify(emailData),
   }).then(res => res.json() as Promise<ProfileResp>)
 
 export const getUserInfo = (token: string) =>

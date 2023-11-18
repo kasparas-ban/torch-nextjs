@@ -26,7 +26,3 @@ export type UpdateProfileReq = {
   gender?: string
   countryCode?: string
 }
-
-export type UpdateEmailReq = {
-  email: string
-}

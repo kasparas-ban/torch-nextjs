@@ -3,7 +3,8 @@
 import { useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import { useUser } from "@clerk/clerk-react"
-import { useUpdateUserEmail } from "@/api/hooks/useUser"
+
+// import { useUpdateUserEmail } from "@/api/hooks/useUser"
 
 export default function useAfterEmailChange() {
   // const { user } = useUser()
