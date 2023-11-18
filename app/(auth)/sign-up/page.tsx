@@ -1,4 +1,4 @@
-import SignUpPanel from "@/components/signIn-signUp/panels/SignUpPanel"
+import SignUpPanel from "@/components/accountUpdate/panels/SignUpPanel"
 
 export default function SignUpPage() {
   return <SignUpPanel />
