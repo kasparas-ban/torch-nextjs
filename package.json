@@ -21,6 +21,7 @@
     "@react-aria/datepicker": "^3.8.1",
     "@react-aria/i18n": "^3.8.4",
     "@react-stately/datepicker": "^3.8.0",
+    "@t3-oss/env-nextjs": "^0.7.1",
     "@tanstack/react-query": "^5.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",

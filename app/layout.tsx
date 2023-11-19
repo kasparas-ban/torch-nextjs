@@ -3,13 +3,13 @@ import "@/styles/globals.css"
 import type { Metadata } from "next"
 import { Gabarito, Inter } from "next/font/google"
 import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
 import NavigationBar from "@/components/navigationBar/NavigationBar"
 import { ThemeProvider } from "@/components/themeProvider"
 import MobileTimerToast from "@/components/timerToast/MobileTimerToast"
 
-import RootClerkProvider from "./ClerkProvider"
+import RootClerkProvider from "./(rootLayout)/ClerkProvider"
 import QueryProvider from "./QueryProvider"
+import { cn } from "@/lib/utils"
 
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" })
 const fontGabarito = Inter({ subsets: ["latin"], variable: "--font-title" })

@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation"
 import { AnimatePresence, motion } from "framer-motion"
 import { ROUTES } from "@/config/routes"
-import { cn } from "@/lib/utils"
+import { cn } from "@/utils/utils"
 import { secondsToMinutes } from "@/utils/utils"
 import PauseIcon from "@/public/icons/timerIcons/pause.svg"
 import PlayIcon from "@/public/icons/timerIcons/play.svg"
