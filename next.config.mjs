@@ -8,8 +8,8 @@ const nextConfig = {
       use: ["@svgr/webpack"],
     })
 
-    return config
+    return config 
   },
 }
 
-module.exports = nextConfig
+export default nextConfig
