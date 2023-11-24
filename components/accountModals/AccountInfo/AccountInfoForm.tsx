@@ -3,14 +3,14 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { GenderOption, UpdateProfileReq } from "@/types/userTypes"
-import useUserInfo from "@/hooks/useUserInfo"
-import { useUpdateUser } from "@/api/hooks/useUser"
 import {
   capitalizeString,
   formatDate,
   getAllCountries,
   getCountryName,
-} from "@/utils/utils"
+} from "@/lib/utils"
+import useUserInfo from "@/hooks/useUserInfo"
+import { useUpdateUser } from "@/api/hooks/useUser"
 import {
   Form,
   FormControl,

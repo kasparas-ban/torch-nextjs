@@ -1,8 +1,8 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion"
+import { capitalizeString } from "@/lib/utils"
 import useItemListConfig from "@/hooks/useItemListConfig"
-import { capitalizeString } from "@/utils/utils"
 import {
   DropdownMenu,
   DropdownMenuContent,

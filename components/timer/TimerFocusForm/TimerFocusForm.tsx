@@ -1,7 +1,7 @@
 import { forwardRef } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { GroupedOptionType, ItemOptionType } from "@/types/itemTypes"
-import { toPercent } from "@/utils/utils"
+import { toPercent } from "@/lib/utils"
 
 import {
   SelectTypeFirstField,

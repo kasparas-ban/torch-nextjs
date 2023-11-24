@@ -1,9 +1,10 @@
 "use client"
 
-import { ClerkProvider } from "@clerk/clerk-react"
 import { ReactNode } from "react"
+import { ClerkProvider } from "@clerk/clerk-react"
+import { env } from "@/env.mjs"
 
-const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+const clerkKey = env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
 export default function RootClerkProvider({
   children,

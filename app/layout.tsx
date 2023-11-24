@@ -1,15 +1,15 @@
 import "@/styles/globals.css"
 
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Gabarito, Inter } from "next/font/google"
 import { siteConfig } from "@/config/site"
+import { cn } from "@/lib/utils"
 import NavigationBar from "@/components/navigationBar/NavigationBar"
 import { ThemeProvider } from "@/components/themeProvider"
 import MobileTimerToast from "@/components/timerToast/MobileTimerToast"
 
 import RootClerkProvider from "./(rootLayout)/ClerkProvider"
 import QueryProvider from "./QueryProvider"
-import { cn } from "@/lib/utils"
 
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" })
 const fontGabarito = Inter({ subsets: ["latin"], variable: "--font-title" })
@@ -33,11 +33,7 @@ export const metadata: Metadata = {
       url: "https://kasparas-ban.info",
     },
   ],
-  creator: "kasparas",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+  creator: "kasban",
   metadataBase: new URL(`${siteConfig.url}`),
   openGraph: {
     type: "website",
@@ -53,6 +49,13 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
 }
 
 export default function RootLayout({

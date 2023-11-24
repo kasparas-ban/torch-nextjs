@@ -3,8 +3,7 @@
 import { usePathname } from "next/navigation"
 import { AnimatePresence, motion } from "framer-motion"
 import { ROUTES } from "@/config/routes"
-import { cn } from "@/utils/utils"
-import { secondsToMinutes } from "@/utils/utils"
+import { cn, secondsToMinutes } from "@/lib/utils"
 import PauseIcon from "@/public/icons/timerIcons/pause.svg"
 import PlayIcon from "@/public/icons/timerIcons/play.svg"
 import ResetIcon from "@/public/icons/timerIcons/reset.svg"
@@ -46,8 +45,8 @@ const TimerToast = ({ showBackdrop }: { showBackdrop?: boolean }) => {
       ? "from-blue-200 to-blue-300"
       : "from-blue-400 to-blue-500"
     : timerState !== "running"
-    ? "from-red-200 to-rose-300"
-    : "from-red-400 to-rose-500"
+      ? "from-red-200 to-rose-300"
+      : "from-red-400 to-rose-500"
 
   return (
     <AnimatePresence mode="popLayout">
