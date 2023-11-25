@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from "next"
 import { Gabarito, Inter } from "next/font/google"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
+import AuthSync from "@/components/authSync/AuthSync"
 import NavigationBar from "@/components/navigationBar/NavigationBar"
 import { ThemeProvider } from "@/components/themeProvider"
 import MobileTimerToast from "@/components/timerToast/MobileTimerToast"
@@ -74,6 +75,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <RootClerkProvider>
             <QueryProvider>
+              <AuthSync />
               <NavigationBar />
               <MobileTimerToast />
               <div className="flex justify-center pt-4 max-[768px]:px-6 md:space-x-36">

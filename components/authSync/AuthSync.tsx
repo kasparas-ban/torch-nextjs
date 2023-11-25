@@ -1,17 +1,14 @@
 "use client"
 
 import { useEffect } from "react"
-import { useSearchParams } from "next/navigation"
 import { useAuth, useUser } from "@clerk/clerk-react"
 import useUserInfo from "@/hooks/useUserInfo"
 import { addUser } from "@/api/endpoints/userAPI"
 
-export default function useAfterSignUp() {
-  const { data: userInfo, isLoading } = useUserInfo()
-  const { user } = useUser()
+export default function AuthWrapper() {
   const { getToken } = useAuth()
-  const searchParams = useSearchParams()
-  const isAfterSignUp = searchParams.get("signUpSuccess")
+  const { user, isSignedIn } = useUser()
+  const { data: userInfo, isError } = useUserInfo()
 
   const addNewUser = async () => {
     const token = await getToken()
@@ -23,14 +20,18 @@ export default function useAfterSignUp() {
   }
 
   useEffect(() => {
-    if (isAfterSignUp && user && !userInfo && !isLoading)
+    if (isSignedIn && !userInfo && isError) {
+      console.error("User not found in database, will attempt to add it now")
       addNewUser()
         .then(() => {
-          // TODO: show notification that user has registered successfully
+          // TODO: show notification that user data was updated
         })
         .catch(e => {
-          // TODO: show notification that user registration failed
+          // TODO: show notificaion that user update failed
         })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAfterSignUp, user, userInfo, isLoading])
+  }, [isSignedIn, userInfo, isError])
+
+  return null
 }

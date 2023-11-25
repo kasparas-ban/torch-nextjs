@@ -32,4 +32,8 @@ export const getUserInfo = (token: string) =>
   fetch(`${HOST}/api/user-info`, {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
-  }).then(res => res.json() as Promise<ProfileResp>)
+  }).then(async res => {
+    const data = await res.json()
+    if (!res.ok) throw new Error(data.error)
+    return data as ProfileResp
+  })
