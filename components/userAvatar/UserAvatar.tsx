@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { ReactNode, useState } from "react"
 import { useUser } from "@clerk/clerk-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { cn } from "@/lib/utils"
@@ -14,11 +14,19 @@ export default function UserAvatar({
 }) {
   const { user } = useUser()
   const hasImage = !!user?.hasImage
+  const [isImgLoaded, setIsImgLoaded] = useState(false)
 
   return (
     <Avatar className={cn("h-6 w-6", className)}>
       <AnimatePresence initial={false} mode="popLayout">
-        {hasImage ? (
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="hidden"
+          src={user?.imageUrl}
+          onLoad={() => setIsImgLoaded(true)}
+          alt="Profile avatar"
+        />
+        {isImgLoaded ? (
           <motion.div
             key="profile_avatar"
             initial={{ scale: 0.3, opacity: 0 }}
