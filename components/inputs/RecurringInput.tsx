@@ -25,11 +25,11 @@ export default function RecurringInput({
   value,
   setValue,
 }: {
-  value?: RecurringType
-  setValue: (input: RecurringType) => void
+  value?: { times: number; period: ReccuringPeriod }
+  setValue: (input: { times: number; period: ReccuringPeriod }) => void
 }) {
   useEffect(() => {
-    setValue({ times: 1, period: "DAY", progress: 0 })
+    setValue({ times: 1, period: "DAY" })
   }, [])
 
   return (
@@ -44,16 +44,13 @@ export default function RecurringInput({
           setValue({
             times: Number(e.target.value),
             period: value?.period || "DAY",
-            progress: 0,
           })
         }
       />
       <div className="mx-3 flex items-center whitespace-nowrap">times per</div>
       <PeriodSelect
         value={value}
-        setPeriod={period =>
-          setValue({ times: value?.times || 1, period, progress: 0 })
-        }
+        setPeriod={period => setValue({ times: value?.times || 1, period })}
       />
     </motion.div>
   )
@@ -69,7 +66,7 @@ function PeriodSelect({
   value,
   setPeriod,
 }: {
-  value?: RecurringType
+  value?: { times: number; period: ReccuringPeriod }
   setPeriod: (period: ReccuringPeriod) => void
 }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -147,8 +144,8 @@ function PeriodSelect({
                       idx === 0
                         ? "rounded-t-xl"
                         : idx === availableOptions.length - 1
-                        ? "rounded-b-xl"
-                        : ""
+                          ? "rounded-b-xl"
+                          : ""
                     )}
                     role="menuitem"
                     tabIndex={-1}

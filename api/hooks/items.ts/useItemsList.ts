@@ -2,9 +2,9 @@ import { useAuth } from "@clerk/clerk-react"
 import { useQuery } from "@tanstack/react-query"
 import { FormattedItems, ResponseItem } from "@/types/itemTypes"
 
-import { HOST } from "../utils/apiConfig"
-import { CustomError, ItemLoadFetchErrorMsg } from "../utils/errorMsgs"
-import { formatItemResponse } from "../utils/responseFormatters"
+import { HOST } from "../../utils/apiConfig"
+import { CustomError, ItemLoadFetchErrorMsg } from "../../utils/errorMsgs"
+import { formatItemResponse } from "../../utils/responseFormatters"
 
 export const useItemsList = () => {
   const { getToken } = useAuth()
@@ -33,5 +33,12 @@ export const useItemsList = () => {
     return formattedItems
   }
 
-  return useQuery({ queryKey: ["items"], queryFn: fetcher })
+  const query = useQuery({ queryKey: ["items"], queryFn: fetcher })
+
+  return {
+    ...query,
+    tasks: query.data?.tasks,
+    goals: query.data?.goals,
+    dreams: query.data?.dreams,
+  }
 }

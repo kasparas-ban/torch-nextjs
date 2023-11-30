@@ -1,4 +1,4 @@
-// import { Time } from "@internationalized/date"
+import { Time } from "@internationalized/date"
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -80,4 +80,20 @@ export const getAllCountries = (lang = "en") => {
 export const getCountryName = (countryCode: string) => {
   let regionNames = new Intl.DisplayNames(["en"], { type: "region" })
   return regionNames.of(countryCode)
+}
+
+export const pruneObject = <T extends Object>(obj: T) => {
+  const deepCopy = structuredClone(obj)
+  Object.keys(deepCopy).forEach(
+    (key: string) =>
+      !deepCopy[key as keyof T] && delete deepCopy[key as keyof T]
+  )
+  return deepCopy
+}
+
+export const getTime = (seconds?: number | null) => {
+  if (!seconds) return new Time(0)
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds % 3600) / 60)
+  return new Time(hours, minutes)
 }

@@ -5,8 +5,9 @@ import { useUser } from "@clerk/clerk-react"
 import { AnimatePresence } from "framer-motion"
 import { Dream, Goal, Task } from "@/types/itemTypes"
 import useItemListConfig from "@/hooks/useItemListConfig"
-import { useItemsList } from "@/api/hooks/useItemsList"
+import { useItemsList } from "@/api/hooks/items.ts/useItemsList"
 import { groupItemsByParent } from "@/api/utils/helpers"
+import ItemModal from "@/components/itemModal/ItemModal"
 import ItemListSkeleton from "@/components/items/ItemListSkeleton"
 
 import ItemsList from "./ItemsList"
@@ -22,8 +23,8 @@ function ItemsListWrapper() {
     itemType === "TASK"
       ? data?.tasks
       : itemType === "GOAL"
-      ? data?.goals
-      : data?.dreams
+        ? data?.goals
+        : data?.dreams
 
   const groupedItems = items ? groupItemsByParent(items, itemType) : {}
 
@@ -33,16 +34,19 @@ function ItemsListWrapper() {
   // }, [error])
 
   return (
-    <AnimatePresence mode="sync">
-      {isLoading ? (
-        <ItemListSkeleton />
-      ) : (
-        <ItemsList<Task | Goal | Dream>
-          groupedItems={groupedItems}
-          itemType={itemType}
-        />
-      )}
-    </AnimatePresence>
+    <>
+      <AnimatePresence mode="sync">
+        {isLoading ? (
+          <ItemListSkeleton />
+        ) : (
+          <ItemsList<Task | Goal | Dream>
+            groupedItems={groupedItems}
+            itemType={itemType}
+          />
+        )}
+      </AnimatePresence>
+      <ItemModal />
+    </>
   )
 }
 

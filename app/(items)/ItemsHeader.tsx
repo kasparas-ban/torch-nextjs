@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { capitalizeString } from "@/lib/utils"
 import useItemListConfig from "@/hooks/useItemListConfig"
@@ -9,21 +10,27 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import AddGeneralItem from "@/components/itemModal/addGeneralItem/AddGeneralItem"
+import useItemModal from "@/components/itemModal/hooks/useItemModal"
 import ItemModal from "@/components/itemModal/ItemModal"
 import ArrowIcon from "@/public/icons/arrowDown.svg"
 import PlusIcon from "@/public/icons/plus.svg"
 
 export function ItemsHeader() {
+  const { openGeneralModal } = useItemModal()
+
   return (
     <>
       <div className="mb-6 flex">
         <ItemsTypeDropdown />
         <div className="relative bottom-1 ml-auto flex items-end space-x-4">
-          <ItemModal content={<></>}>
-            <motion.button layout whileHover={{ scale: 1.2 }}>
-              <PlusIcon className="h-6 hover:cursor-pointer" />
-            </motion.button>
-          </ItemModal>
+          <motion.button
+            layout
+            whileHover={{ scale: 1.2 }}
+            onClick={openGeneralModal}
+          >
+            <PlusIcon className="h-6 hover:cursor-pointer" />
+          </motion.button>
         </div>
       </div>
       {/* <div className="mb-8 mt-2">
@@ -44,7 +51,7 @@ function ItemsTypeDropdown() {
             <motion.h1
               layout
               key={itemType}
-              className="items-center overflow-clip text-5xl font-bold text-gray-400"
+              className="items-center text-clip text-5xl font-bold text-gray-400"
               whileTap={{ scale: 0.96 }}
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}

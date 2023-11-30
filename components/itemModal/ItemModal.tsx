@@ -1,18 +1,16 @@
+"use client"
+
 import React from "react"
 
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog"
+import { Dialog, DialogContent } from "../ui/dialog"
+import useItemModal from "./hooks/useItemModal"
 
-function ItemModal({
-  content,
-  children,
-}: {
-  content: React.ReactElement
-  children: React.ReactElement
-}) {
+function ItemModal() {
+  const { isOpen, closeModal, modalContent } = useItemModal()
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>{content}</DialogContent>
+    <Dialog open={isOpen} onOpenChange={open => !open && closeModal()}>
+      <DialogContent>{modalContent}</DialogContent>
     </Dialog>
   )
 }
