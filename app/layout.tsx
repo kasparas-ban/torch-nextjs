@@ -9,7 +9,7 @@ import NavigationBar from "@/components/navigationBar/NavigationBar"
 import { ThemeProvider } from "@/components/themeProvider"
 import MobileTimerToast from "@/components/timerToast/MobileTimerToast"
 
-import RootClerkProvider from "./(rootLayout)/ClerkProvider"
+import AuthProvider from "./(rootLayout)/AuthProvider"
 import QueryProvider from "./QueryProvider"
 
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" })
@@ -73,16 +73,16 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <RootClerkProvider>
-            <QueryProvider>
+          <QueryProvider>
+            <AuthProvider>
               <AuthSync />
               <NavigationBar />
               <MobileTimerToast />
               <div className="flex justify-center pt-4 max-[768px]:px-6 md:space-x-36">
                 <div className="w-full max-w-[650px]">{children}</div>
               </div>
-            </QueryProvider>
-          </RootClerkProvider>
+            </AuthProvider>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

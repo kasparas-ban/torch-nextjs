@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import { useUser } from "@clerk/clerk-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { cn } from "@/lib/utils"
@@ -15,6 +15,10 @@ export default function UserAvatar({
   const { user } = useUser()
   const hasImage = !!user?.hasImage
   const [isImgLoaded, setIsImgLoaded] = useState(false)
+
+  useEffect(() => {
+    if (!hasImage) setIsImgLoaded(false)
+  }, [hasImage])
 
   return (
     <Avatar className={cn("h-6 w-6", className)}>
