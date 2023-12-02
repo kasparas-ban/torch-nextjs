@@ -1,5 +1,3 @@
-import RootClerkProvider from "@/app/ClerkProvider"
-
 import { ItemsHeader } from "../ItemsHeader"
 import ItemsListWrapper from "../ItemsListWrapper"
 

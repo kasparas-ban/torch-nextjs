@@ -2,6 +2,7 @@ import React from "react"
 import { create } from "zustand"
 
 import AddGeneralItem from "../addGeneralItem/AddGeneralItem"
+import NewTaskForm from "../newTaskForm/NewTaskForm"
 
 type ModalState = {
   isOpen: boolean
@@ -28,7 +29,7 @@ const useModalStore = create<ModalState>(set => ({
   openTaskModal: (openGeneralOnClose = false) =>
     set(() => ({
       isOpen: true,
-      modalContent: <>Task form</>,
+      modalContent: <NewTaskForm />,
       openGeneralOnClose: openGeneralOnClose,
     })),
   openGoalModal: (openGeneralOnClose = false, addTaskOnOpen = false) =>
@@ -70,6 +71,8 @@ const useItemModal = () => ({
   isOpen: useModalStore(state => state.isOpen),
   modalContent: useModalStore(state => state.modalContent),
   closeModal: useModalStore(state => state.closeModal),
+
+  showBackButton: useModalStore(state => state.openGeneralOnClose),
   goBack: useModalStore(state => state.goBack),
 
   openTaskModal: useModalStore(state => state.openTaskModal),

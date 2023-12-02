@@ -7,7 +7,9 @@ export default function AddGeneralItem() {
 
   return (
     <div className="mb-4 flex flex-col gap-3">
-      <h3 className="text-center text-4xl font-semibold">Choose type</h3>
+      <motion.h3 layout className="text-center text-4xl font-semibold">
+        Choose type
+      </motion.h3>
       <section className="mx-auto">
         <div className="flex flex-col gap-3 px-0 pb-2 pt-4">
           <motion.button
