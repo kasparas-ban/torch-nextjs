@@ -37,12 +37,14 @@ export const SelectField = <
         clearIndicator: () => "cursor-pointer hover:text-gray-600",
         option: state =>
           cn(
-            "cursor-pointer py-2 px-3 hover:bg-gray-300",
+            "cursor-pointer px-3 py-2 hover:bg-gray-300",
             state.isSelected && "bg-slate-200"
           ),
         indicatorsContainer: () => "mr-1 text-gray-300",
         dropdownIndicator: () => "hover:text-gray-600",
-        noOptionsMessage: () => "text-gray-500",
+        noOptionsMessage: () => "text-gray-500 my-3",
+        groupHeading: () =>
+          "text-gray-400 ml-3 font-semibold mt-2 uppercase text-sm",
       }}
       theme={theme => ({
         ...theme,

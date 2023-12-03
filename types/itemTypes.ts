@@ -1,14 +1,14 @@
 // === Items ===
 
 export type ResponseItem = {
-  itemID: number
+  itemID: string
   title: string
   type: ItemType
   targetDate: string | null
   priority: "LOW" | "MEDIUM" | "HIGH" | null
   duration: number | null
   recurring: RecurringType | null
-  parentID: number | null
+  parentID: string | null
   timeSpent: number
   createdAt: string
 }

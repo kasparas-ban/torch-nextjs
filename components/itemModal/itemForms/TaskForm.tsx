@@ -59,7 +59,8 @@ function TaskForm() {
   const { closeModal } = useItemModal()
   const { editItem } = useEditItem()
 
-  const { mutateAsync, reset, isPending, isError, isSuccess } = useUpsertItem()
+  const { mutateAsync, reset, isPending, isError, isSuccess } =
+    useUpsertItem("TASK")
 
   const defaultTask = getInitialTaskForm(editItem as Task)
 
@@ -76,12 +77,13 @@ function TaskForm() {
 
   const onSubmit = (data: TaskFormType) => {
     const { goal, ...rest } = data
+    console.log(goal)
     const newTask = {
       ...pruneObject(rest),
       ...(editItem ? { itemID: editItem.itemID } : {}),
       ...(goal ? { parentID: goal.value } : {}),
-      type: "TASK" as const,
     }
+
     mutateAsync(newTask)
       .then(() => {
         setTimeout(() => {

@@ -52,7 +52,7 @@ export default function ItemsList<T extends Task | Goal | Dream>({
                 {parentLabel && (
                   <motion.div
                     layout
-                    className="mb-2 font-medium text-gray-500"
+                    className="mb-2 ml-3 font-medium text-gray-500"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1 }}
@@ -86,8 +86,8 @@ export default function ItemsList<T extends Task | Goal | Dream>({
               {itemType === "TASK"
                 ? "task"
                 : itemType === "GOAL"
-                ? "goal"
-                : "dream"}
+                  ? "goal"
+                  : "dream"}
             </motion.div>
           </button> */}
         </motion.div>

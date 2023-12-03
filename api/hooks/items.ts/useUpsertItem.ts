@@ -1,6 +1,6 @@
 import { useAuth } from "@clerk/clerk-react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { ResponseItem } from "@/types/itemTypes"
+import { ItemType, ResponseItem } from "@/types/itemTypes"
 import { HOST } from "@/api/utils/apiConfig"
 import { CustomError, PostFetchErrorMsg } from "@/api/utils/errorMsgs"
 import {
@@ -12,7 +12,7 @@ import {
   UpdateTaskType,
 } from "@/components/itemModal/itemForms/schemas"
 
-export const useUpsertItem = () => {
+export const useUpsertItem = (type: ItemType) => {
   const { getToken } = useAuth()
   const queryClient = useQueryClient()
 
@@ -29,8 +29,8 @@ export const useUpsertItem = () => {
       ) => {
         const token = await getToken()
         const endpoint = (item as UpdateTaskType).itemID
-          ? `${HOST}/api/update-item`
-          : `${HOST}/api/add-item`
+          ? `${HOST}/api/update-item/${type.toLowerCase()}`
+          : `${HOST}/api/add-item/${type.toLowerCase()}`
         const method = (item as UpdateTaskType).itemID ? "PUT" : "POST"
 
         if (token) {
