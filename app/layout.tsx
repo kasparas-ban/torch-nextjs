@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from "next"
 import { Gabarito, Inter } from "next/font/google"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
+import { Toaster } from "@/components/ui/toaster"
 import AuthSync from "@/components/authSync/AuthSync"
 import NavigationBar from "@/components/navigationBar/NavigationBar"
 import { ThemeProvider } from "@/components/themeProvider"
@@ -84,6 +85,7 @@ export default function RootLayout({
             </AuthProvider>
           </QueryProvider>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   )

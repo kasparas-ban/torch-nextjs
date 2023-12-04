@@ -19,6 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useToast } from "@/components/ui/use-toast"
 import DurationInput from "@/components/inputs/DurationInput"
 import PriorityInput from "@/components/inputs/PriorityInput"
 import RecurringInput from "@/components/inputs/RecurringInput"
@@ -54,7 +55,7 @@ const getInitialTaskForm = (initialTask: Task): TaskFormType => ({
 })
 
 function TaskForm() {
-  // const { toast } = useToast()
+  const { toast } = useToast()
   const { goals } = useItemsList()
   const { closeModal } = useItemModal()
   const { editItem } = useEditItem()
@@ -91,16 +92,16 @@ function TaskForm() {
         }, 2000)
       })
       .catch(() => {
-        // setTimeout(
-        //   () =>
-        //     toast({
-        //       title: "Failed to save",
-        //       description:
-        //         "Your task has not been saved. Please try adding it again later.",
-        //     }),
-        //   100
-        // )
-        setTimeout(() => reset(), 2000)
+        setTimeout(
+          () =>
+            toast({
+              title: "Failed to save",
+              description:
+                "Your task has not been saved. Please try adding it again later.",
+            }),
+          100
+        )
+        setTimeout(() => reset(), 2500)
       })
   }
 
