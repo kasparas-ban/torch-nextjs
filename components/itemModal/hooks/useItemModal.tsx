@@ -2,7 +2,9 @@ import React from "react"
 import { create } from "zustand"
 
 import AddGeneralItem from "../addGeneralItem/AddGeneralItem"
-import NewTaskForm from "../newTaskForm/NewTaskForm"
+import DreamContent from "../modalContent/DreamContent"
+import GoalContent from "../modalContent/GoalContent"
+import TaskContent from "../modalContent/TaskContent"
 
 type ModalState = {
   isOpen: boolean
@@ -29,20 +31,20 @@ const useModalStore = create<ModalState>(set => ({
   openTaskModal: (openGeneralOnClose = false) =>
     set(() => ({
       isOpen: true,
-      modalContent: <NewTaskForm />,
+      modalContent: <TaskContent />,
       openGeneralOnClose: openGeneralOnClose,
     })),
   openGoalModal: (openGeneralOnClose = false, addTaskOnOpen = false) =>
     set(() => ({
       isOpen: true,
       addTaskOnOpen,
-      modalContent: <>Goal form</>,
+      modalContent: <GoalContent />,
       openGeneralOnClose: openGeneralOnClose,
     })),
   openDreamModal: (openGeneralOnClose = false) =>
     set(() => ({
       isOpen: true,
-      modalContent: <>Dream form</>,
+      modalContent: <DreamContent />,
       openGeneralOnClose: openGeneralOnClose,
     })),
   openGeneralModal: () =>

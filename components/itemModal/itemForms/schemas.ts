@@ -48,9 +48,9 @@ export const goalFormSchema = z.object({
     .string()
     .min(2, { message: "Title must be longer than 2 characters." })
     .max(50, { message: "Title must be shorter than 50 characters." }),
-  dream: z.object({ label: z.string(), value: z.number() }).optional(),
+  dream: z.object({ label: z.string(), value: z.string() }).optional(),
   targetDate: z.string().nullable().optional(),
-  priority: z.enum(["LOW", "MEDIUM", "HIGH"]).optional(),
+  priority: z.enum(["LOW", "MEDIUM", "HIGH"]).optional().nullable(),
   tasks: z.array(
     taskFormSchema.omit({ goal: true }).extend({
       itemID: z.string().optional(),
@@ -67,7 +67,7 @@ export type UpdateGoalType = Omit<NewGoalType, "tasks"> & {
 }
 
 const subtaskFormSchema = taskFormSchema
-  .extend({ id: z.string() })
+  .extend({ itemID: z.string() })
   .omit({ goal: true })
 export type SubitemType = z.infer<typeof subtaskFormSchema>
 export type SubitemKeyType = keyof SubitemType

@@ -6,7 +6,7 @@ type SubmitButtonProps = {
   isLoading?: boolean
   isSuccess?: boolean
   isError?: boolean
-  onSuccess: () => void
+  onSuccess?: () => void
 }
 
 export default function SubmitButton({
@@ -26,7 +26,7 @@ export default function SubmitButton({
       return () => clearTimeout(timeoutID)
     }
 
-    if (isSuccess) {
+    if (isSuccess && onSuccess) {
       const timeoutID = setTimeout(() => onSuccess(), 1000)
       return () => clearTimeout(timeoutID)
     }
