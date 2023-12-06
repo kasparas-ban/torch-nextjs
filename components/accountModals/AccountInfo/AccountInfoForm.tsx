@@ -205,6 +205,7 @@ export default function AccountDetailsForm({
                         options={genderOptions}
                         isSearchable={false}
                         isDisabled={isPending || isSuccess}
+                        menuPosition="fixed"
                         isClearable
                       />
                     </FormControl>
@@ -229,6 +230,7 @@ export default function AccountDetailsForm({
                         onChange={field.onChange}
                         options={countryOptions}
                         isDisabled={isPending || isSuccess}
+                        menuPosition="fixed"
                         isClearable
                       />
                     </FormControl>

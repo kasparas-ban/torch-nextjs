@@ -8,6 +8,7 @@ import useUserInfo from "@/hooks/useUserInfo"
 import { Button } from "@/components/ui/button"
 import AccountInfoModal from "@/components/accountModals/AccountInfo/AccountInfoModal"
 import EmailChangeModal from "@/components/accountModals/EmailChange/EmailChangeModal"
+import PasswordChangeModal from "@/components/accountModals/PasswordChange/PasswordChangeModal"
 import UserAvatar from "@/components/userAvatar/UserAvatar"
 import AccountIcon from "@/public/icons/account.svg"
 import AccountIcon2 from "@/public/icons/account2.svg"
@@ -153,15 +154,16 @@ export default function AccountDetails() {
             </motion.button>
           </EmailChangeModal>
           <div className="h-px bg-gray-200" />
+          <PasswordChangeModal>
           <motion.button
             className="flex w-full items-center py-3"
             whileTap={{ scale: 0.99 }}
-            // onClick={openPasswordChangeModal}
           >
             <LockIcon className="mr-3 h-7 w-7" />
             <div className="font-medium">Change password</div>
             <ArrowIcon className="ml-auto h-4 w-4 rotate-[270deg]" />
           </motion.button>
+          </PasswordChangeModal>
           <div className="h-px bg-gray-200" />
           <motion.button
             className="flex w-full items-center py-3"

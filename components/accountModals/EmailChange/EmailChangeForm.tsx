@@ -43,7 +43,11 @@ export default function EmailChangeForm({
           redirectUrl: `${FE_HOST}?emailChangeSuccess=true`,
         })
       })
-      .catch(err => console.error("Failed to update user", err))
+      .catch(err => {
+        const msg = "Failed to update user"
+        console.error(msg, err)
+        throw Error(msg)
+      })
 
   const { isPending, isSuccess, isError, mutateAsync } = useMutation({
     mutationFn: (data: EmailFormType) => updateEmail(data),

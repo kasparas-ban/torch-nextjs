@@ -54,6 +54,13 @@ export default function PasswordChangeForm() {
 
   return (
     <div className="mt-4 h-full px-0 pb-2 sm:mt-0 sm:px-10">
+      <motion.h5
+        layout
+        className="mb-5 flex justify-center text-4xl font-semibold"
+      >
+        Change password
+      </motion.h5>
+
       <Form {...form}>
         <form
           className="flex h-full flex-col"
