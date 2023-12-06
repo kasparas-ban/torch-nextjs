@@ -1,26 +1,22 @@
 "use client"
 
-import { useUser } from "@clerk/clerk-react"
 import dayjs from "dayjs"
 import { motion } from "framer-motion"
 import { capitalizeString, getCountryName } from "@/lib/utils"
 import useUserInfo from "@/hooks/useUserInfo"
 import { Button } from "@/components/ui/button"
 import AccountInfoModal from "@/components/accountModals/AccountInfo/AccountInfoModal"
-import EmailChangeModal from "@/components/accountModals/EmailChange/EmailChangeModal"
 import PasswordChangeModal from "@/components/accountModals/PasswordChange/PasswordChangeModal"
 import UserAvatar from "@/components/userAvatar/UserAvatar"
 import AccountIcon from "@/public/icons/account.svg"
 import AccountIcon2 from "@/public/icons/account2.svg"
 import ArrowIcon from "@/public/icons/arrow.svg"
-import EmailIcon from "@/public/icons/email.svg"
 import LockIcon from "@/public/icons/lock.svg"
 import PaymentIcon from "@/public/icons/payment.svg"
 import SignOutIcon from "@/public/icons/sign_out.svg"
 import DeleteIcon from "@/public/icons/trash.svg"
 
 export default function AccountDetails() {
-  const { user } = useUser()
   const { data: userInfo } = useUserInfo()
 
   return (
@@ -143,26 +139,15 @@ export default function AccountDetails() {
             </motion.button>
           </AccountInfoModal>
           <div className="h-px bg-gray-200" />
-          <EmailChangeModal>
+          <PasswordChangeModal>
             <motion.button
               className="flex w-full items-center py-3"
               whileTap={{ scale: 0.99 }}
             >
-              <EmailIcon className="mr-3 h-7 w-7" />
-              <div className="font-medium">Change email</div>
+              <LockIcon className="mr-3 h-7 w-7" />
+              <div className="font-medium">Change password</div>
               <ArrowIcon className="ml-auto h-4 w-4 rotate-[270deg]" />
             </motion.button>
-          </EmailChangeModal>
-          <div className="h-px bg-gray-200" />
-          <PasswordChangeModal>
-          <motion.button
-            className="flex w-full items-center py-3"
-            whileTap={{ scale: 0.99 }}
-          >
-            <LockIcon className="mr-3 h-7 w-7" />
-            <div className="font-medium">Change password</div>
-            <ArrowIcon className="ml-auto h-4 w-4 rotate-[270deg]" />
-          </motion.button>
           </PasswordChangeModal>
           <div className="h-px bg-gray-200" />
           <motion.button
