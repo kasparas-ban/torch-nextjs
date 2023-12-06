@@ -45,7 +45,7 @@ const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, ...props }, ref) => {
-  const { goBack, showBackButton, closeModal } = useItemModal()
+  const { goBack, showBackButton, isOpen, closeModal } = useItemModal()
 
   return (
     <DialogPortal>
@@ -75,14 +75,16 @@ const DialogContent = React.forwardRef<
               </motion.button>
             )}
             <motion.div className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-              <motion.button
-                layout
-                whileTap={{ scale: 0.9 }}
-                onClick={() => closeModal()}
-              >
-                <X className="h-6 w-6" />
-                <span className="sr-only">Close</span>
-              </motion.button>
+              <DialogPrimitive.Close asChild>
+                <motion.button
+                  layout
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => isOpen && closeModal()}
+                >
+                  <X className="h-6 w-6" />
+                  <span className="sr-only">Close</span>
+                </motion.button>
+              </DialogPrimitive.Close>
             </motion.div>
           </motion.div>
         </DialogPrimitive.Content>

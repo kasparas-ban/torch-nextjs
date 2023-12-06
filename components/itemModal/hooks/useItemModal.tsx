@@ -66,7 +66,7 @@ const useModalStore = create<ModalState>(set => ({
             modalContent: undefined,
           }
     ),
-  closeModal: () => set(() => ({ isOpen: false })),
+  closeModal: () => set(() => ({ isOpen: false, openGeneralOnClose: false })),
 }))
 
 const useItemModal = () => ({

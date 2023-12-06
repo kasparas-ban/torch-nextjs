@@ -11,7 +11,8 @@ import { ThemeProvider } from "@/components/themeProvider"
 import MobileTimerToast from "@/components/timerToast/MobileTimerToast"
 
 import AuthProvider from "./(rootLayout)/AuthProvider"
-import QueryProvider from "./QueryProvider"
+import BackgroundScaleWrapper from "./(rootLayout)/BackgroundScaleWrapper"
+import QueryProvider from "./(rootLayout)/QueryProvider"
 
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" })
 const fontGabarito = Inter({ subsets: ["latin"], variable: "--font-title" })
@@ -75,14 +76,16 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <QueryProvider>
-            <AuthProvider>
-              <AuthSync />
-              <NavigationBar />
-              <MobileTimerToast />
-              <div className="flex justify-center pt-4 max-[768px]:px-6 md:space-x-36">
-                <div className="w-full max-w-[650px]">{children}</div>
-              </div>
-            </AuthProvider>
+            <BackgroundScaleWrapper>
+              <AuthProvider>
+                <AuthSync />
+                <NavigationBar />
+                <MobileTimerToast />
+                <div className="flex justify-center pt-4 max-[768px]:px-6 md:space-x-36">
+                  <div className="w-full max-w-[650px]">{children}</div>
+                </div>
+              </AuthProvider>
+            </BackgroundScaleWrapper>
           </QueryProvider>
         </ThemeProvider>
         <Toaster />

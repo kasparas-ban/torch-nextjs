@@ -1,4 +1,5 @@
-import { forwardRef, ReactNode, Ref, useState } from "react"
+import { forwardRef, ReactNode, Ref } from "react"
+import useModalState from "@/hooks/useModalState"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 
 import TimerSettingsContent from "./TimerSettingsContent"
@@ -7,7 +8,7 @@ function TimerSettingsModal(
   { children }: { children: ReactNode },
   ref: Ref<HTMLDivElement>
 ) {
-  const [open, setOpen] = useState(false)
+  const { open, setOpen } = useModalState()
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

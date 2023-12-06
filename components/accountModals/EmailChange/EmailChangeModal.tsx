@@ -1,4 +1,5 @@
 import { ReactNode, useState } from "react"
+import useModalState from "@/hooks/useModalState"
 
 import { Dialog, DialogContent, DialogTrigger } from "../../ui/dialog"
 import EmailChangeComplete from "./EmailChangeComplete"
@@ -9,7 +10,7 @@ export default function EmailChangeModal({
 }: {
   children: ReactNode
 }) {
-  const [open, setOpen] = useState(false)
+  const { open, setOpen } = useModalState()
   const [isComplete, setComplete] = useState(false)
 
   return (

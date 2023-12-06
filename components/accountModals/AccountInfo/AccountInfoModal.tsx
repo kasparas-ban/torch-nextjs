@@ -1,4 +1,5 @@
-import { ReactNode, useState } from "react"
+import { ReactNode } from "react"
+import useModalState from "@/hooks/useModalState"
 
 import { Dialog, DialogContent, DialogTrigger } from "../../ui/dialog"
 import AccountDetailsForm from "./AccountInfoForm"
@@ -8,7 +9,7 @@ export default function AccountDetailsModal({
 }: {
   children: ReactNode
 }) {
-  const [open, setOpen] = useState(false)
+  const { open, setOpen } = useModalState()
   const closeModal = () => setOpen(false)
 
   return (

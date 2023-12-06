@@ -28,7 +28,7 @@ type TimerSettingsForm = z.infer<typeof timerSettingsSchema>
 export default function TimerSettingsContent({
   setModalOpen,
 }: {
-  setModalOpen: Dispatch<SetStateAction<boolean>>
+  setModalOpen: (isOpen: boolean) => void
 }) {
   const {
     timerDuration,
