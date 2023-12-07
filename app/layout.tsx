@@ -5,7 +5,6 @@ import { Gabarito, Inter } from "next/font/google"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
-import AuthSync from "@/components/authSync/AuthSync"
 import NavigationBar from "@/components/navigationBar/NavigationBar"
 import { ThemeProvider } from "@/components/themeProvider"
 import MobileTimerToast from "@/components/timerToast/MobileTimerToast"
@@ -78,7 +77,6 @@ export default function RootLayout({
           <QueryProvider>
             <BackgroundScaleWrapper>
               <AuthProvider>
-                <AuthSync />
                 <NavigationBar />
                 <MobileTimerToast />
                 <div className="flex justify-center pt-4 max-[768px]:px-6 md:space-x-36">
