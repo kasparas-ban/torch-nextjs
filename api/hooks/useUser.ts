@@ -1,8 +1,9 @@
-import { useAuth } from "@clerk/clerk-react"
+import { useAuth, useUser } from "@clerk/clerk-react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { UpdateEmailReq, UpdateProfileReq } from "@/types/userTypes"
+import { UpdateProfileReq } from "@/types/userTypes"
+import { PasswordFormType } from "@/components/accountModals/PasswordChange/PasswordChangeForm"
 
-import { updateUser, updateUserEmail } from "../endpoints/userAPI"
+import { updateUser } from "../endpoints/userAPI"
 import { CustomError, ItemLoadFetchErrorMsg } from "../utils/errorMsgs"
 
 export const useUpdateUser = () => {
@@ -29,24 +30,28 @@ export const useUpdateUser = () => {
   })
 }
 
-export const useUpdateUserEmail = () => {
-  const { getToken } = useAuth()
+export const useUpdateUserPassword = () => {
+  const { user } = useUser()
   const queryClient = useQueryClient()
 
-  const fetcher = async (data: UpdateEmailReq) => {
+  const fetcher = async (data: PasswordFormType) => {
     try {
-      const token = await getToken()
-      if (!token) throw new Error("Token not found")
-      const updatedUser = await updateUserEmail(token, data)
-
-      return updatedUser
+      if (!user) throw new Error("User not found")
+      await user.updatePassword({
+        newPassword: data.newPassword,
+        // currentPassword: data.currentPassword,
+        signOutOfOtherSessions: true,
+      })
     } catch (err) {
-      throw new CustomError(err as string, ItemLoadFetchErrorMsg)
+      throw new CustomError(err as string, {
+        title: "Failed to update password",
+        description: "Try updating your password later.",
+      })
     }
   }
 
   return useMutation({
-    mutationFn: (data: UpdateEmailReq) => fetcher(data),
+    mutationFn: (data: PasswordFormType) => fetcher(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user"] })
     },

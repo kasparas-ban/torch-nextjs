@@ -10,12 +10,13 @@ export default function PasswordChangeModal({
   children: ReactNode
 }) {
   const { open, setOpen } = useModalState()
+  const closeModal = () => setOpen(false)
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
-        <PasswordChangeForm />
+        <PasswordChangeForm closeModal={closeModal} />
       </DialogContent>
     </Dialog>
   )

@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { useUpdateUserPassword } from "@/api/hooks/useUser"
 import {
   Form,
   FormControl,
@@ -11,6 +12,8 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useToast } from "@/components/ui/use-toast"
+import SubmitButton from "@/components/submitButton/SubmitButton"
 
 const passwordFormSchema = z
   .object({
@@ -36,9 +39,17 @@ const passwordFormSchema = z
     path: ["confirmPassword"],
   })
 
-type PasswordFormType = z.infer<typeof passwordFormSchema>
+export type PasswordFormType = z.infer<typeof passwordFormSchema>
 
-export default function PasswordChangeForm() {
+export default function PasswordChangeForm({
+  closeModal,
+}: {
+  closeModal: () => void
+}) {
+  const { toast } = useToast()
+  const { mutateAsync, reset, isPending, isError, isSuccess } =
+    useUpdateUserPassword()
+
   const form = useForm<PasswordFormType>({
     resolver: zodResolver(passwordFormSchema),
     defaultValues: {
@@ -49,7 +60,26 @@ export default function PasswordChangeForm() {
   })
 
   const onSubmit = (data: PasswordFormType) => {
-    // openPasswordChangeCompleteModal()
+    mutateAsync(data)
+      .then(() => {
+        setTimeout(() => {
+          closeModal()
+        }, 2000)
+        toast({
+          title: "Password updated successfully",
+        })
+      })
+      .catch(() => {
+        setTimeout(
+          () =>
+            toast({
+              title: "Failed to update password",
+              description: "Try updating it later.",
+            }),
+          100
+        )
+        setTimeout(() => reset(), 2000)
+      })
   }
 
   return (
@@ -126,13 +156,11 @@ export default function PasswordChangeForm() {
           </div>
 
           <div className="relative mt-auto flex justify-center">
-            <motion.button
-              layout
-              className="mt-6 px-3 py-1 text-xl font-medium"
-              whileTap={{ scale: 0.95 }}
-            >
-              Save
-            </motion.button>
+            <SubmitButton
+              isLoading={isPending}
+              isSuccess={isSuccess}
+              isError={isError}
+            />
           </div>
         </form>
       </Form>

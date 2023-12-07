@@ -11,6 +11,7 @@ export default function useUserInfo() {
       const userInfo = await getUserInfo(token)
       return userInfo
     }
+    throw Error("Failed to get user info")
   }
 
   return useQuery({
