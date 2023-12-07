@@ -43,7 +43,8 @@ function AuthWrapper({ children }: { children: ReactNode }) {
           title: "Failed to find user in the database",
           description: "Try to log in later.",
         })
-        signOut()
+        // TODO: Uncomment when
+        // signOut()
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

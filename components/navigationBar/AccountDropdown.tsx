@@ -4,10 +4,8 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { SignOutButton, useAuth, useUser } from "@clerk/clerk-react"
 import { ROUTES } from "@/config/routes"
-import { cn } from "@/lib/utils"
 import AccountIcon from "@/public/icons/navigationIcons/account.svg"
 
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { Button } from "../ui/button"
 import {
   DropdownMenu,
@@ -72,7 +70,7 @@ function SignedInContent() {
         </Link>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <SignOutButton signOutCallback={() => router.push(ROUTES.index.path)}>
+      <SignOutButton signOutCallback={() => router.push(ROUTES.signIn.path)}>
         <DropdownMenuItem className="hover:cursor-pointer">
           Log out
         </DropdownMenuItem>
