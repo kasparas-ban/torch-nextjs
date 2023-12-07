@@ -2,6 +2,8 @@ import { forwardRef } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { GroupedOptionType, ItemOptionType } from "@/types/itemTypes"
 import { toPercent } from "@/lib/utils"
+import { useItemsList } from "@/api/hooks/items.ts/useItemsList"
+import { getItemsByType } from "@/api/utils/helpers"
 
 import {
   SelectTypeFirstField,
@@ -20,7 +22,7 @@ const focusTypeOptions = [
 function TimerFocusForm() {
   const timerState = useTimerStore.use.timerState()
   const { focusOn, setFocusOn, focusType, setFocusType } = useTimerForm()
-  // const { data } = useItemsList()
+  const { data } = useItemsList()
 
   return (
     <AnimatePresence mode="popLayout">
@@ -42,12 +44,12 @@ function TimerFocusForm() {
               <SelectTypeFirstField
                 key={`${focusType}_focus_item`}
                 value={focusOn}
-                // onChange={option => setFocusOn(option)}
-                // options={getItemsByType({
-                //   itemData: data,
-                //   focusType,
-                //   grouped: focusType === "TASKS" || focusType === "GOALS",
-                // })}
+                onChange={option => setFocusOn(option)}
+                options={getItemsByType({
+                  itemData: data,
+                  focusType,
+                  grouped: focusType === "TASKS" || focusType === "GOALS",
+                })}
                 formatOptionLabel={optionLabel}
                 formatGroupLabel={groupLabel}
                 isClearable

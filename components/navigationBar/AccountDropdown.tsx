@@ -20,7 +20,6 @@ import UserAvatar from "../userAvatar/UserAvatar"
 
 export default function AccountDropdown() {
   const { isSignedIn } = useAuth()
-  const { user } = useUser()
 
   return (
     <DropdownMenu>

@@ -52,7 +52,7 @@ export type ItemTypeLabel = "Tasks" | "Goals" | "Dreams"
 export type ItemType = "TASK" | "GOAL" | "DREAM"
 
 export type ItemOptionType = {
-  value: number
+  value: string
   label: string
   type: ItemType
   containsTasks: boolean
@@ -63,9 +63,9 @@ export type ItemOptionType = {
 }
 
 export type GroupedOptionType = {
-  value: number
+  value: string
   label: string
-  options: Array<ItemOptionType & { parent?: number }>
+  options: Array<ItemOptionType & { parent?: string }>
 }
 
 export type TimerState = "idle" | "paused" | "running"
@@ -80,7 +80,7 @@ export type ReccuringPeriod = "DAY" | "WEEK" | "MONTH"
 
 export type TimerHistoryRecord = {
   timeSpent: number
-  focusOn?: { label: string; value: number; type: ItemType }
+  focusOn?: { label: string; value: string; type: ItemType }
   progress?: number
   progressDifference?: number
   startTime: string

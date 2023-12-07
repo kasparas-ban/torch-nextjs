@@ -10,6 +10,7 @@ import {
   ResponseItem,
   Task,
 } from "@/types/itemTypes"
+import { FocusType } from "@/components/timer/hooks/useTimerForm"
 
 // import { FocusType } from "@/components/Timer/hooks/useTimerForm"
 
@@ -59,71 +60,71 @@ export const groupItemsByParent = (
   return response
 }
 
-// export const getItemsByType = ({
-//   itemData,
-//   focusType,
-//   grouped,
-// }: {
-//   itemData?: { tasks: Task[]; goals: Goal[]; dreams: Dream[] }
-//   focusType: FocusType
-//   grouped?: boolean
-// }) => {
-//   const selectedItems =
-//     focusType === "TASKS"
-//       ? itemData?.tasks
-//       : focusType === "GOALS"
-//       ? itemData?.goals
-//       : focusType === "DREAMS"
-//       ? itemData?.dreams
-//       : [
-//           ...(itemData?.tasks || []),
-//           ...(itemData?.goals || []),
-//           ...(itemData?.dreams || []),
-//         ]
+export const getItemsByType = ({
+  itemData,
+  focusType,
+  grouped,
+}: {
+  itemData?: { tasks: Task[]; goals: Goal[]; dreams: Dream[] }
+  focusType: FocusType
+  grouped?: boolean
+}) => {
+  const selectedItems =
+    focusType === "TASKS"
+      ? itemData?.tasks
+      : focusType === "GOALS"
+        ? itemData?.goals
+        : focusType === "DREAMS"
+          ? itemData?.dreams
+          : [
+              ...(itemData?.tasks || []),
+              ...(itemData?.goals || []),
+              ...(itemData?.dreams || []),
+            ]
 
-//   const filteredItems =
-//     selectedItems?.map(item => ({
-//       label: item.title,
-//       value: item.id,
-//       type: item.type,
-//       progress: item.progress,
-//       timeSpent: item.timeSpent,
-//       totalTimeSpent: (item as Goal)?.totalTimeSpent,
-//       containsTasks:
-//         !!(item as Goal).tasks?.length ||
-//         !!(item as Dream).goals?.find(goal => !!goal.tasks?.length),
-//       duration:
-//         (item as Task)?.duration ||
-//         (item as Goal).tasks?.reduce(
-//           (prev, curr) => (prev += curr.duration || 0),
-//           0
-//         ),
-//       parent: (item as Task).goal?.id || (item as Goal).dream?.id,
-//     })) || []
+  const filteredItems =
+    selectedItems?.map(item => ({
+      label: item.title,
+      value: item.itemID,
+      type: item.type,
+      progress: item.progress,
+      timeSpent: item.timeSpent,
+      totalTimeSpent: (item as Goal)?.totalTimeSpent,
+      containsTasks:
+        !!(item as Goal).tasks?.length ||
+        !!(item as Dream).goals?.find(goal => !!(goal as Goal).tasks?.length),
+      duration:
+        (item as Task)?.duration ||
+        (item as Goal).tasks?.reduce(
+          (prev, curr) => (prev += curr.duration || 0),
+          0
+        ),
+      parent: (item as Task).goal?.itemID || (item as Goal).dream?.itemID,
+    })) || []
 
-//   if (grouped) {
-//     if (focusType === "ALL" || focusType === "DREAMS") return filteredItems
+  if (grouped) {
+    if (focusType === "ALL" || focusType === "DREAMS") return filteredItems
 
-//     const parents =
-//       focusType === "TASKS"
-//         ? (itemData?.goals || []).filter(goal =>
-//             filteredItems.find(item => item.parent === goal.id)
-//           )
-//         : (itemData?.dreams || []).filter(dream =>
-//             filteredItems.find(item => item.parent === dream.id)
-//           )
+    const parents =
+      focusType === "TASKS"
+        ? (itemData?.goals || []).filter(goal =>
+            filteredItems.find(item => item.parent === goal.itemID)
+          )
+        : (itemData?.dreams || []).filter(dream =>
+            filteredItems.find(item => item.parent === dream.itemID)
+          )
 
-//     const groupedItems = parents.map(parent => ({
-//       label: parent.title,
-//       value: parent.id,
-//       options: filteredItems.filter(item => item.parent === parent.id),
-//     }))
+    const groupedItems = parents.map(parent => ({
+      label: parent.title,
+      value: parent.itemID,
+      options: filteredItems.filter(item => item.parent === parent.itemID),
+    }))
 
-//     return groupedItems
-//   }
+    return groupedItems
+  }
 
-//   return filteredItems
-// }
+  return filteredItems
+}
 
 // export const findItemByID = (
 //   itemID: number,

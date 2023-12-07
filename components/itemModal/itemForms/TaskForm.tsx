@@ -78,7 +78,6 @@ function TaskForm() {
 
   const onSubmit = (data: TaskFormType) => {
     const { goal, ...rest } = data
-    console.log(goal)
     const newTask = {
       ...pruneObject(rest),
       ...(editItem ? { itemID: editItem.itemID } : {}),

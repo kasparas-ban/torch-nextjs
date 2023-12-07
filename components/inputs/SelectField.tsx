@@ -76,18 +76,23 @@ export const SelectTypeFirstField = <
       classNames={{
         control: ({ isFocused }) =>
           cn(
-            "h-10 rounded-l-2xl rounded-r-none border-0 border-r border-solid border-gray-300 bg-gray-200 px-2 text-gray-900",
+            "h-10 !cursor-pointer rounded-l-2xl rounded-r-none border-0 border-r border-solid border-gray-300 bg-gray-200 px-2 text-gray-900",
             isFocused && "bg-gray-100 !shadow-none"
           ),
         menu: () =>
-          "overflow-hidden rounded-lg max-[400px]:w-[calc(100vw-3rem)] max-[320px]:w-[calc(100vw-2rem)] bg-white border mt-1 border-gray-200 drop-shadow-lg",
+          "overflow-hidden rounded-lg !w-[calc(100%+7rem)] max-[400px]:w-[calc(100vw-3rem)] max-[320px]:w-[calc(100vw-2rem)] bg-white border mt-1 border-gray-200 drop-shadow-lg",
         placeholder: () => "text-gray-500 pl-2 py-0.5",
         input: () => "pl-2 py-0.5",
         menuList: () => "p-2",
         indicatorSeparator: () => "hidden",
-        clearIndicator: () => "cursor-pointer",
-        option: state => cn("cursor-pointer", state.isSelected && "text-black"),
-        singleValue: () => "[&>div>div]:truncate",
+        clearIndicator: () => "!cursor-pointer hover:text-gray-500 mr-1",
+        groupHeading: () => "text-gray-400 py-1 font-medium text-sm pl-1",
+        option: state =>
+          cn(
+            "!cursor-pointer rounded-md py-2 pl-2 pr-1 hover:bg-gray-200",
+            state.isSelected && "text-black"
+          ),
+        singleValue: () => "pl-2 [&>div>div]:truncate",
         indicatorsContainer: () => "mr-1 text-gray-400",
         noOptionsMessage: () => "text-gray-500",
       }}
@@ -119,7 +124,7 @@ export function SelectTypeSecondField<
       classNames={{
         control: ({ isFocused }) =>
           cn(
-            "h-10 w-28 rounded-l-none rounded-r-2xl border-none bg-gray-200 text-gray-900",
+            "h-10 w-28 !cursor-pointer rounded-l-none rounded-r-2xl border-none bg-gray-200 text-gray-900",
             isFocused && "!border-none bg-gray-100 !shadow-none"
           ),
         menu: () =>
@@ -128,10 +133,9 @@ export function SelectTypeSecondField<
         singleValue: () => "leading-7 ml-3",
         menuList: () => "p-0",
         indicatorSeparator: () => "hidden",
-        clearIndicator: () => "cursor-pointer",
         option: ({ isSelected }) =>
           cn(
-            "cursor-pointer px-3 py-2 hover:bg-gray-200",
+            "!cursor-pointer px-3 py-2 hover:bg-gray-200",
             isSelected && "bg-slate-200"
           ),
         indicatorsContainer: () => "mr-3 text-gray-400",
