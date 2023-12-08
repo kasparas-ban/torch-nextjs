@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware"
 import { GeneralItem, ItemType } from "@/types/itemTypes"
 
 type CollapsedItemState = {
-  itemId: number
+  itemId: string
   itemType: ItemType
 }
 

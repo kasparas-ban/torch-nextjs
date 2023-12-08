@@ -2,10 +2,10 @@ import { AnimatePresence, motion } from "framer-motion"
 import { useMediaQuery } from "react-responsive"
 import { GeneralItem, ItemType, Task } from "@/types/itemTypes"
 import { cn } from "@/lib/utils"
-import useEditItem from "@/hooks/useEditItem"
 import DotsIcon from "@/public/icons/dots.svg"
 import TimerIcon from "@/public/icons/navigationIcons/timer.svg"
 
+import useEditItem from "../itemModal/hooks/useEditItem"
 import ItemProgress from "./ProgressBar"
 
 function ItemStrip<T extends GeneralItem>({
@@ -94,8 +94,8 @@ function ItemStrip<T extends GeneralItem>({
             !editItem
               ? "hover:bg-red-200"
               : showEditPanel
-              ? "hover:bg-red-200"
-              : "hover:bg-gray-100"
+                ? "hover:bg-red-200"
+                : "hover:bg-gray-100"
           )}
           onClick={toggleEditClick}
         >
@@ -193,8 +193,8 @@ function RecurringItemStrip({
             !editItem
               ? "hover:bg-amber-200"
               : showEditPanel
-              ? "hover:bg-amber-200"
-              : "hover:bg-gray-100"
+                ? "hover:bg-amber-200"
+                : "hover:bg-gray-100"
           )}
           onClick={toggleEditClick}
         >

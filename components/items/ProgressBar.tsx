@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
-import useEditItem from "@/hooks/useEditItem"
+
+import useEditItem from "../itemModal/hooks/useEditItem"
 
 function ItemProgress({
   progress,

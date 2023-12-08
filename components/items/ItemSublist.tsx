@@ -4,8 +4,8 @@ import { RotateCw } from "lucide-react"
 import { useMediaQuery } from "react-responsive"
 import { GeneralItem, Task } from "@/types/itemTypes"
 import { cn } from "@/lib/utils"
-import useEditItem from "@/hooks/useEditItem"
 
+import useEditItem from "../itemModal/hooks/useEditItem"
 import ItemEditPanel from "./ItemEditPanel"
 import { ItemStrip, RecurringItemStrip } from "./ItemStrip"
 
@@ -16,7 +16,7 @@ export default function ItemSublist({
   showSublist,
   isParentEditActive,
 }: {
-  parentID: number
+  parentID: string
   subitems: GeneralItem[]
   subitemType: "TASK" | "GOAL"
   showSublist: boolean
@@ -128,8 +128,8 @@ function BulletPoint({
       ? "bg-amber-200"
       : "bg-gray-300"
     : isRecurring
-    ? "bg-amber-200"
-    : "bg-gray-300"
+      ? "bg-amber-200"
+      : "bg-gray-300"
 
   return (
     <motion.div

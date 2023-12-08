@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from "react"
 import { AnimatePresence, motion, stagger, useAnimate } from "framer-motion"
 import { Dream, Goal, ItemType, Task } from "@/types/itemTypes"
-import useEditItem from "@/hooks/useEditItem"
 import useItemListConfig from "@/hooks/useItemListConfig"
 import ItemEditPanel from "@/components/items/ItemEditPanel"
 import { ItemStrip, RecurringItemStrip } from "@/components/items/ItemStrip"
 import ItemSublist from "@/components/items/ItemSublist"
+
+import useEditItem from "../itemModal/hooks/useEditItem"
 
 export default function Item<T extends Task | Goal | Dream>({
   idx,
@@ -60,8 +61,8 @@ export default function Item<T extends Task | Goal | Dream>({
     itemType === "GOAL"
       ? (item as Goal).tasks
       : item.type === "DREAM"
-      ? (item as Dream).goals
-      : undefined
+        ? (item as Dream).goals
+        : undefined
   const containsSublist = !!itemSublist?.length
 
   const toggleSublist = () => {

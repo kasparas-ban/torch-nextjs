@@ -6,6 +6,8 @@ import EditIcon from "@/public/icons/edit.svg"
 import StatsIcon from "@/public/icons/stats.svg"
 import TickIcon from "@/public/icons/tick.svg"
 
+import useItemModal from "../itemModal/hooks/useItemModal"
+
 export default function ItemEditPanel<T extends GeneralItem>({
   item,
   sublistVisible,
@@ -17,18 +19,27 @@ export default function ItemEditPanel<T extends GeneralItem>({
   showBulletLine?: boolean
   showAddTask?: boolean
 }) {
-  // const { openTaskModal, openGoalModal, openDreamModal } = useModal()
+  const { openTaskModal, openGoalModal, openDreamModal } = useItemModal()
   // const { openItemDoneModal, openRemoveItemModal } = useConfirmModal()
 
   const doneFn = async () => console.log("Marking this item as done")
   const removeFn = async () => console.log("Removing this item")
 
-  // const openEditItemModal = (item: T, createTaskOnOpen = false) =>
-  //   item.type === "TASK"
-  //     ? openTaskModal(item)
-  //     : item.type === "GOAL"
-  //     ? openGoalModal(item, undefined, createTaskOnOpen)
-  //     : openDreamModal(item)
+  const openEditItemModal = () => {
+    console.log("item", item)
+
+    if (item.type === "TASK") {
+      openTaskModal()
+      return
+    }
+
+    if (item.type === "GOAL") {
+      openGoalModal()
+      return
+    }
+
+    openDreamModal()
+  }
 
   return (
     <motion.div
@@ -89,7 +100,7 @@ export default function ItemEditPanel<T extends GeneralItem>({
         <motion.div
           className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
           whileHover={{ scale: 1.1 }}
-          // onClick={() => openEditItemModal(item)}
+          onClick={openEditItemModal}
         >
           <EditIcon className="mx-auto h-5" />
           Edit
