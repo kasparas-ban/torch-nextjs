@@ -29,7 +29,7 @@ function TimerFocusForm() {
       {timerState !== "running" && (
         <motion.div
           layout
-          className="mx-auto max-w-sm max-[400px]:mx-4 max-[320px]:mx-0"
+          className="mx-auto max-w-sm max-[320px]:mx-0"
           initial={{ opacity: 0, y: 0 }}
           animate={{
             opacity: 1,

@@ -1,8 +1,8 @@
 import { motion } from "framer-motion"
 import { ItemOptionType } from "@/types/itemTypes"
 import { formatPercentages, formatTimeSpent } from "@/lib/utils"
-import TimerIcon from "@/public/icons/navigation_icons/timer.svg"
-import TimerBoldIcon from "@/public/icons/timer_bold.svg"
+import TimerIcon from "@/public/icons/navigationIcons/timer.svg"
+import TimerBoldIcon from "@/public/icons/timerBold.svg"
 
 function TimerFocusInfo({ focusOn }: { focusOn: ItemOptionType }) {
   const info =
