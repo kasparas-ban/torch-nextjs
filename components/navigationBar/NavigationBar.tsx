@@ -5,20 +5,27 @@ import { motion } from "framer-motion"
 
 import "@/styles/backgrounds.css"
 
+import { createPortal } from "react-dom"
+import { useMediaQuery } from "react-responsive"
 import { useScrollPosition } from "@/hooks/useScrollPosition"
 
 import NavbarDesktop from "./DesktopNavbar"
 import NavbarMobile from "./MobileNavbar"
 
 export default function NavigationBar() {
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 600px)",
+  })
+
   return (
     <>
-      <div className="sticky top-0 z-20 hidden sm:block">
-        <NavbarDesktop />
-      </div>
-      <div className="block sm:hidden">
-        <NavbarMobile />
-      </div>
+      {isDesktop ? (
+        <div className="sticky top-0 z-20 hidden sm:block">
+          <NavbarDesktop />
+        </div>
+      ) : (
+        <>{createPortal(<NavbarMobile />, document.body)}</>
+      )}
     </>
   )
 }
