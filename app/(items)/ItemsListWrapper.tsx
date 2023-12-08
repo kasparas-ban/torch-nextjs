@@ -36,7 +36,7 @@ function ItemsListWrapper() {
   return (
     <>
       <AnimatePresence mode="sync">
-        {isLoading ? (
+        {!data && isLoading ? (
           <ItemListSkeleton />
         ) : (
           <ItemsList<Task | Goal | Dream>

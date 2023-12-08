@@ -1,5 +1,8 @@
+import { useEffect } from "react"
 import { motion } from "framer-motion"
 import { Dream, Goal, GroupedItems, ItemType, Task } from "@/types/itemTypes"
+import useEditItem from "@/components/itemModal/hooks/useEditItem"
+import useItemModal from "@/components/itemModal/hooks/useItemModal"
 import Item from "@/components/items/Item"
 import PlusIcon from "@/public/icons/plus.svg"
 
@@ -10,14 +13,15 @@ export default function ItemsList<T extends Task | Goal | Dream>({
   groupedItems?: GroupedItems<T>
   itemType: ItemType
 }) {
-  // const { openTaskModal, openGoalModal, openDreamModal } = useModal()
+  const { setEditItem } = useEditItem()
+  const { openTaskModal, openGoalModal, openDreamModal } = useItemModal()
 
-  // const handleAddItem = () =>
-  //   itemType === "TASK"
-  //     ? openTaskModal()
-  //     : itemType === "GOAL"
-  //     ? openGoalModal()
-  //     : openDreamModal()
+  const handleAddItem = () =>
+    itemType === "TASK"
+      ? openTaskModal()
+      : itemType === "GOAL"
+        ? openGoalModal()
+        : openDreamModal()
 
   let totalIndex = 0
 
@@ -33,6 +37,8 @@ export default function ItemsList<T extends Task | Goal | Dream>({
         return 0
       })
     : undefined
+
+  useEffect(() => () => setEditItem(undefined), [])
 
   return (
     <>
@@ -79,9 +85,9 @@ export default function ItemsList<T extends Task | Goal | Dream>({
       ) : (
         <motion.div layout className="mt-6 text-center">
           <div>No {itemType.toLowerCase()}s have been added.</div>
-          {/* <button className="mt-8 font-bold" onClick={handleAddItem}>
+          <button className="mt-8 font-medium" onClick={handleAddItem}>
             <motion.div className="flex" whileHover={{ scale: 1.05 }}>
-              <PlusIcon alt="Plus" />
+              <PlusIcon alt="Plus" className="h-6" />
               Add new{" "}
               {itemType === "TASK"
                 ? "task"
@@ -89,7 +95,7 @@ export default function ItemsList<T extends Task | Goal | Dream>({
                   ? "goal"
                   : "dream"}
             </motion.div>
-          </button> */}
+          </button>
         </motion.div>
       )}
     </>

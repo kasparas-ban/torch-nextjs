@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
+import { ItemType } from "@/types/itemTypes"
 import { capitalizeString } from "@/lib/utils"
 import useItemListConfig from "@/hooks/useItemListConfig"
 import {
@@ -10,14 +10,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import AddGeneralItem from "@/components/itemModal/addGeneralItem/AddGeneralItem"
+import useEditItem from "@/components/itemModal/hooks/useEditItem"
 import useItemModal from "@/components/itemModal/hooks/useItemModal"
-import ItemModal from "@/components/itemModal/ItemModal"
 import ArrowIcon from "@/public/icons/arrowDown.svg"
 import PlusIcon from "@/public/icons/plus.svg"
 
 export function ItemsHeader() {
+  const { setEditItem } = useEditItem()
   const { openGeneralModal } = useItemModal()
+
+  const handleAddNewItem = () => {
+    setEditItem(undefined)
+    openGeneralModal()
+  }
 
   return (
     <>
@@ -27,7 +32,7 @@ export function ItemsHeader() {
           <motion.button
             layout
             whileHover={{ scale: 1.2 }}
-            onClick={openGeneralModal}
+            onClick={handleAddNewItem}
           >
             <PlusIcon className="h-6 hover:cursor-pointer" />
           </motion.button>
@@ -41,7 +46,13 @@ export function ItemsHeader() {
 }
 
 function ItemsTypeDropdown() {
+  const { setEditItem } = useEditItem()
   const { itemType, saveItemType } = useItemListConfig()
+
+  const setItemType = (type: ItemType) => {
+    saveItemType(type)
+    setEditItem(undefined)
+  }
 
   return (
     <DropdownMenu>
@@ -66,19 +77,19 @@ function ItemsTypeDropdown() {
       <DropdownMenuContent className="rounded-xl">
         <DropdownMenuItem
           className="cursor-pointer rounded-md text-xl font-bold text-gray-600 hover:bg-gray-200"
-          onClick={() => saveItemType("TASK")}
+          onClick={() => setItemType("TASK")}
         >
           Tasks
         </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer rounded-md text-xl font-bold text-gray-600 hover:bg-gray-200"
-          onClick={() => saveItemType("GOAL")}
+          onClick={() => setItemType("GOAL")}
         >
           Goals
         </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer rounded-md text-xl font-bold text-gray-600 hover:bg-gray-200"
-          onClick={() => saveItemType("DREAM")}
+          onClick={() => setItemType("DREAM")}
         >
           Dreams
         </DropdownMenuItem>
