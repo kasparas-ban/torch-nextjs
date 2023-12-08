@@ -12,8 +12,6 @@ import {
 } from "@/types/itemTypes"
 import { FocusType } from "@/components/timer/hooks/useTimerForm"
 
-// import { FocusType } from "@/components/Timer/hooks/useTimerForm"
-
 export const groupItemsByParent = (
   items: GeneralItem[],
   itemType: ItemType
@@ -127,17 +125,17 @@ export const getItemsByType = ({
 }
 
 // export const findItemByID = (
-//   itemID: number,
+//   itemID: string,
 //   formattedItems: FormattedItems
 // ) => {
 //   let item
-//   item = formattedItems.dreams.find(item => item.id === itemID)
+//   item = formattedItems.dreams.find(item => item.itemID === itemID)
 //   if (item) return item
 
-//   item = formattedItems.goals.find(item => item.id === itemID)
+//   item = formattedItems.goals.find(item => item.itemID === itemID)
 //   if (item) return item
 
-//   item = formattedItems.tasks.find(item => item.id === itemID)
+//   item = formattedItems.tasks.find(item => item.itemID === itemID)
 //   if (item) return item
 // }
 

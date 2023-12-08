@@ -4,7 +4,7 @@ import clsx from "clsx"
 import { AnimatePresence, motion } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Task } from "@/types/itemTypes"
+import { Goal, Task } from "@/types/itemTypes"
 import { getTime, pruneObject } from "@/lib/utils"
 import { useItemsList } from "@/api/hooks/items.ts/useItemsList"
 import { useUpsertItem } from "@/api/hooks/items.ts/useUpsertItem"
@@ -43,27 +43,35 @@ const formVariants = {
   },
 }
 
-const getInitialTaskForm = (initialTask: Task): TaskFormType => ({
+const getInitialTaskForm = (
+  initialTask?: Task,
+  parentItem?: Goal
+): TaskFormType => ({
   title: initialTask?.title || "",
   duration: initialTask?.duration || 30 * 60,
   priority: initialTask?.priority,
   targetDate: initialTask?.targetDate,
   recurring: initialTask?.recurring,
-  goal: initialTask?.goal
-    ? { label: initialTask.goal.title, value: initialTask.goal.itemID }
-    : undefined,
+  goal: parentItem
+    ? { label: parentItem.title, value: parentItem.itemID }
+    : initialTask?.goal
+      ? { label: initialTask.goal.title, value: initialTask.goal.itemID }
+      : undefined,
 })
 
 function TaskForm() {
   const { toast } = useToast()
   const { goals } = useItemsList()
-  const { closeModal } = useItemModal()
+  const { closeModal, parentItem } = useItemModal()
   const { editItem } = useEditItem()
 
   const { mutateAsync, reset, isPending, isError, isSuccess } =
     useUpsertItem("TASK")
 
-  const defaultTask = getInitialTaskForm(editItem as Task)
+  const defaultTask = getInitialTaskForm(
+    parentItem ? undefined : (editItem as Task),
+    parentItem as Goal | undefined
+  )
 
   const defaultInputOrder = Object.keys(defaultTask).filter(
     key => !!defaultTask[key as InputType]
@@ -80,7 +88,7 @@ function TaskForm() {
     const { goal, ...rest } = data
     const newTask = {
       ...pruneObject(rest),
-      ...(editItem ? { itemID: editItem.itemID } : {}),
+      ...(editItem && !parentItem ? { itemID: editItem.itemID } : {}),
       ...(goal ? { parentID: goal.value } : {}),
     }
 

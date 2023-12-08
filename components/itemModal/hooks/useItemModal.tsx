@@ -1,5 +1,6 @@
 import React from "react"
 import { create } from "zustand"
+import { GeneralItem } from "@/types/itemTypes"
 
 import AddGeneralItem from "../addGeneralItem/AddGeneralItem"
 import DreamContent from "../modalContent/DreamContent"
@@ -9,11 +10,14 @@ import TaskContent from "../modalContent/TaskContent"
 type ModalState = {
   isOpen: boolean
   modalContent?: React.ReactNode
-  addTaskOnOpen: boolean
+  parentItem?: GeneralItem
   openGeneralOnClose?: boolean
 
-  openTaskModal: (openGeneralOnClose?: boolean) => void
-  openGoalModal: (openGeneralOnClose?: boolean, addTaskOnOpen?: boolean) => void
+  openTaskModal: (
+    openGeneralOnClose?: boolean,
+    parentItem?: GeneralItem
+  ) => void
+  openGoalModal: (openGeneralOnClose?: boolean) => void
   openDreamModal: (openGeneralOnClose?: boolean) => void
   openGeneralModal: () => void
 
@@ -25,19 +29,19 @@ const useModalStore = create<ModalState>(set => ({
   isOpen: false,
   modalContent: undefined,
 
-  addTaskOnOpen: false,
+  parentItem: undefined,
   openGeneralOnClose: false,
 
-  openTaskModal: (openGeneralOnClose = false) =>
+  openTaskModal: (openGeneralOnClose = false, parentItem?: GeneralItem) =>
     set(() => ({
       isOpen: true,
       modalContent: <TaskContent />,
       openGeneralOnClose: openGeneralOnClose,
+      parentItem,
     })),
-  openGoalModal: (openGeneralOnClose = false, addTaskOnOpen = false) =>
+  openGoalModal: (openGeneralOnClose = false) =>
     set(() => ({
       isOpen: true,
-      addTaskOnOpen,
       modalContent: <GoalContent />,
       openGeneralOnClose: openGeneralOnClose,
     })),
@@ -66,11 +70,17 @@ const useModalStore = create<ModalState>(set => ({
             modalContent: undefined,
           }
     ),
-  closeModal: () => set(() => ({ isOpen: false, openGeneralOnClose: false })),
+  closeModal: () =>
+    set(() => ({
+      isOpen: false,
+      openGeneralOnClose: false,
+      parentItem: undefined,
+    })),
 }))
 
 const useItemModal = () => ({
   isOpen: useModalStore(state => state.isOpen),
+  parentItem: useModalStore(state => state.parentItem),
   modalContent: useModalStore(state => state.modalContent),
   closeModal: useModalStore(state => state.closeModal),
 

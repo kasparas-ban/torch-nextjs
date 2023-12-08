@@ -1,14 +1,14 @@
 import { create } from "zustand"
-import { GeneralItem } from "@/types/itemTypes"
+import { FormattedItem } from "@/types/itemTypes"
 
 type EditModeState = {
-  editItem?: GeneralItem
-  setEditItem: (newEditItem?: GeneralItem) => void
+  editItem?: FormattedItem
+  setEditItem: (newEditItem?: FormattedItem) => void
 }
 
 const useEditItemStore = create<EditModeState>(set => ({
   editItem: undefined,
-  setEditItem: (newEditItem?: GeneralItem) =>
+  setEditItem: (newEditItem?: FormattedItem) =>
     set(() => ({ editItem: newEditItem })),
 }))
 

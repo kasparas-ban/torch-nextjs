@@ -6,6 +6,8 @@ import EditIcon from "@/public/icons/edit.svg"
 import StatsIcon from "@/public/icons/stats.svg"
 import TickIcon from "@/public/icons/tick.svg"
 
+import CompleteItemModal from "../itemModal/completeItemModal/CompleteItemModal"
+import useEditItem from "../itemModal/hooks/useEditItem"
 import useItemModal from "../itemModal/hooks/useItemModal"
 
 export default function ItemEditPanel<T extends GeneralItem>({
@@ -19,6 +21,7 @@ export default function ItemEditPanel<T extends GeneralItem>({
   showBulletLine?: boolean
   showAddTask?: boolean
 }) {
+  const { editItem } = useEditItem()
   const { openTaskModal, openGoalModal, openDreamModal } = useItemModal()
   // const { openItemDoneModal, openRemoveItemModal } = useConfirmModal()
 
@@ -26,8 +29,6 @@ export default function ItemEditPanel<T extends GeneralItem>({
   const removeFn = async () => console.log("Removing this item")
 
   const openEditItemModal = () => {
-    console.log("item", item)
-
     if (item.type === "TASK") {
       openTaskModal()
       return
@@ -69,22 +70,22 @@ export default function ItemEditPanel<T extends GeneralItem>({
         }}
         exit={{ height: 0, opacity: 0 }}
       >
-        {/* <MarkItemDoneModal> */}
-        <motion.div
-          className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
-          whileHover={{ scale: 1.1 }}
-          // onClick={() => openItemDoneModal(doneFn)}
-        >
-          <TickIcon className="mx-auto h-5" />
-          Done
-        </motion.div>
-        {/* </MarkItemDoneModal> */}
+        <CompleteItemModal>
+          <motion.div
+            className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
+            whileHover={{ scale: 1.1 }}
+            // onClick={() => openItemDoneModal(doneFn)}
+          >
+            <TickIcon className="mx-auto h-5" />
+            Done
+          </motion.div>
+        </CompleteItemModal>
 
         {showAddTask && (
           <motion.div
             className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
             whileHover={{ scale: 1.1 }}
-            // onClick={() => openEditItemModal(item, true)}
+            onClick={() => openTaskModal(undefined, editItem)}
           >
             <AddItemIcon className="mx-auto h-5" />
             Add task

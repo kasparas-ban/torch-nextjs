@@ -32,6 +32,8 @@ export type Dream = GeneralItem & {
   goals: GeneralItem[]
 }
 
+export type FormattedItem = Task | Goal | Dream
+
 // === Rest ===
 
 export type GroupedItems<T> = {
