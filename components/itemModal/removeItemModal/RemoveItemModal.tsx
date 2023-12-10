@@ -54,7 +54,9 @@ export default function RemoveItemModal({ children }: { children: ReactNode }) {
               onClick={handleRemoveItemOnly}
               whileTap={{ scale: 0.96 }}
             >
-              {`Remove ${editItem?.type.toLowerCase() ?? ""} only`}
+              {editItem?.type === "TASK"
+                ? "Remove task"
+                : `Remove ${editItem?.type.toLowerCase() ?? ""} only`}
             </motion.button>
             {editItem && editItem.type !== "TASK" && (
               <motion.button

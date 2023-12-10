@@ -4,6 +4,8 @@ import { RotateCw } from "lucide-react"
 import { useMediaQuery } from "react-responsive"
 import { GeneralItem, Task } from "@/types/itemTypes"
 import { cn } from "@/lib/utils"
+import { useItemsList } from "@/api/hooks/items.ts/useItemsList"
+import { findItemByID } from "@/api/utils/helpers"
 
 import useEditItem from "../itemModal/hooks/useEditItem"
 import ItemEditPanel from "./ItemEditPanel"
@@ -26,6 +28,7 @@ export default function ItemSublist({
     query: "(min-width: 600px)",
   })
 
+  const { data } = useItemsList()
   const { editItem, setEditItem } = useEditItem()
 
   const showEditPanel = (subitem: GeneralItem) =>
@@ -36,7 +39,8 @@ export default function ItemSublist({
     subitem: GeneralItem
   ) => {
     e.stopPropagation()
-    setEditItem(showEditPanel(subitem) ? undefined : subitem)
+    const formattedItem = findItemByID(subitem.itemID, data)
+    setEditItem(showEditPanel(subitem) ? undefined : formattedItem)
   }
 
   const scaledWidth = isDesktop ? "90%" : "82%"

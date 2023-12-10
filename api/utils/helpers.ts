@@ -1,6 +1,7 @@
 import dayjs from "dayjs"
 import {
   Dream,
+  FormattedItems,
   GeneralItem,
   Goal,
   GroupedItems,
@@ -124,20 +125,20 @@ export const getItemsByType = ({
   return filteredItems
 }
 
-// export const findItemByID = (
-//   itemID: string,
-//   formattedItems: FormattedItems
-// ) => {
-//   let item
-//   item = formattedItems.dreams.find(item => item.itemID === itemID)
-//   if (item) return item
+export const findItemByID = (
+  itemID: string,
+  formattedItems?: FormattedItems
+) => {
+  let item
+  item = formattedItems?.dreams.find(item => item.itemID === itemID)
+  if (item) return item
 
-//   item = formattedItems.goals.find(item => item.itemID === itemID)
-//   if (item) return item
+  item = formattedItems?.goals.find(item => item.itemID === itemID)
+  if (item) return item
 
-//   item = formattedItems.tasks.find(item => item.itemID === itemID)
-//   if (item) return item
-// }
+  item = formattedItems?.tasks.find(item => item.itemID === itemID)
+  if (item) return item
+}
 
 // export const formatTimerHistory = (
 //   timerData: TimerHistoryResponse[],
