@@ -25,3 +25,12 @@ export const getUserInfo = (token: string) =>
     if (!res.ok) throw new Error(data.error)
     return data as ProfileResp
   })
+
+export const deleteAccount = (token: string) =>
+  fetch(`${HOST}/api/delete-user`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  }).then(async res => {
+    const data = await res.json()
+    if (!res.ok) throw new Error(data.error)
+  })

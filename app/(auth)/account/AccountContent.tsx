@@ -6,6 +6,7 @@ import { capitalizeString, getCountryName } from "@/lib/utils"
 import useUserInfo from "@/hooks/useUserInfo"
 import { Button } from "@/components/ui/button"
 import AccountInfoModal from "@/components/accountModals/AccountInfo/AccountInfoModal"
+import DeleteAccountModal from "@/components/accountModals/DeleteAccount/DeleteAccountModal"
 import PasswordChangeModal from "@/components/accountModals/PasswordChange/PasswordChangeModal"
 import UserAvatar from "@/components/userAvatar/UserAvatar"
 import AccountIcon from "@/public/icons/account.svg"
@@ -159,15 +160,16 @@ export default function AccountDetails() {
             <ArrowIcon className="ml-auto h-4 w-4 rotate-[270deg]" />
           </motion.button>
           <div className="h-px bg-gray-200" />
-          <motion.button
-            className="flex w-full items-center py-3"
-            whileTap={{ scale: 0.99 }}
-            // onClick={openAccountDeleteModal}
-          >
-            <DeleteIcon className="mr-3 h-7 w-7" />
-            <div className="font-medium">Delete account</div>
-            <ArrowIcon className="ml-auto h-4 w-4 rotate-[270deg]" />
-          </motion.button>
+          <DeleteAccountModal>
+            <motion.button
+              className="flex w-full items-center py-3"
+              whileTap={{ scale: 0.99 }}
+            >
+              <DeleteIcon className="mr-3 h-7 w-7" />
+              <div className="font-medium">Delete account</div>
+              <ArrowIcon className="ml-auto h-4 w-4 rotate-[270deg]" />
+            </motion.button>
+          </DeleteAccountModal>
         </div>
       </section>
     </motion.div>
