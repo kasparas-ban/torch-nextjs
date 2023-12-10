@@ -9,6 +9,7 @@ import TickIcon from "@/public/icons/tick.svg"
 import CompleteItemModal from "../itemModal/completeItemModal/CompleteItemModal"
 import useEditItem from "../itemModal/hooks/useEditItem"
 import useItemModal from "../itemModal/hooks/useItemModal"
+import RemoveItemModal from "../itemModal/removeItemModal/RemoveItemModal"
 
 export default function ItemEditPanel<T extends GeneralItem>({
   item,
@@ -74,7 +75,6 @@ export default function ItemEditPanel<T extends GeneralItem>({
           <motion.div
             className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
             whileHover={{ scale: 1.1 }}
-            // onClick={() => openItemDoneModal(doneFn)}
           >
             <TickIcon className="mx-auto h-5" />
             Done
@@ -106,16 +106,15 @@ export default function ItemEditPanel<T extends GeneralItem>({
           <EditIcon className="mx-auto h-5" />
           Edit
         </motion.div>
-        {/* <RemoveItemModal> */}
-        <motion.div
-          className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
-          whileHover={{ scale: 1.1 }}
-          // onClick={() => openRemoveItemModal(removeFn)}
-        >
-          <DeleteIcon className="mx-auto h-5" />
-          Remove
-        </motion.div>
-        {/* </RemoveItemModal> */}
+        <RemoveItemModal>
+          <motion.div
+            className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
+            whileHover={{ scale: 1.1 }}
+          >
+            <DeleteIcon className="mx-auto h-5" />
+            Remove
+          </motion.div>
+        </RemoveItemModal>
       </motion.div>
     </motion.div>
   )
