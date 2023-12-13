@@ -1,7 +1,7 @@
 import "@/styles/globals.css"
 
 import type { Metadata, Viewport } from "next"
-import { Gabarito, Inter } from "next/font/google"
+import { Inter } from "next/font/google"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
@@ -14,7 +14,6 @@ import BackgroundScaleWrapper from "./(rootLayout)/BackgroundScaleWrapper"
 import QueryProvider from "./(rootLayout)/QueryProvider"
 
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" })
-const fontGabarito = Inter({ subsets: ["latin"], variable: "--font-title" })
 
 export const metadata: Metadata = {
   title: {
