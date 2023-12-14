@@ -7,9 +7,9 @@ export const metadata = {
 
 export default function ItemsPage() {
   return (
-    <>
+    <div className="mx-auto max-w-[650px]">
       <ItemsHeader />
       <ItemsListWrapper />
-    </>
+    </div>
   )
 }

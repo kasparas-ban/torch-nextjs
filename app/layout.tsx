@@ -79,7 +79,7 @@ export default function RootLayout({
                 <NavigationBar />
                 <MobileTimerToast />
                 <div className="flex justify-center pt-4 max-[768px]:px-6 md:space-x-36">
-                  <div className="w-full max-w-[650px]">{children}</div>
+                  <div className="w-full max-w-[750px]">{children}</div>
                 </div>
               </AuthProvider>
             </BackgroundScaleWrapper>

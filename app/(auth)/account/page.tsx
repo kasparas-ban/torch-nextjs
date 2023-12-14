@@ -21,7 +21,7 @@ export default function AccountPage() {
   // }
 
   return (
-    <>
+    <div className="mx-auto max-w-[650px]">
       <div className="flex">
         <h1 className="mb-6 flex items-center text-5xl font-bold text-gray-400">
           Account
@@ -29,6 +29,6 @@ export default function AccountPage() {
         <AccountTitle />
       </div>
       <AccountContent />
-    </>
+    </div>
   )
 }
