@@ -20,7 +20,7 @@ export default function BackgroundScaleWrapper({
         transform: isItemModalOpen || isModalOpen ? "scale(0.97)" : "scale(1)",
         transition: { duration: 0.2, ease: "easeOut" },
       }}
-      className="origin-top pb-24"
+      className="min-h-[calc(100vh-36px)] origin-top pb-24"
     >
       {children}
     </motion.div>

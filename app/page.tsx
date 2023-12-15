@@ -2,6 +2,7 @@
 
 import { Caveat, Gabarito } from "next/font/google"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -12,6 +13,8 @@ const fontGabarito = Gabarito({ subsets: ["latin"], variable: "--font-title" })
 const fontCaveat = Caveat({ subsets: ["latin"], variable: "--font-freestyle" })
 
 export default function Home() {
+  const router = useRouter()
+
   return (
     <div>
       <div className="flex justify-center">
@@ -66,14 +69,22 @@ export default function Home() {
           className="bg-multi-color h-12 w-20 rounded-xl text-xl brightness-100 hover:brightness-125 sm:text-2xl"
           asChild
         >
-          <motion.button whileTap={{ scale: 0.97 }}>Join</motion.button>
+          <motion.button
+            whileTap={{ scale: 0.97 }}
+            onClick={() => router.push("/sign-up")}
+          >
+            Join
+          </motion.button>
         </Button>
         <span className="m-auto text-xl">or</span>
         <Button
           className="h-12 rounded-xl  bg-rose-500 text-[18px] hover:bg-rose-400"
           asChild
         >
-          <motion.button whileTap={{ scale: 0.97 }}>
+          <motion.button
+            whileTap={{ scale: 0.97 }}
+            onClick={() => router.push("/timer")}
+          >
             Start using for free
           </motion.button>
         </Button>
