@@ -79,13 +79,16 @@ export default function RootLayout({
                 <NavigationBar />
                 <MobileTimerToast />
                 <div className="flex justify-center pt-4 max-[768px]:px-6 md:space-x-36">
-                  <div className="w-full max-w-[750px]">{children}</div>
+                  <div className="w-full max-w-[850px]">{children}</div>
                 </div>
               </AuthProvider>
             </BackgroundScaleWrapper>
           </QueryProvider>
         </ThemeProvider>
         <Toaster />
+        <footer className="mx-auto mb-4 max-w-[850px] text-center text-sm text-gray-600">
+          Copyright: © 2023 Torch App. All Rights Reserved.
+        </footer>
       </body>
     </html>
   )

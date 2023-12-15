@@ -82,8 +82,8 @@ export default function Home() {
       <h2 className="mb-4 text-2xl font-bold text-gray-700 sm:mb-6 sm:text-3xl">
         Set your objectives
       </h2>
-      <div className="mb-10 flex flex-col gap-8 sm:flex-row">
-        <div className="ml-3 flex flex-col gap-3 sm:gap-5">
+      <div className="mb-12 flex flex-col justify-between gap-8 sm:flex-row">
+        <div className="ml-3 flex max-w-[360px] flex-col gap-3 sm:gap-5">
           <div className="flex flex-col gap-1">
             <h5 className="text-lg font-bold text-gray-700">Add dreams</h5>
             <p className="text-gray-500">
@@ -105,9 +105,11 @@ export default function Home() {
           </div>
         </div>
         <div className="my-auto">
-          <img
+          <Image
             src="/images/home_1.svg"
             alt="Dream, goal, and task relationship diagram"
+            width={391}
+            height={259}
           />
         </div>
       </div>
@@ -115,10 +117,10 @@ export default function Home() {
       <h2 className="mb-4 text-2xl font-bold text-gray-700 sm:mb-6 sm:text-3xl">
         Get focused
       </h2>
-      <div className="mb-10 flex flex-col gap-8 sm:flex-row">
-        <div className="ml-3 flex w-full flex-col gap-10 sm:gap-5">
+      <div className="mb-12 flex flex-col gap-8 sm:flex-row">
+        <div className="flex w-full flex-col gap-10 sm:ml-3 sm:gap-5">
           <div className="flex flex-col justify-between sm:flex-row">
-            <div className="flex flex-col gap-1">
+            <div className="ml-3 flex flex-col gap-1 sm:ml-0">
               <h5 className="text-lg font-bold text-gray-700">
                 Plan your tasks in pomodoro sessions
               </h5>
@@ -126,14 +128,16 @@ export default function Home() {
                 Work for 25 min, then take a 5 min break.
               </p>
             </div>
-            <img
+            <Image
               src="/images/home_2_1.svg"
               className="mx-auto mt-5 w-80 sm:m-0"
               alt="Diagram depicting one session of length 25 min and a break afterwards of 5 min."
+              width={320}
+              height={58}
             />
           </div>
           <div className="flex flex-col justify-between sm:flex-row">
-            <div className="flex flex-col gap-1">
+            <div className="ml-3 flex flex-col gap-1 sm:ml-0">
               <h5 className="text-lg font-bold text-gray-700">
                 Put in the hours
               </h5>
@@ -141,14 +145,16 @@ export default function Home() {
                 Take a longer 15 min break after 4 sessions.
               </p>
             </div>
-            <img
+            <Image
               src="/images/home_2_2.svg"
               alt="Diagram depicting 4 sessions and a 15 min break afterwards."
               className="mx-auto mt-5 w-80 sm:m-0"
+              width={320}
+              height={56}
             />
           </div>
           <div className="flex flex-col justify-between sm:flex-row">
-            <div className="flex flex-col gap-1">
+            <div className="ml-3 flex flex-col gap-1 sm:ml-0">
               <h5 className="text-lg font-bold text-gray-700">
                 Configure session length
               </h5>
@@ -156,10 +162,12 @@ export default function Home() {
                 Set the length of your focus sessions and breaks to your liking.
               </p>
             </div>
-            <img
+            <Image
               src="/images/home_2_3.svg"
               alt="Input fields for setting session and break length."
               className="mx-auto mt-5 w-80 sm:m-0"
+              width={320}
+              height={80}
             />
           </div>
         </div>
@@ -168,22 +176,24 @@ export default function Home() {
       <h2 className="mb-4 text-2xl font-bold text-gray-700 sm:mb-6 sm:text-3xl">
         Track your progress
       </h2>
-      <div className="mb-10 flex flex-col gap-8 sm:flex-row">
+      <div className="mb-12 flex flex-col gap-8 sm:flex-row">
         <div className="ml-3 flex flex-col gap-3 sm:gap-5">
           <div className="flex flex-col gap-1">
             <h5 className="text-lg font-bold text-gray-700">
               Get detailed statistics
             </h5>
-            <p className="text-gray-500">
+            <p className="text-gray-500 sm:max-w-[400px]">
               Time spent focusing, time spent on tasks, observe your progress
               visually.
             </p>
           </div>
         </div>
         <div className="my-auto">
-          <img
+          <Image
             src="/images/home_3.svg"
             alt="A goal and its subtasks with a percentage of progress next to each."
+            width={493}
+            height={179}
           />
         </div>
       </div>
@@ -191,7 +201,7 @@ export default function Home() {
       <h2 className="mb-4 text-2xl font-bold text-gray-700 sm:mb-6 sm:text-3xl">
         More coming soon
       </h2>
-      <div className="mb-10 flex flex-col gap-8 sm:flex-row">
+      <div className="mb-12 flex flex-col gap-8 sm:flex-row">
         <div className="ml-3 flex flex-col gap-3 sm:gap-5">
           <div className="flex flex-col gap-3">
             <h5 className="flex gap-2 text-lg font-bold text-gray-700">
@@ -200,7 +210,7 @@ export default function Home() {
                 coming soon
               </span>
             </h5>
-            <ul className="list-disc space-y-3">
+            <ul className="ml-3 list-disc space-y-3 sm:ml-0">
               <li className="text-gray-500">
                 Observe the progress you make day by day.
               </li>
@@ -215,13 +225,15 @@ export default function Home() {
           </div>
         </div>
         <div className="my-auto">
-          <img
+          <Image
             src="/images/home_4.svg"
             alt="A graph showing the time spend focusing day by day."
+            width={345}
+            height={165}
           />
         </div>
       </div>
-      <div className="mb-10 flex flex-col justify-between gap-8 sm:flex-row sm:gap-0">
+      <div className="mb-12 flex flex-col justify-between gap-8 sm:flex-row sm:gap-0">
         <div className="ml-3 flex flex-col gap-3 sm:gap-5">
           <div className="flex flex-col gap-3">
             <h5 className="flex gap-2 text-lg font-bold text-gray-700">
@@ -230,7 +242,7 @@ export default function Home() {
                 coming soon
               </span>
             </h5>
-            <ul className="list-disc space-y-3">
+            <ul className="ml-3 list-disc space-y-3 sm:ml-0">
               <li className="text-gray-500">
                 Track where most of your time is spent.
               </li>
@@ -244,14 +256,16 @@ export default function Home() {
           </div>
         </div>
         <div className="my-auto">
-          <img
+          <Image
             src="/images/home_5.svg"
             alt="A diagram showing the time spent focusing sorted by tasks."
             className="mx-auto max-w-[320px]"
+            width={320}
+            height={135}
           />
         </div>
       </div>
-      <div className="mb-10 flex flex-col justify-between gap-8 sm:flex-row sm:gap-0">
+      <div className="mb-12 flex flex-col justify-between gap-8 sm:flex-row sm:gap-0">
         <div className="ml-3 flex flex-col gap-3 sm:gap-5">
           <div className="flex max-w-[380px] flex-col gap-3">
             <h5 className="flex gap-2 text-lg font-bold text-gray-700">
@@ -260,7 +274,7 @@ export default function Home() {
                 coming soon
               </span>
             </h5>
-            <ul className="list-disc space-y-3">
+            <ul className="ml-3 list-disc space-y-3 sm:ml-0">
               <li className="text-gray-500">
                 See what your peers are working towards.
               </li>
@@ -275,10 +289,12 @@ export default function Home() {
           </div>
         </div>
         <div className="my-auto">
-          <img
+          <Image
             src="/images/home_6.svg"
             alt="A list of people with their avatars and their total time spent focusing ranked by country and total time spent."
             className="mx-auto max-w-[320px]"
+            width={320}
+            height={143}
           />
         </div>
       </div>
