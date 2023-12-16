@@ -14,6 +14,7 @@ export const useItemsList = () => {
       tasks: [],
       goals: [],
       dreams: [],
+      rawItems: [],
     } as FormattedItems
 
     try {

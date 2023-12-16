@@ -47,6 +47,7 @@ export type FormattedItems = {
   tasks: Task[]
   goals: Goal[]
   dreams: Dream[]
+  rawItems: ResponseItem[]
 }
 
 export type ItemTypeLabel = "Tasks" | "Goals" | "Dreams"

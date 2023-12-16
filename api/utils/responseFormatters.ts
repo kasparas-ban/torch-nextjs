@@ -97,6 +97,7 @@ export const formatItemResponse = (response: ResponseItem[]) => {
     tasks: formattedTasks,
     goals: formattedGoals,
     dreams: formattedDream,
+    rawItems: response,
   }
 }
 
