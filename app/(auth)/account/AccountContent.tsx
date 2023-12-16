@@ -151,7 +151,7 @@ export default function AccountDetails() {
             </motion.button>
           </PasswordChangeModal>
           <div className="h-px bg-gray-200" />
-          <motion.button
+          {/* <motion.button
             className="flex w-full items-center py-3"
             whileTap={{ scale: 0.99 }}
           >
@@ -159,7 +159,7 @@ export default function AccountDetails() {
             <div className="font-medium">Manage subscription</div>
             <ArrowIcon className="ml-auto h-4 w-4 rotate-[270deg]" />
           </motion.button>
-          <div className="h-px bg-gray-200" />
+          <div className="h-px bg-gray-200" /> */}
           <DeleteAccountModal>
             <motion.button
               className="flex w-full items-center py-3"

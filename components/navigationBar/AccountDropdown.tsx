@@ -55,18 +55,18 @@ function SignedInContent() {
           </p>
         </div>
       </DropdownMenuLabel>
-      <DropdownMenuSeparator />
+      {/* <DropdownMenuSeparator /> */}
       <DropdownMenuGroup>
         <Link href={ROUTES.account.path}>
           <DropdownMenuItem className="hover:cursor-pointer">
             Profile
           </DropdownMenuItem>
         </Link>
-        <Link href={ROUTES.account.path}>
+        {/* <Link href={ROUTES.account.path}>
           <DropdownMenuItem className="hover:cursor-pointer">
             Billing
           </DropdownMenuItem>
-        </Link>
+        </Link> */}
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
       <SignOutButton signOutCallback={() => router.push(ROUTES.signIn.path)}>

@@ -22,8 +22,8 @@ function ComingSoon() {
         <input
           type="email"
           placeholder="Enter your email"
-          className="h-11 w-72 rounded-lg bg-gray-200 px-4 text-gray-900 focus:bg-white focus:outline-2 focus:outline-blue-500/50 max-[500px]:block"
-        ></input>
+          className="h-11 w-72 rounded-lg bg-gray-200 px-4 text-gray-900 focus:bg-white focus:outline-2 focus:outline-gray-500/50 max-[500px]:block"
+        />
         <div className="text-center max-[500px]:mt-4">
           <motion.button
             className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-rose-500 to-orange-400 p-0.5 text-sm font-medium text-gray-900 hover:text-white focus:outline-none focus:ring-4 focus:ring-rose-100 group-hover:from-rose-500 group-hover:to-orange-400 dark:text-white dark:focus:ring-rose-800"
