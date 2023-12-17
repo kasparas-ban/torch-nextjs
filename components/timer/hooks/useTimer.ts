@@ -5,7 +5,6 @@ import dayjs from "dayjs"
 import { create } from "zustand"
 import { subscribeWithSelector } from "zustand/middleware"
 import { TimerState } from "@/types/itemTypes"
-import { formatDate } from "@/lib/utils"
 import { createSelectors } from "@/lib/zustandUtils"
 import { useUpdateItemProgress } from "@/api/hooks/items.ts/useUpdateItemProgress"
 
@@ -185,9 +184,7 @@ export const useTimerListener = () => {
               dayjs(state.sessionStartTime),
               "second"
             )
-            if (newDiff < diff) {
-              diff = newDiff
-            }
+            if (newDiff < diff) diff = newDiff
           }
           mutateAsync({ timeSpent: diff, itemID: focusOn.value }).then(() => {})
         }
@@ -206,7 +203,7 @@ export const useTimerListener = () => {
     )
 
     return () => timerStateListener()
-  }, [focusOn?.value])
+  }, [focusOn?.value, mutateAsync])
 }
 
 export default useTimerStore

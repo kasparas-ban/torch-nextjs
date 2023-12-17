@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Torch
 
-## Getting Started
+An app that helps you track the time you spend pursuing your goals.
 
-First, run the development server:
+✅ Create tasks, goals, or dreams according to their size and scope.\
+✅ Sort and filter your tasks according to priority, deadline date, and your current progress metrics.\
+✅ Get visual feedback on your progress.\
+✅ Use Pomodoro timer to track your time.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<p align="center">
+  <img alt="Light" src="./screenshots/screenshot_1.png" width="60%">
+</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## TODO
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Necessary
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- [ ] Make a Not Found page
+- [ ] Add some background
 
-## Learn More
+Nice to have
 
-To learn more about Next.js, take a look at the following resources:
+- [ ] Adjust all sizes to make sure they look good on mobile
+- [ ] Have the ability to reorder list items by dragging them
+- [ ] Make timer toast text to slide infinitely (like Spotify)
+- [ ] Implement item filter
+- [ ] Add dark mode
+- [ ] Add ability for users to add their social media links, description about themselves
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If there's time
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- [ ] Implement `prefers-reduced-motion` media query
+- [ ] Try adding Million.js for smoother animations
+- [ ] Add progress item bubble animation
 
-## Deploy on Vercel
+Done
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [x] Tasks/Goals/Dreams list page
+- [x] Task form modal
+- [x] Goal form modal
+- [x] Dream form modal
+- [x] Refactor the modal component (if possible)
+- [x] Make so that a user may work towards a goal when it has subtasks
+- [x] Connect "start timer" button in goals list to the timer page
+- [x] Add React Query
+- [x] Investigate which state management library to use for forms and list page
+- [x] Rewrite all of the state management in Goals list page with Jotai or Zustand
+- [x] Add timer toast
+- [x] Fix item input style in timer page
+- [x] Add timer to tab title
+- [x] Add fadeout gradient for lists
+- [x] Limit animations in modal transitions to modal content instead of the whole modal
+- [x] Make navbar sticky
+- [x] Remake navbar to stick to the bottom of the screen on mobile
+- [x] Save collapsed list items in local storage
