@@ -24,10 +24,6 @@ export default function ItemEditPanel<T extends GeneralItem>({
 }) {
   const { editItem } = useEditItem()
   const { openTaskModal, openGoalModal, openDreamModal } = useItemModal()
-  // const { openItemDoneModal, openRemoveItemModal } = useConfirmModal()
-
-  const doneFn = async () => console.log("Marking this item as done")
-  const removeFn = async () => console.log("Removing this item")
 
   const openEditItemModal = () => {
     if (item.type === "TASK") {
@@ -92,8 +88,8 @@ export default function ItemEditPanel<T extends GeneralItem>({
           </motion.div>
         )}
         <motion.div
-          className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
-          whileHover={{ scale: 1.1 }}
+          className="flex shrink-0 select-none flex-col text-sm opacity-40"
+          // whileHover={{ scale: 1.1 }}
         >
           <StatsIcon className="mx-auto h-5" />
           Stats

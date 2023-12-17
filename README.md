@@ -17,6 +17,9 @@ Necessary
 
 - [ ] Make a Not Found page
 - [ ] Add some background
+- [ ] Mark active page navlink
+- [ ] Implement item "done" action
+- [ ] Implement item "remove" action
 
 Nice to have
 
@@ -32,6 +35,8 @@ If there's time
 - [ ] Implement `prefers-reduced-motion` media query
 - [ ] Try adding Million.js for smoother animations
 - [ ] Add progress item bubble animation
+- [ ] Add "Comming soon" tooltip to "Stats" action in edit item menu
+- [ ] Add "Recurring task" tooltip to recurring tasks
 
 Done
 

@@ -64,22 +64,24 @@ export const getItemsByType = ({
   focusType,
   grouped,
 }: {
-  itemData?: { tasks: Task[]; goals: Goal[]; dreams: Dream[] }
+  itemData?: FormattedItems
   focusType: FocusType
   grouped?: boolean
 }) => {
+  const [allTasks, allGoals, allDreams] = [
+    itemData?.tasks || [],
+    itemData?.goals || [],
+    itemData?.dreams || [],
+  ]
+
   const selectedItems =
     focusType === "TASKS"
-      ? itemData?.tasks
+      ? allTasks
       : focusType === "GOALS"
-        ? itemData?.goals
+        ? allGoals
         : focusType === "DREAMS"
-          ? itemData?.dreams
-          : [
-              ...(itemData?.tasks || []),
-              ...(itemData?.goals || []),
-              ...(itemData?.dreams || []),
-            ]
+          ? allDreams
+          : [...allTasks, ...allGoals, ...allDreams]
 
   const filteredItems =
     selectedItems?.map(item => ({
@@ -106,10 +108,10 @@ export const getItemsByType = ({
 
     const parents =
       focusType === "TASKS"
-        ? (itemData?.goals || []).filter(goal =>
+        ? allGoals.filter(goal =>
             filteredItems.find(item => item.parent === goal.itemID)
           )
-        : (itemData?.dreams || []).filter(dream =>
+        : allDreams.filter(dream =>
             filteredItems.find(item => item.parent === dream.itemID)
           )
 
