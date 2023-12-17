@@ -38,7 +38,7 @@ export default function ItemsList<T extends Task | Goal | Dream>({
       })
     : undefined
 
-  useEffect(() => () => setEditItem(undefined), [])
+  useEffect(() => () => setEditItem(undefined), [setEditItem])
 
   return (
     <>

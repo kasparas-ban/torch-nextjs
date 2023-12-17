@@ -20,6 +20,7 @@ Necessary
 - [ ] Mark active page navlink
 - [ ] Implement item "done" action
 - [ ] Implement item "remove" action
+- [ ] Implement email waiting list
 
 Nice to have
 

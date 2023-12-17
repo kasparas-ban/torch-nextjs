@@ -1,11 +1,20 @@
+import { useRouter } from "next/navigation"
 import { AnimatePresence, motion } from "framer-motion"
 import { useMediaQuery } from "react-responsive"
-import { GeneralItem, ItemType, Task } from "@/types/itemTypes"
+import {
+  GeneralItem,
+  Goal,
+  ItemOptionType,
+  ItemType,
+  Task,
+} from "@/types/itemTypes"
+import { ROUTES } from "@/config/routes"
 import { cn } from "@/lib/utils"
 import DotsIcon from "@/public/icons/dots.svg"
 import TimerIcon from "@/public/icons/navigationIcons/timer.svg"
 
 import useEditItem from "../itemModal/hooks/useEditItem"
+import useTimerForm from "../timer/hooks/useTimerForm"
 import ItemProgress from "./ProgressBar"
 
 function ItemStrip<T extends GeneralItem>({
@@ -24,33 +33,34 @@ function ItemStrip<T extends GeneralItem>({
   toggleEditClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }) {
   const { editItem, setEditItem } = useEditItem()
-  // const navigate = useNavigate()
-  // const { setFocusOn, setFocusType } = useTimerForm()
+  const router = useRouter()
+  const { setFocusOn, setFocusType } = useTimerForm()
 
   const containsSublist = !!itemSublist?.length
 
-  // const handleTimerClick = () => {
-  //   navigate(ROUTES.index.path)
-  //   setFocusOn({
-  //     value: item.id,
-  //     label: item.title,
-  //     type: item.type,
-  //     progress: item.progress,
-  //     timeSpent: item.timeSpent,
-  //     duration: (item as Task).duration,
-  //     containsTasks: !!(item as Goal).tasks?.length,
-  //   })
-  //   setFocusType(
-  //     itemType === "TASK"
-  //       ? "TASKS"
-  //       : itemType === "GOAL"
-  //       ? "GOALS"
-  //       : itemType === "DREAM"
-  //       ? "DREAMS"
-  //       : "ALL"
-  //   )
-  //   setEditItem(undefined)
-  // }
+  const handleTimerClick = () => {
+    const itemOption: ItemOptionType = {
+      value: item.itemID,
+      label: item.title,
+      type: item.type,
+      progress: item.progress,
+      timeSpent: item.timeSpent,
+      duration: (editItem as Task).duration ?? undefined,
+      containsTasks: !!(editItem as Goal).tasks?.length,
+    }
+
+    setFocusType(
+      itemType === "TASK"
+        ? "TASKS"
+        : itemType === "GOAL"
+          ? "GOALS"
+          : itemType === "DREAM"
+            ? "DREAMS"
+            : "ALL"
+    )
+    setFocusOn(itemOption)
+    router.push(ROUTES.timer.path)
+  }
 
   const handleStripClick = () => {
     const itemInEdit =
@@ -65,13 +75,13 @@ function ItemStrip<T extends GeneralItem>({
   return (
     <motion.div
       layout
-      onClick={handleStripClick}
       className={cn("relative flex w-full min-w-0", containsSublist && "mb-3")}
       style={{ zIndex: itemSublist?.length }}
       whileTap={{ scale: itemSublist ? (showEditPanel ? 1 : 0.98) : 1 }}
     >
       <motion.div
         layout
+        onClick={handleStripClick}
         className={cn(
           "relative flex w-full cursor-pointer items-center overflow-hidden rounded-2xl border border-gray-700 pl-6 pr-1 md:rounded-3xl",
           editItem
@@ -112,7 +122,7 @@ function ItemStrip<T extends GeneralItem>({
           <motion.div
             className="my-auto ml-3 aspect-square w-12 cursor-pointer rounded-full bg-red-400"
             whileHover={{ scale: 1.1 }}
-            // onClick={handleTimerClick}
+            onClick={handleTimerClick}
             initial={{ width: 0, opacity: 0, marginLeft: 0 }}
             animate={{ width: 48, opacity: 1, marginLeft: 12 }}
             exit={{ width: 0, opacity: 0, marginLeft: 0 }}
@@ -212,7 +222,6 @@ function RecurringItemStrip({
             key="add_recurring"
             className="my-auto flex aspect-square cursor-pointer items-center justify-center rounded-full bg-amber-400 text-xl font-bold text-gray-700"
             whileHover={{ scale: 1.1 }}
-            // onClick={handleTimerClick}
             initial={{ width: 0, opacity: 0, marginLeft: 0 }}
             animate={{
               width: isDesktop ? 48 : 64,
@@ -229,7 +238,6 @@ function RecurringItemStrip({
             key="subtract_recurring"
             className="my-auto flex aspect-square cursor-pointer items-center justify-center rounded-full bg-amber-400 text-xl font-bold text-gray-700"
             whileHover={{ scale: 1.1 }}
-            // onClick={handleTimerClick}
             initial={{ width: 0, opacity: 0, marginLeft: 0 }}
             animate={{
               width: isDesktop ? 48 : 64,

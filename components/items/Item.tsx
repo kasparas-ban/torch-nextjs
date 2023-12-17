@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react"
 import { AnimatePresence, motion, stagger, useAnimate } from "framer-motion"
-import { Dream, Goal, ItemType, Task } from "@/types/itemTypes"
+import { Dream, FormattedItem, Goal, ItemType, Task } from "@/types/itemTypes"
 import useItemListConfig from "@/hooks/useItemListConfig"
 import ItemEditPanel from "@/components/items/ItemEditPanel"
 import { ItemStrip, RecurringItemStrip } from "@/components/items/ItemStrip"
@@ -10,7 +10,7 @@ import ItemSublist from "@/components/items/ItemSublist"
 
 import useEditItem from "../itemModal/hooks/useEditItem"
 
-export default function Item<T extends Task | Goal | Dream>({
+export default function Item<T extends FormattedItem>({
   idx,
   itemType,
   item,
