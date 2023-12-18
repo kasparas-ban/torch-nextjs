@@ -27,3 +27,8 @@ export const PostFetchErrorMsg = {
   title: "Failed to save data online",
   description: "Saving to local storage instead.",
 }
+
+export const NotifyFetchErrorMsg = {
+  title: "Server error",
+  description: "Failed to save a given email. Try adding it later.",
+}

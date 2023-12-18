@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { UpdateProfileReq } from "@/types/userTypes"
 import { PasswordFormType } from "@/components/accountModals/PasswordChange/PasswordChangeForm"
 
-import { updateUser } from "../endpoints/userAPI"
-import { CustomError, ItemLoadFetchErrorMsg } from "../utils/errorMsgs"
+import { updateUser } from "../../endpoints/userAPI"
+import { CustomError, ItemLoadFetchErrorMsg } from "../../utils/errorMsgs"
 
 export const useUpdateUser = () => {
   const { getToken } = useAuth()
@@ -39,7 +39,6 @@ export const useUpdateUserPassword = () => {
       if (!user) throw new Error("User not found")
       await user.updatePassword({
         newPassword: data.newPassword,
-        // currentPassword: data.currentPassword,
         signOutOfOtherSessions: true,
       })
     } catch (err) {

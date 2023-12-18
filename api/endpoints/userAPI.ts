@@ -34,3 +34,13 @@ export const deleteAccount = (token: string) =>
     const data = await res.json()
     if (!res.ok) throw new Error(data.error)
   })
+
+export const notifyUser = (token: string, email: string) =>
+  fetch(`${HOST}/api/notify`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ emailAddress: email }),
+  }).then(async res => {
+    const data = await res.json()
+    if (!res.ok) throw new Error(data.error)
+  })

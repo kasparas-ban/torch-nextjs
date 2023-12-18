@@ -10,7 +10,7 @@ import {
   getCountryName,
 } from "@/lib/utils"
 import useUserInfo from "@/hooks/useUserInfo"
-import { useUpdateUser } from "@/api/hooks/useUser"
+import { useUpdateUser } from "@/api/hooks/user/useUser"
 import {
   Form,
   FormControl,

@@ -6,7 +6,7 @@ import { create } from "zustand"
 import { subscribeWithSelector } from "zustand/middleware"
 import { TimerState } from "@/types/itemTypes"
 import { createSelectors } from "@/lib/zustandUtils"
-import { useUpdateItemProgress } from "@/api/hooks/items.ts/useUpdateItemProgress"
+import { useUpdateItemProgress } from "@/api/hooks/items/useUpdateItemProgress"
 
 import useTimerForm from "./useTimerForm"
 import { TimerSettingsState } from "./useTimerSettings"

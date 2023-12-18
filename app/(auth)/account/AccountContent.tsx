@@ -28,7 +28,7 @@ export default function AccountDetails() {
       transition={{ type: "tween" }}
     >
       <section className="flex flex-col gap-4 sm:flex-row">
-        <section className="flex w-full items-center rounded-xl bg-gray-200 px-5 py-4 shadow-lg">
+        <section className="flex items-center rounded-xl bg-gray-200 px-5 py-4 shadow-lg sm:w-1/2">
           <UserAvatar className="h-24 w-24">
             <div className="flex h-24 w-24 rounded-full bg-gray-400">
               <AccountIcon2
@@ -51,7 +51,7 @@ export default function AccountDetails() {
           </div>
         </section>
 
-        <motion.button
+        {/* <motion.button
           className="bg-multi-color group m-auto flex h-32 w-full flex-col items-center justify-around rounded-xl px-5 py-3 text-sm text-gray-700 shadow-lg"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -76,7 +76,7 @@ export default function AccountDetails() {
           <div className="relative rounded-md text-2xl font-bold text-white transition-all duration-75 ease-in">
             Become a member
           </div>
-        </motion.button>
+        </motion.button> */}
       </section>
 
       <section className="flex sm:hidden">

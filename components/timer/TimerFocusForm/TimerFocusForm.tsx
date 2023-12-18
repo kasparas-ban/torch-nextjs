@@ -2,7 +2,7 @@ import { forwardRef } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { GroupedOptionType, ItemOptionType } from "@/types/itemTypes"
 import { toPercent } from "@/lib/utils"
-import { useItemsList } from "@/api/hooks/items.ts/useItemsList"
+import { useItemsList } from "@/api/hooks/items/useItemsList"
 import { getItemsByType } from "@/api/utils/helpers"
 
 import {

@@ -1,5 +1,6 @@
 "use client"
 
+import { Fragment } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { useMediaQuery } from "react-responsive"
 import {
@@ -24,7 +25,7 @@ export function Toaster() {
     <ToastProvider>
       {toasts.map(function ({ id, title, description, action, ...props }) {
         return (
-          <>
+          <Fragment key={id}>
             <AnimatePresence>
               {isToastShown && (
                 <motion.img
@@ -51,7 +52,7 @@ export function Toaster() {
               {action}
               <ToastClose className="focus:ring-gray-500" />
             </Toast>
-          </>
+          </Fragment>
         )
       })}
       <ToastViewport />

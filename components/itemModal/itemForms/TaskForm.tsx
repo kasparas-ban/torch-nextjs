@@ -6,8 +6,8 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Goal, Task } from "@/types/itemTypes"
 import { getTime, pruneObject } from "@/lib/utils"
-import { useItemsList } from "@/api/hooks/items.ts/useItemsList"
-import { useUpsertItem } from "@/api/hooks/items.ts/useUpsertItem"
+import { useItemsList } from "@/api/hooks/items/useItemsList"
+import { useUpsertItem } from "@/api/hooks/items/useUpsertItem"
 import { groupItemsByParent } from "@/api/utils/helpers"
 import {
   Form,

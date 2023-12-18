@@ -4,7 +4,7 @@ import { RotateCw } from "lucide-react"
 import { useMediaQuery } from "react-responsive"
 import { GeneralItem, Task } from "@/types/itemTypes"
 import { cn } from "@/lib/utils"
-import { useItemsList } from "@/api/hooks/items.ts/useItemsList"
+import { useItemsList } from "@/api/hooks/items/useItemsList"
 import { findItemByID } from "@/api/utils/helpers"
 
 import useEditItem from "../itemModal/hooks/useEditItem"

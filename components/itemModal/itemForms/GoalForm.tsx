@@ -5,8 +5,8 @@ import { AnimatePresence, motion } from "framer-motion"
 import { useFieldArray, useForm } from "react-hook-form"
 import { Goal } from "@/types/itemTypes"
 import { pruneObject } from "@/lib/utils"
-import { useItemsList } from "@/api/hooks/items.ts/useItemsList"
-import { useUpsertItem } from "@/api/hooks/items.ts/useUpsertItem"
+import { useItemsList } from "@/api/hooks/items/useItemsList"
+import { useUpsertItem } from "@/api/hooks/items/useUpsertItem"
 import {
   Form,
   FormControl,

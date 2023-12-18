@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { Dream } from "@/types/itemTypes"
 import { pruneObject } from "@/lib/utils"
-import { useUpsertItem } from "@/api/hooks/items.ts/useUpsertItem"
+import { useUpsertItem } from "@/api/hooks/items/useUpsertItem"
 import {
   Form,
   FormControl,

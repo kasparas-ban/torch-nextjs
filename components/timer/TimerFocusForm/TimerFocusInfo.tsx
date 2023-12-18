@@ -1,4 +1,5 @@
-import { motion } from "framer-motion"
+import { ReactNode } from "react"
+import { AnimatePresence, motion } from "framer-motion"
 import { ItemOptionType } from "@/types/itemTypes"
 import { formatPercentages, formatTimeSpent } from "@/lib/utils"
 import TimerIcon from "@/public/icons/navigationIcons/timer.svg"
@@ -45,7 +46,9 @@ const TaskInfo = ({ focusOn }: { focusOn: ItemOptionType }) => {
     <motion.div layout className="flex flex-row justify-center gap-2">
       {showProgress && (
         <div className="text-6xl font-bold">
-          {formatPercentages(focusOn.progress)}
+          <NumberAnimator value={focusOn.progress ?? 0}>
+            {formatPercentages(focusOn.progress)}
+          </NumberAnimator>
           <span className="text-5xl">%</span>
         </div>
       )}
@@ -53,14 +56,20 @@ const TaskInfo = ({ focusOn }: { focusOn: ItemOptionType }) => {
         <div className="flex gap-1">
           <TimerBoldIcon className="w-5" />
           <span className="font-semibold">
-            {formatTimeSpent(focusOn.timeSpent ?? 0)}
+            <NumberAnimator value={focusOn.timeSpent ?? 0}>
+              {formatTimeSpent(focusOn.timeSpent ?? 0)}
+            </NumberAnimator>
           </span>
           <span className="text-gray-600">spent</span>
         </div>
         {timeLeft && (
           <div className="flex gap-1">
             <TimerIcon className="w-5" />
-            <span className="font-semibold">{formatTimeSpent(timeLeft)}</span>
+            <span className="font-semibold">
+              <NumberAnimator value={timeLeft}>
+                {formatTimeSpent(timeLeft)}
+              </NumberAnimator>
+            </span>
             <span className="text-gray-600">left</span>
           </div>
         )}
@@ -81,7 +90,9 @@ const ParentInfo = ({ focusOn }: { focusOn: ItemOptionType }) => {
       {showProgress && (
         <div className="flex items-center max-sm:text-center sm:flex sm:items-center sm:text-6xl">
           <div className="text-4xl font-bold">
-            {formatPercentages(focusOn.progress)}
+            <NumberAnimator value={focusOn.progress ?? 0}>
+              {formatPercentages(focusOn.progress)}
+            </NumberAnimator>
             <span className="text-3xl">%</span>
           </div>
         </div>
@@ -90,9 +101,11 @@ const ParentInfo = ({ focusOn }: { focusOn: ItemOptionType }) => {
         {focusOn.timeSpent !== undefined && (
           <div className="flex gap-2">
             <TimerBoldIcon className="w-5" />
-            <span className="font-semibold">
-              {formatTimeSpent(focusOn.timeSpent)}
-            </span>
+            <NumberAnimator value={focusOn.timeSpent}>
+              <span className="font-semibold">
+                {formatTimeSpent(focusOn.timeSpent)}
+              </span>
+            </NumberAnimator>
             <span className="text-gray-600">{`spent${
               focusOn.containsTasks ? " on tasks" : ""
             }`}</span>
@@ -102,7 +115,9 @@ const ParentInfo = ({ focusOn }: { focusOn: ItemOptionType }) => {
           <div className="flex gap-2">
             <TimerBoldIcon className="w-5" />
             <span className="font-semibold">
-              {formatTimeSpent(focusOn.totalTimeSpent)}
+              <NumberAnimator value={focusOn.totalTimeSpent}>
+                {formatTimeSpent(focusOn.totalTimeSpent)}
+              </NumberAnimator>
             </span>
             <span className="text-gray-600">spent in total</span>
           </div>
@@ -110,7 +125,11 @@ const ParentInfo = ({ focusOn }: { focusOn: ItemOptionType }) => {
         {!!timeLeft && (
           <div className="flex gap-2">
             <TimerIcon className="w-5" />
-            <span className="font-semibold">{formatTimeSpent(timeLeft)}</span>
+            <span className="font-semibold">
+              <NumberAnimator value={timeLeft}>
+                {formatTimeSpent(timeLeft)}
+              </NumberAnimator>
+            </span>
             <span className="text-gray-600">{`left ${
               focusOn.totalTimeSpent ? "on tasks" : ""
             }`}</span>
@@ -118,6 +137,27 @@ const ParentInfo = ({ focusOn }: { focusOn: ItemOptionType }) => {
         )}
       </div>
     </motion.div>
+  )
+}
+
+function NumberAnimator({
+  value,
+  children,
+}: {
+  value: number
+  children: ReactNode
+}) {
+  return (
+    <AnimatePresence initial={false} mode="popLayout">
+      <motion.div
+        key={value}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -8 }}
+      >
+        {children}
+      </motion.div>
+    </AnimatePresence>
   )
 }
 

@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { useUpdateUserPassword } from "@/api/hooks/useUser"
+import { useUpdateUserPassword } from "@/api/hooks/user/useUser"
 import {
   Form,
   FormControl,
