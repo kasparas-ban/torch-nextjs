@@ -1,7 +1,7 @@
-import { ReactNode } from "react"
-import { AnimatePresence, motion } from "framer-motion"
+import { motion } from "framer-motion"
 import { ItemOptionType } from "@/types/itemTypes"
 import { formatPercentages, formatTimeSpent } from "@/lib/utils"
+import NumberAnimator from "@/components/numberAnimator/NumberAnimator"
 import TimerIcon from "@/public/icons/navigationIcons/timer.svg"
 import TimerBoldIcon from "@/public/icons/timerBold.svg"
 
@@ -137,27 +137,6 @@ const ParentInfo = ({ focusOn }: { focusOn: ItemOptionType }) => {
         )}
       </div>
     </motion.div>
-  )
-}
-
-function NumberAnimator({
-  value,
-  children,
-}: {
-  value: number
-  children: ReactNode
-}) {
-  return (
-    <AnimatePresence initial={false} mode="popLayout">
-      <motion.div
-        key={value}
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -8 }}
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
   )
 }
 

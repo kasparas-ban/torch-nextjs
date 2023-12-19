@@ -16,11 +16,12 @@ An app that helps you track the time you spend pursuing your goals.
 Necessary
 
 - [ ] Make a Not Found page
+- [ ] Add percentage to each item strip
 - [ ] Add some background
 - [ ] Mark active page navlink
 - [ ] Implement item "done" action
 - [ ] Implement item "remove" action
-- [ ] Implement email waiting list
+- [x] Implement email waiting list
 
 Nice to have
 
