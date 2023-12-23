@@ -2,6 +2,7 @@ import { ItemsHeader } from "../ItemsHeader"
 import ItemsListWrapper from "../ItemsListWrapper"
 
 export const metadata = {
+  // TODO: need to be "Tasks" or "Dreams" as well
   title: "Goals",
 }
 

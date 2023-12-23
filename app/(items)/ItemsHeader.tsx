@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Toggle } from "@/components/ui/toggle"
 import useEditItem from "@/components/itemModal/hooks/useEditItem"
 import useItemModal from "@/components/itemModal/hooks/useItemModal"
 import ArrowIcon from "@/public/icons/arrowDown.svg"
@@ -28,7 +29,8 @@ export function ItemsHeader() {
     <>
       <div className="mb-6 flex">
         <ItemsTypeDropdown />
-        <div className="relative bottom-1 ml-auto flex items-end space-x-4">
+        <ItemStatusSelect />
+        <div className="relative bottom-1 ml-2 flex items-end space-x-4">
           <motion.button
             layout
             whileHover={{ scale: 1.2 }}
@@ -42,6 +44,20 @@ export function ItemsHeader() {
         <StorageInfo />
       </div> */}
     </>
+  )
+}
+
+function ItemStatusSelect() {
+  const { showAllItems, setShowAllItems } = useItemListConfig()
+
+  return (
+    <Toggle
+      pressed={showAllItems}
+      onPressedChange={setShowAllItems}
+      className="relative bottom-0.5 ml-auto mt-auto h-auto rounded-2xl bg-gray-200 py-1 text-gray-700 data-[state=on]:bg-rose-400 data-[state=on]:text-white data-[state=on]:hover:bg-rose-300"
+    >
+      Show archived
+    </Toggle>
   )
 }
 

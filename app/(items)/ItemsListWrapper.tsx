@@ -14,7 +14,7 @@ import ItemsList from "./ItemsList"
 
 function ItemsListWrapper() {
   const { isSignedIn } = useUser()
-  const { itemType } = useItemListConfig()
+  const { itemType, showAllItems } = useItemListConfig()
   const { data, error, isLoading } = useItemsList()
 
   // const { toast } = useToast()
@@ -26,7 +26,13 @@ function ItemsListWrapper() {
         ? data?.goals
         : data?.dreams
 
-  const groupedItems = items ? groupItemsByParent(items, itemType) : {}
+  const itemsWithStatus = showAllItems
+    ? items
+    : items?.filter(item => item.status !== "ARCHIVED")
+
+  const groupedItems = itemsWithStatus
+    ? groupItemsByParent(itemsWithStatus, itemType)
+    : {}
 
   // useEffect(() => {
   //   if (isSignedIn && !isLoading && error)

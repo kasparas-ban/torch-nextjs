@@ -10,6 +10,7 @@ export type ResponseItem = {
   recurring: RecurringType | null
   parentID: string | null
   timeSpent: number
+  status: ItemStatus
   createdAt: string
 }
 
@@ -53,6 +54,8 @@ export type FormattedItems = {
 export type ItemTypeLabel = "Tasks" | "Goals" | "Dreams"
 
 export type ItemType = "TASK" | "GOAL" | "DREAM"
+
+export type ItemStatus = "ACTIVE" | "ARCHIVED"
 
 export type ItemOptionType = {
   value: string

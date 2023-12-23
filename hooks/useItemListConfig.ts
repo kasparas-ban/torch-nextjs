@@ -16,6 +16,10 @@ interface ItemListConfigState {
   // Item type header
   itemType: ItemType
   saveItemType: (type: ItemType) => void
+
+  // Item status
+  showAllItems: boolean
+  setShowAllItems: (val: boolean) => void
 }
 
 const useItemListConfig = create<ItemListConfigState>()(
@@ -45,6 +49,10 @@ const useItemListConfig = create<ItemListConfigState>()(
       // Item type header
       itemType: "GOAL",
       saveItemType: (type: ItemType) => set({ itemType: type }),
+
+      // Item status header
+      showAllItems: false,
+      setShowAllItems: (val: boolean) => set({ showAllItems: val }),
     }),
     {
       name: "item-list-storage",

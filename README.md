@@ -22,6 +22,7 @@ Necessary
 - [ ] Implement item "done" action
 - [ ] Implement item "remove" action
 - [x] Implement email waiting list
+- [ ] Make so that the item list pathname could be /tasks or /dreams
 
 Nice to have
 
