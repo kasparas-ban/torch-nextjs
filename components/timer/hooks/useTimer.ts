@@ -1,12 +1,13 @@
 "use client"
 
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import dayjs from "dayjs"
 import { create } from "zustand"
 import { subscribeWithSelector } from "zustand/middleware"
 import { TimerState } from "@/types/itemTypes"
 import { createSelectors } from "@/lib/zustandUtils"
 import { useUpdateItemProgress } from "@/api/hooks/items/useUpdateItemProgress"
+import { useUpdateUserTime } from "@/api/hooks/user/useUser"
 
 import useTimerForm from "./useTimerForm"
 import { TimerSettingsState } from "./useTimerSettings"
@@ -166,7 +167,16 @@ const UPDATE_PERIOD = 60 // seconds
 
 export const useTimerListener = () => {
   const { focusOn } = useTimerForm()
-  const { mutateAsync } = useUpdateItemProgress()
+  const { mutateAsync: updateItemTime } = useUpdateItemProgress()
+  const { mutateAsync: updateUserTime } = useUpdateUserTime()
+
+  const updateTime = useCallback(
+    (timeSpent: number, itemID?: string) =>
+      itemID
+        ? updateItemTime({ timeSpent, itemID })
+        : updateUserTime(timeSpent),
+    [updateItemTime, updateUserTime]
+  )
 
   useEffect(() => {
     const timerStateListener = useTimerStore.subscribe(
@@ -175,8 +185,7 @@ export const useTimerListener = () => {
         // Update progress every minute
         if (
           state.time % UPDATE_PERIOD === 0 &&
-          state.time !== state.initialTime &&
-          focusOn?.value
+          state.time !== state.initialTime
         ) {
           let diff = UPDATE_PERIOD
           if (state.sessionStartTime && state.sessionEndTime) {
@@ -186,24 +195,23 @@ export const useTimerListener = () => {
             )
             if (newDiff < diff) diff = newDiff
           }
-          mutateAsync({ timeSpent: diff, itemID: focusOn.value }).then(() => {})
+          updateTime(diff, focusOn?.value)
         }
 
         // Update progress when the timer is stopped
         if (
           state.timerState === "paused" &&
           state.sessionStartTime &&
-          state.sessionEndTime &&
-          focusOn?.value
+          state.sessionEndTime
         ) {
           const elapsedTime = (state.initialTime - state.time) % UPDATE_PERIOD
-          mutateAsync({ timeSpent: elapsedTime, itemID: focusOn.value })
+          updateTime(elapsedTime, focusOn?.value)
         }
       }
     )
 
     return () => timerStateListener()
-  }, [focusOn?.value, mutateAsync])
+  }, [focusOn?.value, updateTime])
 }
 
 export default useTimerStore

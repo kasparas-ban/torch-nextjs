@@ -8,6 +8,15 @@ export class CustomError extends Error {
   }
 }
 
+// User
+
+export const UserUpdateServerErrorMsg = {
+  title: "Server error",
+  description: "Failed to update user data. Try again later.",
+}
+
+// Items
+
 export const ItemLoadServerErrorMsg = {
   title: "Server error",
   description: "Failed to download your tasks. Try again later.",

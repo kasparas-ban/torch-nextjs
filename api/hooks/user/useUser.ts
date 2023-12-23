@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { UpdateProfileReq } from "@/types/userTypes"
 import { PasswordFormType } from "@/components/accountModals/PasswordChange/PasswordChangeForm"
 
-import { updateUser } from "../../endpoints/userAPI"
-import { CustomError, ItemLoadFetchErrorMsg } from "../../utils/errorMsgs"
+import { updateUser, updateUserTime } from "../../endpoints/userAPI"
+import { CustomError, UserUpdateServerErrorMsg } from "../../utils/errorMsgs"
 
 export const useUpdateUser = () => {
   const { getToken } = useAuth()
@@ -18,7 +18,7 @@ export const useUpdateUser = () => {
 
       return updatedUser
     } catch (err) {
-      throw new CustomError(err as string, ItemLoadFetchErrorMsg)
+      throw new CustomError(err as string, UserUpdateServerErrorMsg)
     }
   }
 
@@ -51,6 +51,33 @@ export const useUpdateUserPassword = () => {
 
   return useMutation({
     mutationFn: (data: PasswordFormType) => fetcher(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] })
+    },
+  })
+}
+
+export const useUpdateUserTime = () => {
+  const { getToken } = useAuth()
+  const queryClient = useQueryClient()
+
+  const fetcher = async (timeSpent: number) => {
+    try {
+      const token = await getToken()
+      if (!token) throw new Error("Token not found")
+      const updatedUser = await updateUserTime(token, { timeSpent })
+
+      return updatedUser
+    } catch (err) {
+      throw new CustomError(err as string, {
+        title: "Failed to update focus time",
+        description: "Your last focus time will not be saved.",
+      })
+    }
+  }
+
+  return useMutation({
+    mutationFn: fetcher,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user"] })
     },
