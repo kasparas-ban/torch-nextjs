@@ -4,7 +4,10 @@ import React, { useEffect, useState } from "react"
 import { AnimatePresence, motion, stagger, useAnimate } from "framer-motion"
 import { Dream, FormattedItem, Goal, ItemType, Task } from "@/types/itemTypes"
 import useItemListConfig from "@/hooks/useItemListConfig"
-import ItemEditPanel from "@/components/items/ItemEditPanel"
+import {
+  ArchivedItemEditPanel,
+  ItemEditPanel,
+} from "@/components/items/ItemEditPanel"
 import { ItemStrip, RecurringItemStrip } from "@/components/items/ItemStrip"
 import ItemSublist from "@/components/items/ItemSublist"
 
@@ -81,6 +84,9 @@ export default function Item<T extends FormattedItem>({
 
   const isRecurring = itemType === "TASK" && !!(item as Task).recurring
 
+  const EditPanel =
+    item.status === "ARCHIVED" ? ArchivedItemEditPanel : ItemEditPanel
+
   return (
     <motion.li
       layout
@@ -107,7 +113,7 @@ export default function Item<T extends FormattedItem>({
         <>
           <AnimatePresence initial={false}>
             {showEditPanel && (
-              <ItemEditPanel<T>
+              <EditPanel<T>
                 key={`${itemType}_${item.itemID}_edit_panel`}
                 item={item}
                 sublistVisible={showSublist && showEditPanel}
@@ -140,7 +146,7 @@ export default function Item<T extends FormattedItem>({
           )}
           <AnimatePresence initial={false}>
             {showEditPanel && (
-              <ItemEditPanel<T>
+              <EditPanel<T>
                 key={`${itemType}_${item.itemID}_edit_panel`}
                 item={item}
                 sublistVisible={showSublist && showEditPanel}

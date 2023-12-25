@@ -1,17 +1,20 @@
 import { motion } from "framer-motion"
 import { GeneralItem } from "@/types/itemTypes"
+import { cn } from "@/lib/utils"
 import AddItemIcon from "@/public/icons/add_item.svg"
 import DeleteIcon from "@/public/icons/delete.svg"
 import EditIcon from "@/public/icons/edit.svg"
 import StatsIcon from "@/public/icons/stats.svg"
 import TickIcon from "@/public/icons/tick.svg"
+import UnarchiveIcon from "@/public/icons/unarchive.svg"
 
 import CompleteItemModal from "../itemModal/completeItemModal/CompleteItemModal"
 import useEditItem from "../itemModal/hooks/useEditItem"
 import useItemModal from "../itemModal/hooks/useItemModal"
 import RemoveItemModal from "../itemModal/removeItemModal/RemoveItemModal"
+import UnarchiveItemModal from "../itemModal/unarchiveItemModal/UnarchiveItemModal"
 
-export default function ItemEditPanel<T extends GeneralItem>({
+export function ItemEditPanel<T extends GeneralItem>({
   item,
   sublistVisible,
   showBulletLine,
@@ -24,6 +27,8 @@ export default function ItemEditPanel<T extends GeneralItem>({
 }) {
   const { editItem } = useEditItem()
   const { openTaskModal, openGoalModal, openDreamModal } = useItemModal()
+
+  const isArchived = editItem?.status === "ARCHIVED"
 
   const openEditItemModal = () => {
     if (item.type === "TASK") {
@@ -95,12 +100,76 @@ export default function ItemEditPanel<T extends GeneralItem>({
           Stats
         </motion.div>
         <motion.div
-          className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
-          whileHover={{ scale: 1.1 }}
-          onClick={openEditItemModal}
+          className={cn(
+            "flex shrink-0 select-none flex-col text-sm",
+            isArchived ? "opacity-40" : "cursor-pointer"
+          )}
+          whileHover={{ scale: isArchived ? 1 : 1.1 }}
+          onClick={isArchived ? openEditItemModal : () => null}
         >
           <EditIcon className="mx-auto h-5" />
           Edit
+        </motion.div>
+        <RemoveItemModal>
+          <motion.div
+            className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
+            whileHover={{ scale: 1.1 }}
+          >
+            <DeleteIcon className="mx-auto h-5" />
+            Remove
+          </motion.div>
+        </RemoveItemModal>
+      </motion.div>
+    </motion.div>
+  )
+}
+
+export function ArchivedItemEditPanel<T extends GeneralItem>({
+  sublistVisible,
+  showBulletLine,
+}: {
+  sublistVisible?: boolean
+  showBulletLine?: boolean
+}) {
+  return (
+    <motion.div
+      layout
+      className="relative flex"
+      initial={{ marginTop: 0, marginBottom: 0 }}
+      animate={{
+        marginTop: 12,
+        marginBottom: sublistVisible ? 12 : 0,
+      }}
+      exit={{ marginTop: 0, marginBottom: 0 }}
+    >
+      {showBulletLine && (
+        <div className="absolute left-[6px] h-[140%] w-1 bg-gray-300" />
+      )}
+      <motion.div
+        layout
+        className={`mx-auto flex w-[250px] justify-between max-[400px]:px-6 max-[300px]:w-full`}
+        initial={{ height: 0, opacity: 0 }}
+        animate={{
+          height: "auto",
+          opacity: 1,
+        }}
+        exit={{ height: 0, opacity: 0 }}
+      >
+        <UnarchiveItemModal>
+          <motion.div
+            className="flex shrink-0 cursor-pointer select-none flex-col text-sm"
+            whileHover={{ scale: 1.1 }}
+          >
+            <UnarchiveIcon className="mx-auto h-5" />
+            Unarchive
+          </motion.div>
+        </UnarchiveItemModal>
+        <motion.div
+          className="flex shrink-0 select-none flex-col text-sm opacity-40"
+          // whileHover={{ scale: 1.1 }}
+        >
+          <StatsIcon className="mx-auto h-5" />
+          Stats
         </motion.div>
         <RemoveItemModal>
           <motion.div

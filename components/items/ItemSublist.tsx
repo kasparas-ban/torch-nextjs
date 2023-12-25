@@ -8,7 +8,7 @@ import { useItemsList } from "@/api/hooks/items/useItemsList"
 import { findItemByID } from "@/api/utils/helpers"
 
 import useEditItem from "../itemModal/hooks/useEditItem"
-import ItemEditPanel from "./ItemEditPanel"
+import { ArchivedItemEditPanel, ItemEditPanel } from "./ItemEditPanel"
 import { ItemStrip, RecurringItemStrip } from "./ItemStrip"
 
 export default function ItemSublist({
@@ -95,17 +95,34 @@ export default function ItemSublist({
             </motion.li>
             <AnimatePresence initial={false}>
               {showEditPanel(subitem) && (
-                <ItemEditPanel
-                  key={`task_${subitem.itemID}_edit_panel`}
-                  item={subitem}
-                  showBulletLine={idx !== subitems.length - 1}
-                />
+                <EditPanel idx={idx} subitem={subitem} subitems={subitems} />
               )}
             </AnimatePresence>
           </Fragment>
         ))}
       </motion.ul>
     </motion.div>
+  )
+}
+
+function EditPanel({
+  idx,
+  subitem,
+  subitems,
+}: {
+  idx: number
+  subitem: GeneralItem
+  subitems: GeneralItem[]
+}) {
+  const Panel =
+    subitem.status === "ARCHIVED" ? ArchivedItemEditPanel : ItemEditPanel
+
+  return (
+    <Panel
+      key={`task_${subitem.itemID}_edit_panel`}
+      item={subitem}
+      showBulletLine={idx !== subitems.length - 1}
+    />
   )
 }
 

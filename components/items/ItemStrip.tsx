@@ -75,7 +75,11 @@ function ItemStrip<T extends GeneralItem>({
   return (
     <motion.div
       layout
-      className={cn("relative flex w-full min-w-0", containsSublist && "mb-3")}
+      className={cn(
+        "relative flex w-full min-w-0",
+        containsSublist && "mb-3",
+        item.status === "ARCHIVED" && "opacity-50"
+      )}
       style={{ zIndex: itemSublist?.length }}
       whileTap={{ scale: itemSublist ? (showEditPanel ? 1 : 0.98) : 1 }}
     >
@@ -118,7 +122,7 @@ function ItemStrip<T extends GeneralItem>({
         </div>
       </motion.div>
       <AnimatePresence>
-        {showEditPanel && (
+        {showEditPanel && item.status === "ACTIVE" && (
           <motion.div
             className="my-auto ml-3 aspect-square w-12 cursor-pointer rounded-full bg-red-400"
             whileHover={{ scale: 1.1 }}

@@ -23,6 +23,7 @@ Necessary
 - [ ] Implement item "remove" action
 - [x] Implement email waiting list
 - [ ] Make so that the item list pathname could be /tasks or /dreams
+- [ ] Fix close icon position for modals
 
 Nice to have
 
