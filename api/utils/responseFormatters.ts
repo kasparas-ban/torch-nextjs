@@ -1,4 +1,4 @@
-import { Dream, Goal, ResponseItem, Task } from "@/types/itemTypes"
+import { Dream, Goal, ItemStatus, ResponseItem, Task } from "@/types/itemTypes"
 
 const formatTaskResponse = (tasks: ResponseItem[]) => {
   return tasks.map(task => ({
@@ -94,9 +94,9 @@ export const formatItemResponse = (response: ResponseItem[]) => {
   })
 
   return {
-    tasks: formattedTasks,
-    goals: formattedGoals,
-    dreams: formattedDream,
+    tasks: sortItemsByStatus(formattedTasks),
+    goals: sortItemsByStatus(formattedGoals),
+    dreams: sortItemsByStatus(formattedDream),
     rawItems: response,
   }
 }
@@ -106,4 +106,15 @@ const getProgress = (timeSpent: number, duration: number | null) => {
     ? Math.round((timeSpent / duration) * 1000) / 1000
     : 0
   return progress > 1 ? 1 : progress
+}
+
+const sortItemsByStatus = <T extends { status: ItemStatus }>(items: T[]) => {
+  return items.sort((a, b) => {
+    if (a.status === "ARCHIVED") {
+      return 1
+    } else if (b.status === "ARCHIVED") {
+      return -1
+    }
+    return 0
+  })
 }

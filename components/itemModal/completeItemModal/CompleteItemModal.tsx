@@ -53,18 +53,18 @@ export default function CompleteItemModal({
           )}
           <div className="mt-4 flex justify-center space-x-2">
             <motion.button
-              className="text-md h-7 w-24 rounded-lg bg-gray-200 hover:bg-gray-300"
+              className="text-md h-8 w-28 rounded-lg bg-lime-500 font-medium tracking-wide text-white hover:bg-lime-600"
               onClick={handleSubmit}
               whileTap={{ scale: 0.96 }}
             >
-              Yes
+              Complete
             </motion.button>
             <motion.button
-              className="text-md h-7 w-24 rounded-lg bg-gray-200 hover:bg-gray-300"
+              className="text-md h-8 w-28 rounded-lg border border-gray-200 bg-white font-medium tracking-wide text-gray-500 hover:bg-gray-100"
               onClick={closeModal}
               whileTap={{ scale: 0.96 }}
             >
-              No
+              Cancel
             </motion.button>
           </div>
         </div>
