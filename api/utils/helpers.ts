@@ -142,6 +142,35 @@ export const findItemByID = (
   if (item) return item
 }
 
+export const countAssociatedTasks = (
+  goal: GeneralItem,
+  allItems: ResponseItem[]
+) => {
+  return allItems.filter(item => item.parentID === goal.itemID).length
+}
+
+export const filterArchivedItems = (items?: (Task | Goal | Dream)[]) => {
+  if (!items) return []
+
+  let activeItems = items.filter(item => item.status === "ACTIVE")
+
+  activeItems = activeItems.map(item => {
+    const filteredGoals = (item as Dream).goals?.filter(
+      i => i.status === "ACTIVE"
+    )
+    if (filteredGoals) return { ...item, goals: filteredGoals }
+
+    const filteredTasks = (item as Goal).tasks?.filter(
+      i => i.status === "ACTIVE"
+    )
+    if (filteredTasks) return { ...item, tasks: filteredTasks }
+
+    return item
+  })
+
+  return activeItems
+}
+
 // export const formatTimerHistory = (
 //   timerData: TimerHistoryResponse[],
 //   formattedItems: FormattedItems

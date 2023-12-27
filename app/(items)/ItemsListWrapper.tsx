@@ -6,7 +6,7 @@ import { AnimatePresence } from "framer-motion"
 import { Dream, Goal, Task } from "@/types/itemTypes"
 import useItemListConfig from "@/hooks/useItemListConfig"
 import { useItemsList } from "@/api/hooks/items/useItemsList"
-import { groupItemsByParent } from "@/api/utils/helpers"
+import { filterArchivedItems, groupItemsByParent } from "@/api/utils/helpers"
 import ItemModal from "@/components/itemModal/ItemModal"
 import ItemListSkeleton from "@/components/items/ItemListSkeleton"
 
@@ -26,9 +26,7 @@ function ItemsListWrapper() {
         ? data?.goals
         : data?.dreams
 
-  const itemsWithStatus = showAllItems
-    ? items
-    : items?.filter(item => item.status !== "ARCHIVED")
+  const itemsWithStatus = showAllItems ? items : filterArchivedItems(items)
 
   const groupedItems = itemsWithStatus
     ? groupItemsByParent(itemsWithStatus, itemType)

@@ -54,7 +54,7 @@ function ItemStatusSelect() {
     <Toggle
       pressed={showAllItems}
       onPressedChange={setShowAllItems}
-      className="relative bottom-0.5 ml-auto mt-auto h-auto rounded-2xl bg-gray-200 py-1 text-gray-700 data-[state=on]:bg-rose-400 data-[state=on]:text-white data-[state=on]:hover:bg-rose-300"
+      className="relative bottom-1 ml-auto mt-auto h-auto rounded-2xl bg-gray-200 py-1 text-xs text-gray-700 data-[state=on]:bg-rose-400 data-[state=on]:text-white data-[state=on]:hover:bg-rose-300 sm:bottom-0.5 sm:text-sm"
     >
       Show archived
     </Toggle>

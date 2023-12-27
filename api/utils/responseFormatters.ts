@@ -108,13 +108,27 @@ const getProgress = (timeSpent: number, duration: number | null) => {
   return progress > 1 ? 1 : progress
 }
 
-const sortItemsByStatus = <T extends { status: ItemStatus }>(items: T[]) => {
-  return items.sort((a, b) => {
-    if (a.status === "ARCHIVED") {
-      return 1
-    } else if (b.status === "ARCHIVED") {
-      return -1
-    }
-    return 0
+const sortItemsByStatus = <T extends Task | Goal | Dream>(items: T[]) => {
+  const sortFunc = <K extends { status: ItemStatus }>(list: K[]) =>
+    list.sort((a, b) => {
+      if (a.status === "ARCHIVED") {
+        return 1
+      } else if (b.status === "ARCHIVED") {
+        return -1
+      }
+      return 0
+    })
+
+  let sortedItems = sortFunc(items)
+  sortedItems = sortedItems.map(item => {
+    const goals = (item as Dream).goals
+    if (goals) return { ...item, goals: sortFunc(goals) }
+
+    const tasks = (item as Goal).tasks
+    if (tasks) return { ...item, tasks: sortFunc(tasks) }
+
+    return item
   })
+
+  return sortedItems
 }
