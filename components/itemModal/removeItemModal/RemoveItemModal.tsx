@@ -98,7 +98,7 @@ type SelectionType = "one" | "all"
 
 export default function RemoveItemModal({ children }: { children: ReactNode }) {
   const { toast } = useToast()
-  const { editItem } = useEditItem()
+  const { editItem, setEditItem } = useEditItem()
   const { data } = useItemsList()
   const { open, setOpen } = useModalState()
   const closeModal = () => setOpen(false)
@@ -128,6 +128,7 @@ export default function RemoveItemModal({ children }: { children: ReactNode }) {
       })
         .then(() => {
           closeModal()
+          setEditItem(undefined)
           toast({
             title: `${capitalize(editItem.type)} archived`,
             description: `It will be removed from the ${editItem.type.toLowerCase()} list.`,
@@ -147,6 +148,7 @@ export default function RemoveItemModal({ children }: { children: ReactNode }) {
       })
         .then(() => {
           closeModal()
+          setEditItem(undefined)
           toast({
             title: `${capitalize(editItem.type)} deleted`,
             description: `It will be removed from the ${editItem.type.toLowerCase()} list.`,

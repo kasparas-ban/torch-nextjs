@@ -105,7 +105,7 @@ export function ItemEditPanel<T extends GeneralItem>({
             isArchived ? "opacity-40" : "cursor-pointer"
           )}
           whileHover={{ scale: isArchived ? 1 : 1.1 }}
-          onClick={isArchived ? openEditItemModal : () => null}
+          onClick={isArchived ? () => null : openEditItemModal}
         >
           <EditIcon className="mx-auto h-5" />
           Edit

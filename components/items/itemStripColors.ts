@@ -15,9 +15,9 @@ export const getStripBgColor = (
 
     return isEditActive
       ? isEditPanelActive
-        ? "bg-amber-400"
+        ? "bg-amber-300"
         : "bg-gray-300"
-      : "bg-amber-400"
+      : "bg-amber-300"
   }
 
   if (isArchived) {
@@ -64,9 +64,9 @@ export const getStripDotsColor = (
 
     return isEditActive
       ? isEditPanelActive
-        ? "hover:bg-amber-500"
-        : "hover:bg-gray-400"
-      : "hover:bg-amber-500"
+        ? "hover:bg-amber-200"
+        : "hover:bg-gray-200"
+      : "hover:bg-amber-200"
   }
 
   if (isArchived) {

@@ -232,7 +232,7 @@ function RecurringItemStrip({
           <motion.div
             layout
             className={cn(
-              "text -2xl relative top-[-2px] shrink-0 font-bold tracking-wider sm:tracking-widest",
+              "relative top-[-2px] shrink-0 text-2xl font-bold tracking-wider sm:tracking-widest",
               isArchived ? "text-gray-400" : "text-gray-600"
             )}
           >

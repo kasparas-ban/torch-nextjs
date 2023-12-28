@@ -62,7 +62,7 @@ export default function UnarchiveItemModal({
   children: ReactNode
 }) {
   const { toast } = useToast()
-  const { editItem } = useEditItem()
+  const { editItem, setEditItem } = useEditItem()
   const { open, setOpen } = useModalState()
   const closeModal = () => setOpen(false)
 
@@ -83,6 +83,7 @@ export default function UnarchiveItemModal({
     })
       .then(() => {
         closeModal()
+        setEditItem(undefined)
         toast({
           title: `${capitalize(editItem.type)} unarchived`,
           description: `You can now commit time towards it.`,
