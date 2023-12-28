@@ -49,11 +49,17 @@ export function ItemsHeader() {
 
 function ItemStatusSelect() {
   const { showAllItems, setShowAllItems } = useItemListConfig()
+  const { setEditItem } = useEditItem()
+
+  const handleToggle = (pressed: boolean) => {
+    setEditItem(undefined)
+    setShowAllItems(pressed)
+  }
 
   return (
     <Toggle
       pressed={showAllItems}
-      onPressedChange={setShowAllItems}
+      onPressedChange={handleToggle}
       className="relative bottom-1 ml-auto mt-auto h-auto rounded-2xl bg-gray-200 py-1 text-xs text-gray-700 data-[state=on]:bg-rose-400 data-[state=on]:text-white data-[state=on]:hover:bg-rose-300 sm:bottom-0.5 sm:text-sm"
     >
       Show archived

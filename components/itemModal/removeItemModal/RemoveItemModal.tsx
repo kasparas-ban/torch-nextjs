@@ -2,11 +2,15 @@ import { ReactNode, useState } from "react"
 import { motion } from "framer-motion"
 import { Info } from "lucide-react"
 import { Dream, Goal, ItemType } from "@/types/itemTypes"
-import { cn, formatTimeSpent } from "@/lib/utils"
+import { capitalize, cn, formatTimeSpent } from "@/lib/utils"
 import useModalState from "@/hooks/useModalState"
+import { useDeleteItem } from "@/api/hooks/items/useDeleteItem"
 import { useItemsList } from "@/api/hooks/items/useItemsList"
+import { useUpdateItemStatus } from "@/api/hooks/items/useUpdateItemStatus"
 import { countAssociatedTasks } from "@/api/utils/helpers"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useToast } from "@/components/ui/use-toast"
+import ConfirmAction from "@/components/confirmAction/ConfirmAction"
 import TimerIcon from "@/public/icons/navigationIcons/timer.svg"
 
 import {
@@ -93,17 +97,69 @@ type ActionType = "archive" | "delete"
 type SelectionType = "one" | "all"
 
 export default function RemoveItemModal({ children }: { children: ReactNode }) {
+  const { toast } = useToast()
   const { editItem } = useEditItem()
   const { data } = useItemsList()
   const { open, setOpen } = useModalState()
   const closeModal = () => setOpen(false)
 
-  const itemType = editItem?.type
+  const { mutateAsync: updateStatus, isPending: isUpdatePending } =
+    useUpdateItemStatus()
+  const { mutateAsync: deleteItem, isPending: isDeletePending } =
+    useDeleteItem()
 
-  const [action, setAction] = useState<ActionType>("archive")
+  const itemType = editItem?.type
+  const isArchived = editItem?.status === "ARCHIVED"
+
+  const [action, setAction] = useState<ActionType>(
+    editItem?.status === "ARCHIVED" ? "delete" : "archive"
+  )
   const [selItems, setSelItems] = useState<SelectionType>("one")
 
-  const handleSubmit = () => console.log("Test")
+  const handleSubmit = () => {
+    if (!editItem) return
+
+    if (action === "archive") {
+      updateStatus({
+        itemID: editItem.itemID,
+        status: "ARCHIVED",
+        updateAssociated: selItems === "all",
+        itemType: editItem.type,
+      })
+        .then(() => {
+          closeModal()
+          toast({
+            title: `${capitalize(editItem.type)} archived`,
+            description: `It will be removed from the ${editItem.type.toLowerCase()} list.`,
+          })
+        })
+        .catch(() =>
+          toast({
+            title: `Failed to archive ${editItem.type.toLowerCase()}`,
+            description: "Try archiving it later.",
+          })
+        )
+    } else {
+      deleteItem({
+        itemID: editItem.itemID,
+        deleteAssociated: selItems === "all",
+        itemType: editItem.type,
+      })
+        .then(() => {
+          closeModal()
+          toast({
+            title: `${capitalize(editItem.type)} deleted`,
+            description: `It will be removed from the ${editItem.type.toLowerCase()} list.`,
+          })
+        })
+        .catch(() =>
+          toast({
+            title: `Failed to delete ${editItem.type.toLowerCase()}`,
+            description: "Try deleting it later.",
+          })
+        )
+    }
+  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -118,7 +174,7 @@ export default function RemoveItemModal({ children }: { children: ReactNode }) {
             </DialogTitle>
           </DialogHeader>
 
-          <div className="mt-1 text-center text-lg font-medium text-gray-500">
+          <div className="text-center text-lg font-medium text-gray-500">
             {editItem?.title}
           </div>
           {editItem && (
@@ -155,20 +211,31 @@ export default function RemoveItemModal({ children }: { children: ReactNode }) {
           <Tabs
             defaultValue={action}
             className="mt-4 sm:w-[390px]"
-            onValueChange={val => setAction(val as ActionType)}
+            value={action}
+            onValueChange={val => {
+              if (isArchived) return
+              setAction(val as ActionType)
+            }}
           >
-            <TabsList className="grid h-auto w-full grid-cols-2 rounded-xl">
-              <TabsTrigger
-                value="archive"
-                className="justify-start rounded-lg text-left"
-              >
-                <div className="flex flex-col">
-                  <div className="text-lg font-semibold">Archive</div>
-                  <div className="font-medium text-gray-500">
-                    Hides the {itemType?.toLowerCase()}
+            <TabsList
+              className={cn(
+                "grid h-auto w-full rounded-xl",
+                isArchived ? "grid-cols-1" : "grid-cols-2"
+              )}
+            >
+              {!isArchived && (
+                <TabsTrigger
+                  value="archive"
+                  className="justify-start rounded-lg text-left"
+                >
+                  <div className="flex flex-col">
+                    <div className="text-lg font-semibold">Archive</div>
+                    <div className="font-medium text-gray-500">
+                      Locks & hides the {itemType?.toLowerCase()}
+                    </div>
                   </div>
-                </div>
-              </TabsTrigger>
+                </TabsTrigger>
+              )}
               <TabsTrigger
                 value="delete"
                 className="justify-start rounded-lg text-left"
@@ -251,25 +318,12 @@ export default function RemoveItemModal({ children }: { children: ReactNode }) {
           )}
 
           <div className="mt-auto flex justify-center space-x-2 sm:mt-4">
-            <motion.button
-              className={cn(
-                "text-md h-8 w-28 rounded-lg font-medium tracking-wide text-white",
-                action === "delete"
-                  ? "bg-red-600 hover:bg-red-500"
-                  : "bg-gray-800 hover:bg-gray-600"
-              )}
-              onClick={handleSubmit}
-              whileTap={{ scale: 0.96 }}
-            >
-              Confirm
-            </motion.button>
-            <motion.button
-              className="text-md h-8 w-28 rounded-lg border border-gray-200 bg-white font-medium tracking-wide text-gray-500 hover:bg-gray-100"
-              onClick={closeModal}
-              whileTap={{ scale: 0.96 }}
-            >
-              Cancel
-            </motion.button>
+            <ConfirmAction
+              onSubmit={handleSubmit}
+              onCancel={closeModal}
+              isLoading={isUpdatePending || isDeletePending}
+              isDestructive={action === "delete"}
+            />
           </div>
         </div>
       </DialogContent>

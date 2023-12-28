@@ -129,6 +129,7 @@ export default function Item<T extends FormattedItem>({
               subitemType={itemType === "DREAM" ? "GOAL" : "TASK"}
               showSublist={showSublist}
               isParentEditActive={showEditPanel}
+              isParentArchived={item.status === "ARCHIVED"}
             />
           )}
         </>
@@ -142,6 +143,7 @@ export default function Item<T extends FormattedItem>({
               subitemType={itemType === "DREAM" ? "GOAL" : "TASK"}
               showSublist={showSublist}
               isParentEditActive={showEditPanel}
+              isParentArchived={item.status === "ARCHIVED"}
             />
           )}
           <AnimatePresence initial={false}>

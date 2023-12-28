@@ -17,12 +17,14 @@ export default function ItemSublist({
   subitemType,
   showSublist,
   isParentEditActive,
+  isParentArchived,
 }: {
   parentID: string
   subitems: GeneralItem[]
   subitemType: "TASK" | "GOAL"
   showSublist: boolean
   isParentEditActive: boolean
+  isParentArchived: boolean
 }) {
   const isDesktop = useMediaQuery({
     query: "(min-width: 600px)",
@@ -64,7 +66,9 @@ export default function ItemSublist({
               animate={{
                 scale: showSublist ? 1 : 0.98 - 0.03 * idx,
                 width:
-                  !showSublist && isParentEditActive ? scaledWidth : "100%",
+                  !showSublist && isParentEditActive && !isParentArchived
+                    ? scaledWidth
+                    : "100%",
                 y: showSublist ? 0 : -(56 + 50 * idx + 8 * idx),
                 zIndex: showSublist ? 0 : subitems.length - 1 - idx,
                 opacity: showSublist ? 1 : idx > 1 ? 0 : 1,

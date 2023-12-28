@@ -2,32 +2,31 @@ import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 import useEditItem from "../itemModal/hooks/useEditItem"
+import { getProgressBgColor } from "./itemStripColors"
 
 function ItemProgress({
   progress,
   showEditPanel,
+  isArchived,
   isRecurring,
 }: {
   progress: number
   showEditPanel: boolean
+  isArchived?: boolean
   isRecurring?: boolean
 }) {
   const { editItem } = useEditItem()
 
-  const getProgressColor = () => {
-    if (editItem) {
-      if (showEditPanel) {
-        return isRecurring ? "bg-amber-500" : "bg-red-400"
-      }
-      return "bg-gray-400"
-    }
-
-    return isRecurring ? "bg-amber-500" : "bg-red-400"
-  }
+  const progressColor = getProgressBgColor(
+    !!editItem,
+    showEditPanel,
+    isArchived,
+    isRecurring
+  )
 
   return (
     <motion.div
-      className={cn("absolute left-0 top-0 h-full", getProgressColor())}
+      className={cn("absolute left-0 top-0 h-full", progressColor)}
       style={{ width: `${Math.trunc(progress * 100)}%` }}
     />
   )

@@ -97,3 +97,7 @@ export const getTime = (seconds?: number | null) => {
   const minutes = Math.floor((seconds % 3600) / 60)
   return new Time(hours, minutes)
 }
+
+export function capitalize(text: string) {
+  return text[0].toUpperCase() + text.substring(1).toLowerCase()
+}

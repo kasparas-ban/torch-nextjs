@@ -15,6 +15,12 @@ import TimerIcon from "@/public/icons/navigationIcons/timer.svg"
 
 import useEditItem from "../itemModal/hooks/useEditItem"
 import useTimerForm from "../timer/hooks/useTimerForm"
+import {
+  getStripBgColor,
+  getStripBorderColor,
+  getStripDotsColor,
+  getStripTextColor,
+} from "./itemStripColors"
 import ItemProgress from "./ProgressBar"
 
 function ItemStrip<T extends GeneralItem>({
@@ -37,6 +43,7 @@ function ItemStrip<T extends GeneralItem>({
   const { setFocusOn, setFocusType } = useTimerForm()
 
   const containsSublist = !!itemSublist?.length
+  const isArchived = item.status === "ARCHIVED"
 
   const handleTimerClick = () => {
     const itemOption: ItemOptionType = {
@@ -72,14 +79,19 @@ function ItemStrip<T extends GeneralItem>({
     }
   }
 
+  const stripBgColor = getStripBgColor(!!editItem, showEditPanel, isArchived)
+  const stripTextColor = getStripTextColor(isArchived)
+  const stripBorderColor = getStripBorderColor(isArchived)
+  const stripDotsColor = getStripDotsColor(
+    !!editItem,
+    showEditPanel,
+    isArchived
+  )
+
   return (
     <motion.div
       layout
-      className={cn(
-        "relative flex w-full min-w-0",
-        containsSublist && "mb-3",
-        item.status === "ARCHIVED" && "opacity-50"
-      )}
+      className={cn("relative flex w-full min-w-0", containsSublist && "mb-3")}
       style={{ zIndex: itemSublist?.length }}
       whileTap={{ scale: itemSublist ? (showEditPanel ? 1 : 0.98) : 1 }}
     >
@@ -87,35 +99,35 @@ function ItemStrip<T extends GeneralItem>({
         layout
         onClick={handleStripClick}
         className={cn(
-          "relative flex w-full cursor-pointer items-center overflow-hidden rounded-2xl border border-gray-700 pl-6 pr-1 md:rounded-3xl",
-          editItem
-            ? showEditPanel
-              ? "bg-red-300"
-              : "bg-gray-300"
-            : "bg-red-300"
+          "relative flex w-full cursor-pointer items-center overflow-hidden rounded-2xl border pl-6 pr-1 md:rounded-3xl",
+          stripBgColor,
+          stripBorderColor
         )}
       >
         <ItemProgress
           progress={item.progress || 0}
           showEditPanel={showEditPanel}
+          isArchived={item.status === "ARCHIVED"}
         />
-        <motion.div className="z-10 select-none truncate py-3 text-gray-800">
+        <motion.div
+          className={cn("z-10 select-none truncate py-3", stripTextColor)}
+        >
           {item.title}
         </motion.div>
         <div
           className={cn(
             "group z-0 ml-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full",
-            !editItem
-              ? "hover:bg-red-200"
-              : showEditPanel
-                ? "hover:bg-red-200"
-                : "hover:bg-gray-100"
+            stripDotsColor
           )}
           onClick={toggleEditClick}
         >
           <motion.div
             layout
-            className="text-gray-600 group-hover:text-gray-800"
+            className={cn(
+              "group-hover:text-gray-800",
+              isArchived ? "text-gray-400" : "text-gray-600",
+              stripDotsColor
+            )}
           >
             <DotsIcon className="h-6 w-6" />
           </motion.div>
@@ -154,6 +166,7 @@ function RecurringItemStrip({
     query: "(min-width: 600px)",
   })
 
+  const isArchived = item.status === "ARCHIVED"
   const itemProgress = item.recurring
     ? (item.recurring?.progress || 0) / item.recurring?.times
     : 0
@@ -164,6 +177,21 @@ function RecurringItemStrip({
     if (itemInEdit) setEditItem(undefined)
   }
 
+  const stripBgColor = getStripBgColor(
+    !!editItem,
+    showEditPanel,
+    isArchived,
+    true
+  )
+  const stripTextColor = getStripTextColor(isArchived)
+  const stripBorderColor = getStripBorderColor(isArchived)
+  const stripDotsColor = getStripDotsColor(
+    !!editItem,
+    showEditPanel,
+    isArchived,
+    true
+  )
+
   return (
     <motion.div
       layout
@@ -173,22 +201,29 @@ function RecurringItemStrip({
       <motion.div
         layout
         className={cn(
-          "relative flex w-full cursor-pointer items-center overflow-hidden rounded-2xl border border-gray-700 pl-6 pr-1 md:rounded-3xl",
-          editItem
-            ? showEditPanel
-              ? "bg-amber-300"
-              : "bg-gray-300"
-            : "bg-amber-300"
+          "relative flex w-full cursor-pointer items-center overflow-hidden rounded-2xl border pl-6 pr-1 md:rounded-3xl",
+          stripBgColor,
+          stripBorderColor
         )}
       >
         <ItemProgress
           progress={itemProgress}
           showEditPanel={showEditPanel}
+          isArchived={item.status === "ARCHIVED"}
           isRecurring
         />
         <motion.div className="z-10 flex min-w-0 flex-col py-1">
-          <div className="select-none truncate">{item.title}</div>
-          <div className="truncate text-xs text-gray-700">Resets tomorrow</div>
+          <div className={cn("select-none truncate", stripTextColor)}>
+            {item.title}
+          </div>
+          <div
+            className={cn(
+              "truncate text-xs text-gray-700",
+              isArchived ? "text-gray-400" : "text-gray-700"
+            )}
+          >
+            {isArchived ? "Repeats every week" : "Resets tomorrow"}
+          </div>
         </motion.div>
         <div
           className="z-0 ml-auto flex shrink-0 items-center justify-center pl-2"
@@ -196,7 +231,10 @@ function RecurringItemStrip({
         >
           <motion.div
             layout
-            className="relative top-[-2px] shrink-0 text-2xl font-bold tracking-wider text-gray-600 sm:tracking-widest"
+            className={cn(
+              "text -2xl relative top-[-2px] shrink-0 font-bold tracking-wider sm:tracking-widest",
+              isArchived ? "text-gray-400" : "text-gray-600"
+            )}
           >
             {item.recurring?.progress || 0}/{item.recurring?.times}
           </motion.div>
@@ -204,11 +242,7 @@ function RecurringItemStrip({
         <div
           className={cn(
             "group z-0 flex h-10 w-10 shrink-0 items-center justify-center rounded-full",
-            !editItem
-              ? "hover:bg-amber-200"
-              : showEditPanel
-                ? "hover:bg-amber-200"
-                : "hover:bg-gray-100"
+            stripDotsColor
           )}
           onClick={toggleEditClick}
         >
@@ -220,40 +254,42 @@ function RecurringItemStrip({
           </motion.div>
         </div>
       </motion.div>
-      <AnimatePresence>
-        {showEditPanel && (
-          <motion.div
-            key="add_recurring"
-            className="my-auto flex aspect-square cursor-pointer items-center justify-center rounded-full bg-amber-400 text-xl font-bold text-gray-700"
-            whileHover={{ scale: 1.1 }}
-            initial={{ width: 0, opacity: 0, marginLeft: 0 }}
-            animate={{
-              width: isDesktop ? 48 : 64,
-              opacity: 1,
-              marginLeft: isDesktop ? 12 : 6,
-            }}
-            exit={{ width: 0, opacity: 0, marginLeft: 0 }}
-          >
-            -1
-          </motion.div>
-        )}
-        {showEditPanel && (
-          <motion.div
-            key="subtract_recurring"
-            className="my-auto flex aspect-square cursor-pointer items-center justify-center rounded-full bg-amber-400 text-xl font-bold text-gray-700"
-            whileHover={{ scale: 1.1 }}
-            initial={{ width: 0, opacity: 0, marginLeft: 0 }}
-            animate={{
-              width: isDesktop ? 48 : 64,
-              opacity: 1,
-              marginLeft: isDesktop ? 12 : 6,
-            }}
-            exit={{ width: 0, opacity: 0, marginLeft: 0 }}
-          >
-            +1
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {item.status === "ACTIVE" && (
+        <AnimatePresence>
+          {showEditPanel && (
+            <motion.div
+              key="add_recurring"
+              className="my-auto flex aspect-square cursor-pointer items-center justify-center rounded-full bg-amber-400 text-xl font-bold text-gray-700"
+              whileHover={{ scale: 1.1 }}
+              initial={{ width: 0, opacity: 0, marginLeft: 0 }}
+              animate={{
+                width: isDesktop ? 48 : 64,
+                opacity: 1,
+                marginLeft: isDesktop ? 12 : 6,
+              }}
+              exit={{ width: 0, opacity: 0, marginLeft: 0 }}
+            >
+              -1
+            </motion.div>
+          )}
+          {showEditPanel && (
+            <motion.div
+              key="subtract_recurring"
+              className="my-auto flex aspect-square cursor-pointer items-center justify-center rounded-full bg-amber-400 text-xl font-bold text-gray-700"
+              whileHover={{ scale: 1.1 }}
+              initial={{ width: 0, opacity: 0, marginLeft: 0 }}
+              animate={{
+                width: isDesktop ? 48 : 64,
+                opacity: 1,
+                marginLeft: isDesktop ? 12 : 6,
+              }}
+              exit={{ width: 0, opacity: 0, marginLeft: 0 }}
+            >
+              +1
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
     </motion.div>
   )
 }
