@@ -1,11 +1,11 @@
 export const getStripBgColor = (
   isEditActive: boolean,
   isEditPanelActive: boolean,
-  isArchived: boolean,
+  isActive: boolean,
   isRecurring?: boolean
 ) => {
   if (isRecurring) {
-    if (isArchived) {
+    if (!isActive) {
       return isEditActive
         ? isEditPanelActive
           ? "bg-amber-50"
@@ -20,7 +20,7 @@ export const getStripBgColor = (
       : "bg-amber-300"
   }
 
-  if (isArchived) {
+  if (!isActive) {
     return isEditActive
       ? isEditPanelActive
         ? "bg-red-50"
@@ -35,26 +35,26 @@ export const getStripBgColor = (
     : "bg-red-300"
 }
 
-export const getStripTextColor = (isArchived?: boolean) => {
-  return isArchived ? "text-gray-400" : "text-gray-800"
+export const getStripTextColor = (isActive?: boolean) => {
+  return isActive ? "text-gray-800" : "text-gray-400"
 }
 
-export const getStripBorderColor = (isArchived?: boolean) => {
-  return isArchived ? "border-gray-400" : "border-gray-700"
+export const getStripBorderColor = (isActive?: boolean) => {
+  return isActive ? "border-gray-700" : "border-gray-400"
 }
 
-export const getStripBulletColor = (isArchived?: boolean) => {
-  return isArchived ? "border-gray-400" : "border-gray-700"
+export const getStripBulletColor = (isActive?: boolean) => {
+  return isActive ? "border-gray-700" : "border-gray-400"
 }
 
 export const getStripDotsColor = (
   isEditActive: boolean,
   isEditPanelActive: boolean,
-  isArchived: boolean,
+  isActive: boolean,
   isRecurring?: boolean
 ) => {
   if (isRecurring) {
-    if (isArchived) {
+    if (!isActive) {
       return isEditActive
         ? isEditPanelActive
           ? "hover:bg-amber-100"
@@ -69,7 +69,7 @@ export const getStripDotsColor = (
       : "hover:bg-amber-200"
   }
 
-  if (isArchived) {
+  if (!isActive) {
     return isEditActive
       ? isEditPanelActive
         ? "hover:bg-red-100"
@@ -87,11 +87,11 @@ export const getStripDotsColor = (
 export const getProgressBgColor = (
   isEditActive: boolean,
   isEditPanelActive: boolean,
-  isArchived?: boolean,
+  isActive?: boolean,
   isRecurring?: boolean
 ) => {
   if (isRecurring) {
-    if (isArchived) {
+    if (!isActive) {
       return isEditActive
         ? isEditPanelActive
           ? "bg-amber-100"
@@ -105,7 +105,7 @@ export const getProgressBgColor = (
       : "bg-amber-500"
   }
 
-  if (isArchived) {
+  if (!isActive) {
     return isEditActive
       ? isEditPanelActive
         ? "bg-red-100"

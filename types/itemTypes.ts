@@ -55,7 +55,7 @@ export type ItemTypeLabel = "Tasks" | "Goals" | "Dreams"
 
 export type ItemType = "TASK" | "GOAL" | "DREAM"
 
-export type ItemStatus = "ACTIVE" | "ARCHIVED"
+export type ItemStatus = "ACTIVE" | "COMPLETED" | "ARCHIVED"
 
 export type ItemOptionType = {
   value: string

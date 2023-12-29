@@ -43,7 +43,7 @@ function ItemStrip<T extends GeneralItem>({
   const { setFocusOn, setFocusType } = useTimerForm()
 
   const containsSublist = !!itemSublist?.length
-  const isArchived = item.status === "ARCHIVED"
+  const isActive = item.status === "ACTIVE"
 
   const handleTimerClick = () => {
     const itemOption: ItemOptionType = {
@@ -79,14 +79,10 @@ function ItemStrip<T extends GeneralItem>({
     }
   }
 
-  const stripBgColor = getStripBgColor(!!editItem, showEditPanel, isArchived)
-  const stripTextColor = getStripTextColor(isArchived)
-  const stripBorderColor = getStripBorderColor(isArchived)
-  const stripDotsColor = getStripDotsColor(
-    !!editItem,
-    showEditPanel,
-    isArchived
-  )
+  const stripBgColor = getStripBgColor(!!editItem, showEditPanel, isActive)
+  const stripTextColor = getStripTextColor(isActive)
+  const stripBorderColor = getStripBorderColor(isActive)
+  const stripDotsColor = getStripDotsColor(!!editItem, showEditPanel, isActive)
 
   return (
     <motion.div
@@ -107,7 +103,7 @@ function ItemStrip<T extends GeneralItem>({
         <ItemProgress
           progress={item.progress || 0}
           showEditPanel={showEditPanel}
-          isArchived={item.status === "ARCHIVED"}
+          isActive={isActive}
         />
         <motion.div
           className={cn("z-10 select-none truncate py-3", stripTextColor)}
@@ -125,7 +121,7 @@ function ItemStrip<T extends GeneralItem>({
             layout
             className={cn(
               "group-hover:text-gray-800",
-              isArchived ? "text-gray-400" : "text-gray-600",
+              isActive ? "text-gray-600" : "text-gray-400",
               stripDotsColor
             )}
           >
@@ -166,7 +162,7 @@ function RecurringItemStrip({
     query: "(min-width: 600px)",
   })
 
-  const isArchived = item.status === "ARCHIVED"
+  const isActive = item.status === "ACTIVE"
   const itemProgress = item.recurring
     ? (item.recurring?.progress || 0) / item.recurring?.times
     : 0
@@ -180,15 +176,15 @@ function RecurringItemStrip({
   const stripBgColor = getStripBgColor(
     !!editItem,
     showEditPanel,
-    isArchived,
+    isActive,
     true
   )
-  const stripTextColor = getStripTextColor(isArchived)
-  const stripBorderColor = getStripBorderColor(isArchived)
+  const stripTextColor = getStripTextColor(isActive)
+  const stripBorderColor = getStripBorderColor(isActive)
   const stripDotsColor = getStripDotsColor(
     !!editItem,
     showEditPanel,
-    isArchived,
+    isActive,
     true
   )
 
@@ -209,7 +205,7 @@ function RecurringItemStrip({
         <ItemProgress
           progress={itemProgress}
           showEditPanel={showEditPanel}
-          isArchived={item.status === "ARCHIVED"}
+          isActive={isActive}
           isRecurring
         />
         <motion.div className="z-10 flex min-w-0 flex-col py-1">
@@ -219,10 +215,10 @@ function RecurringItemStrip({
           <div
             className={cn(
               "truncate text-xs text-gray-700",
-              isArchived ? "text-gray-400" : "text-gray-700"
+              isActive ? "text-gray-700" : "text-gray-400"
             )}
           >
-            {isArchived ? "Repeats every week" : "Resets tomorrow"}
+            {isActive ? "Resets tomorrow" : "Repeats every week"}
           </div>
         </motion.div>
         <div
@@ -233,7 +229,7 @@ function RecurringItemStrip({
             layout
             className={cn(
               "relative top-[-2px] shrink-0 text-2xl font-bold tracking-wider sm:tracking-widest",
-              isArchived ? "text-gray-400" : "text-gray-600"
+              isActive ? "text-gray-600" : "text-gray-400"
             )}
           >
             {item.recurring?.progress || 0}/{item.recurring?.times}
@@ -254,7 +250,7 @@ function RecurringItemStrip({
           </motion.div>
         </div>
       </motion.div>
-      {item.status === "ACTIVE" && (
+      {isActive && (
         <AnimatePresence>
           {showEditPanel && (
             <motion.div

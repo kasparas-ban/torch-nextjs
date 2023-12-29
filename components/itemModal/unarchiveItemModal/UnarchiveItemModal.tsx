@@ -152,7 +152,7 @@ export default function UnarchiveItemModal({
                     <div className="text-lg font-semibold">
                       {selectOptions[itemType].allSelection.title}
                     </div>
-                    <div className="text-wrap whitespace-normal font-medium text-gray-500">
+                    <div className="whitespace-normal text-wrap font-medium text-gray-500">
                       {selectOptions[itemType].allSelection.description}
                     </div>
                   </div>

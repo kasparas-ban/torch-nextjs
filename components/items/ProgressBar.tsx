@@ -7,12 +7,12 @@ import { getProgressBgColor } from "./itemStripColors"
 function ItemProgress({
   progress,
   showEditPanel,
-  isArchived,
+  isActive,
   isRecurring,
 }: {
   progress: number
   showEditPanel: boolean
-  isArchived?: boolean
+  isActive?: boolean
   isRecurring?: boolean
 }) {
   const { editItem } = useEditItem()
@@ -20,7 +20,7 @@ function ItemProgress({
   const progressColor = getProgressBgColor(
     !!editItem,
     showEditPanel,
-    isArchived,
+    isActive,
     isRecurring
   )
 

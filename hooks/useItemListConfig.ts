@@ -18,8 +18,10 @@ interface ItemListConfigState {
   saveItemType: (type: ItemType) => void
 
   // Item status
-  showAllItems: boolean
-  setShowAllItems: (val: boolean) => void
+  showArchivedItems: boolean
+  setShowArchivedItems: (val: boolean) => void
+  showCompletedItems: boolean
+  setShowCompletedItems: (val: boolean) => void
 }
 
 const useItemListConfig = create<ItemListConfigState>()(
@@ -50,9 +52,11 @@ const useItemListConfig = create<ItemListConfigState>()(
       itemType: "GOAL",
       saveItemType: (type: ItemType) => set({ itemType: type }),
 
-      // Item status header
-      showAllItems: false,
-      setShowAllItems: (val: boolean) => set({ showAllItems: val }),
+      // Item status filter
+      showArchivedItems: false,
+      setShowArchivedItems: (val: boolean) => set({ showArchivedItems: val }),
+      showCompletedItems: false,
+      setShowCompletedItems: (val: boolean) => set({ showCompletedItems: val }),
     }),
     {
       name: "item-list-storage",

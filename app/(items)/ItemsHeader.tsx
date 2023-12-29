@@ -22,8 +22,10 @@ export function ItemsHeader() {
   const { setEditItem } = useEditItem()
   const { openGeneralModal } = useItemModal()
 
-  const { showAllItems } = useItemListConfig()
-  const [showFilters, setShowFilters] = useState(showAllItems)
+  const { showCompletedItems, showArchivedItems } = useItemListConfig()
+  const [showFilters, setShowFilters] = useState(
+    showCompletedItems || showArchivedItems
+  )
 
   const handleAddNewItem = () => {
     setEditItem(undefined)
@@ -62,14 +64,18 @@ function ListFilterSection({ showFilters }: { showFilters: boolean }) {
       {showFilters && (
         <motion.section
           layout
-          initial={{ height: 0, opacity: 0, y: -16 }}
-          animate={{ height: 40, opacity: 1, y: 0 }}
+          className="flex"
+          initial={{ height: 0, opacity: 0, y: -36 }}
+          animate={{ height: 40, opacity: 1, y: -10 }}
           exit={{ height: 0, opacity: 0, y: -16 }}
         >
-          <span className="mr-2 text-sm font-medium text-gray-500">
+          <span className="mr-2 mt-1 text-sm font-medium text-gray-500">
             Filters:
           </span>
-          <ItemStatusSelect />
+          <div className="space-x-2">
+            <CompletedItemSelect />
+            <ArchivedItemSelect />
+          </div>
         </motion.section>
       )}
     </AnimatePresence>
@@ -105,22 +111,44 @@ function ListFilterButton({
   )
 }
 
-function ItemStatusSelect() {
-  const { showAllItems, setShowAllItems } = useItemListConfig()
+function CompletedItemSelect() {
+  const { showCompletedItems, setShowCompletedItems } = useItemListConfig()
   const { setEditItem } = useEditItem()
 
   const handleToggle = (pressed: boolean) => {
     setEditItem(undefined)
-    setShowAllItems(pressed)
+    setShowCompletedItems(pressed)
   }
 
   return (
     <Toggle
-      pressed={showAllItems}
+      pressed={showCompletedItems}
       onPressedChange={handleToggle}
       className="h-7 rounded-2xl bg-gray-200 py-1 text-xs text-gray-700 data-[state=on]:bg-rose-400 data-[state=on]:text-white data-[state=on]:hover:bg-rose-300 sm:bottom-0.5 sm:text-sm"
+      asChild
     >
-      Show archived
+      <motion.button whileTap={{ scale: 0.97 }}>Show completed</motion.button>
+    </Toggle>
+  )
+}
+
+function ArchivedItemSelect() {
+  const { showArchivedItems, setShowArchivedItems } = useItemListConfig()
+  const { setEditItem } = useEditItem()
+
+  const handleToggle = (pressed: boolean) => {
+    setEditItem(undefined)
+    setShowArchivedItems(pressed)
+  }
+
+  return (
+    <Toggle
+      pressed={showArchivedItems}
+      onPressedChange={handleToggle}
+      className="h-7 rounded-2xl bg-gray-200 py-1 text-xs text-gray-700 data-[state=on]:bg-rose-400 data-[state=on]:text-white data-[state=on]:hover:bg-rose-300 sm:bottom-0.5 sm:text-sm"
+      asChild
+    >
+      <motion.button whileTap={{ scale: 0.97 }}>Show archived</motion.button>
     </Toggle>
   )
 }

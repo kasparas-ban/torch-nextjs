@@ -5,6 +5,7 @@ import {
   GeneralItem,
   Goal,
   GroupedItems,
+  ItemStatus,
   ItemType,
   ReccuringPeriod,
   RecurringType,
@@ -149,19 +150,23 @@ export const countAssociatedTasks = (
   return allItems.filter(item => item.parentID === goal.itemID).length
 }
 
-export const filterArchivedItems = (items?: (Task | Goal | Dream)[]) => {
+export const filterItemsByStatus = (
+  filterBy: ItemStatus[],
+  items?: (Task | Goal | Dream)[]
+) => {
   if (!items) return []
+  if (!filterBy.length) return items
 
-  let activeItems = items.filter(item => item.status === "ACTIVE")
+  let activeItems = items.filter(item => filterBy.includes(item.status))
 
   activeItems = activeItems.map(item => {
-    const filteredGoals = (item as Dream).goals?.filter(
-      i => i.status === "ACTIVE"
+    const filteredGoals = (item as Dream).goals?.filter(i =>
+      filterBy.includes(i.status)
     )
     if (filteredGoals) return { ...item, goals: filteredGoals }
 
-    const filteredTasks = (item as Goal).tasks?.filter(
-      i => i.status === "ACTIVE"
+    const filteredTasks = (item as Goal).tasks?.filter(i =>
+      filterBy.includes(i.status)
     )
     if (filteredTasks) return { ...item, tasks: filteredTasks }
 
