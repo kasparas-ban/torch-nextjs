@@ -25,6 +25,7 @@ Necessary
 - [ ] Make so that the item list pathname could be /tasks or /dreams
 - [x] Fix close icon position for modals
 - [ ] Terms of service document
+- [ ] Finalize recurring item functionality
 
 Nice to have
 
