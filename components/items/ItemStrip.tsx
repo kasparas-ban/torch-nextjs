@@ -9,7 +9,7 @@ import {
   Task,
 } from "@/types/itemTypes"
 import { ROUTES } from "@/config/routes"
-import { cn } from "@/lib/utils"
+import { cn, toPercent } from "@/lib/utils"
 import DotsIcon from "@/public/icons/dots.svg"
 import TimerIcon from "@/public/icons/navigationIcons/timer.svg"
 
@@ -19,6 +19,7 @@ import {
   getStripBgColor,
   getStripBorderColor,
   getStripDotsColor,
+  getStripPercentageColor,
   getStripTextColor,
 } from "./itemStripColors"
 import ItemProgress from "./ProgressBar"
@@ -79,10 +80,19 @@ function ItemStrip<T extends GeneralItem>({
     }
   }
 
-  const stripBgColor = getStripBgColor(!!editItem, showEditPanel, isActive)
+  const stripBgColor = getStripBgColor(!!editItem, showEditPanel, item.status)
   const stripTextColor = getStripTextColor(isActive)
   const stripBorderColor = getStripBorderColor(isActive)
-  const stripDotsColor = getStripDotsColor(!!editItem, showEditPanel, isActive)
+  const stripDotsColor = getStripDotsColor(
+    !!editItem,
+    showEditPanel,
+    item.status
+  )
+  const stripPercentageColor = getStripPercentageColor(
+    !!editItem,
+    showEditPanel,
+    item.status
+  )
 
   return (
     <motion.div
@@ -110,9 +120,20 @@ function ItemStrip<T extends GeneralItem>({
         >
           {item.title}
         </motion.div>
+        <div className="z-0 ml-auto flex shrink-0 items-center justify-center pl-2">
+          <motion.div
+            layout
+            className={cn(
+              "relative top-[-2px] shrink-0 text-2xl font-bold",
+              stripPercentageColor
+            )}
+          >
+            {toPercent(item.progress)}
+          </motion.div>
+        </div>
         <div
           className={cn(
-            "group z-0 ml-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full",
+            "group z-0 flex h-10 w-10 shrink-0 items-center justify-center rounded-full",
             stripDotsColor
           )}
           onClick={toggleEditClick}
@@ -176,7 +197,7 @@ function RecurringItemStrip({
   const stripBgColor = getStripBgColor(
     !!editItem,
     showEditPanel,
-    isActive,
+    item.status,
     true
   )
   const stripTextColor = getStripTextColor(isActive)
@@ -184,7 +205,13 @@ function RecurringItemStrip({
   const stripDotsColor = getStripDotsColor(
     !!editItem,
     showEditPanel,
-    isActive,
+    item.status,
+    true
+  )
+  const stripPercentageColor = getStripPercentageColor(
+    !!editItem,
+    showEditPanel,
+    item.status,
     true
   )
 
@@ -223,15 +250,12 @@ function RecurringItemStrip({
             {isActive ? "Resets tomorrow" : "Repeats every week"}
           </div>
         </motion.div>
-        <div
-          className="z-0 ml-auto flex shrink-0 items-center justify-center pl-2"
-          onClick={toggleEditClick}
-        >
+        <div className="z-0 ml-auto flex shrink-0 items-center justify-center pl-2">
           <motion.div
             layout
             className={cn(
               "relative top-[-2px] shrink-0 text-2xl font-bold tracking-wider sm:tracking-widest",
-              isActive ? "text-gray-600" : "text-gray-400"
+              stripPercentageColor
             )}
           >
             {item.recurring?.progress || 0}/{item.recurring?.times}
