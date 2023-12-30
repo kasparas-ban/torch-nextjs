@@ -128,7 +128,7 @@ function ItemStrip<T extends GeneralItem>({
               stripPercentageColor
             )}
           >
-            {toPercent(item.progress)}
+            {item.status === "COMPLETED" ? "100%" : toPercent(item.progress)}
           </motion.div>
         </div>
         <div

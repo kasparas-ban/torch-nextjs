@@ -43,13 +43,16 @@ const TaskInfo = ({ focusOn }: { focusOn: ItemOptionType }) => {
       : undefined
 
   return (
-    <motion.div layout className="flex flex-row justify-center gap-2">
+    <motion.div
+      layout
+      className="flex flex-row items-center justify-center gap-2"
+    >
       {showProgress && (
-        <div className="text-6xl font-bold">
+        <div className="flex text-4xl font-bold">
           <NumberAnimator value={focusOn.progress ?? 0}>
             {formatPercentages(focusOn.progress)}
           </NumberAnimator>
-          <span className="text-5xl">%</span>
+          <span className="mt-auto text-3xl">%</span>
         </div>
       )}
       <div className="mt-1.5 flex flex-col justify-evenly gap-1">
@@ -89,11 +92,11 @@ const ParentInfo = ({ focusOn }: { focusOn: ItemOptionType }) => {
     <motion.div layout className="flex justify-center gap-2">
       {showProgress && (
         <div className="flex items-center max-sm:text-center sm:flex sm:items-center sm:text-6xl">
-          <div className="text-4xl font-bold">
+          <div className="flex text-4xl font-bold">
             <NumberAnimator value={focusOn.progress ?? 0}>
               {formatPercentages(focusOn.progress)}
             </NumberAnimator>
-            <span className="text-3xl">%</span>
+            <span className="mt-auto text-3xl">%</span>
           </div>
         </div>
       )}
@@ -111,17 +114,18 @@ const ParentInfo = ({ focusOn }: { focusOn: ItemOptionType }) => {
             }`}</span>
           </div>
         )}
-        {focusOn.containsTasks && focusOn.totalTimeSpent !== undefined && (
-          <div className="flex gap-2">
-            <TimerBoldIcon className="w-5" />
-            <span className="font-semibold">
-              <NumberAnimator value={focusOn.totalTimeSpent}>
-                {formatTimeSpent(focusOn.totalTimeSpent)}
-              </NumberAnimator>
-            </span>
-            <span className="text-gray-600">spent in total</span>
-          </div>
-        )}
+        {focusOn.containsTasks ||
+          (focusOn.totalTimeSpent !== undefined && (
+            <div className="flex gap-2">
+              <TimerBoldIcon className="w-5" />
+              <span className="font-semibold">
+                <NumberAnimator value={focusOn.totalTimeSpent}>
+                  {formatTimeSpent(focusOn.totalTimeSpent)}
+                </NumberAnimator>
+              </span>
+              <span className="text-gray-600">spent in total</span>
+            </div>
+          ))}
         {!!timeLeft && (
           <div className="flex gap-2">
             <TimerIcon className="w-5" />
