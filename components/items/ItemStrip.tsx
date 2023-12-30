@@ -202,12 +202,14 @@ function RecurringItemStrip({
           stripBorderColor
         )}
       >
-        <ItemProgress
-          progress={itemProgress}
-          showEditPanel={showEditPanel}
-          isActive={isActive}
-          isRecurring
-        />
+        {item.status !== "COMPLETED" && (
+          <ItemProgress
+            progress={itemProgress}
+            showEditPanel={showEditPanel}
+            isActive={isActive}
+            isRecurring
+          />
+        )}
         <motion.div className="z-10 flex min-w-0 flex-col py-1">
           <div className={cn("select-none truncate", stripTextColor)}>
             {item.title}

@@ -15,20 +15,20 @@ An app that helps you track the time you spend pursuing your goals.
 
 Necessary
 
-- [ ] Make a Not Found page
-- [ ] Add percentage to each item strip
 - [ ] Add some background
 - [ ] Mark active page navlink
-- [ ] Implement item "done" action
-- [ ] Implement item "remove" action
+- [x] Implement item "done" action
+- [x] Implement item "remove" action
 - [x] Implement email waiting list
-- [ ] Make so that the item list pathname could be /tasks or /dreams
 - [x] Fix close icon position for modals
 - [ ] Terms of service document
 - [ ] Finalize recurring item functionality
 
 Nice to have
 
+- [ ] Add percentage to each item strip
+- [ ] Make a Not Found page
+- [ ] Make so that the item list pathname could be /tasks or /dreams
 - [ ] Adjust all sizes to make sure they look good on mobile
 - [ ] Have the ability to reorder list items by dragging them
 - [ ] Make timer toast text to slide infinitely (like Spotify)
