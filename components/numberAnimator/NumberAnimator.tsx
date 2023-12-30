@@ -5,7 +5,7 @@ export default function NumberAnimator({
   value,
   children,
 }: {
-  value: number
+  value: string | number
   children: ReactNode
 }) {
   return (

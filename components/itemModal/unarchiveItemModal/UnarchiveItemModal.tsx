@@ -85,7 +85,7 @@ export default function UnarchiveItemModal({
         closeModal()
         setEditItem(undefined)
         toast({
-          title: `${capitalize(editItem.type)} unarchived`,
+          title: `${capitalize(editItem.type)} made active`,
           description: `You can now commit time towards it.`,
         })
       })

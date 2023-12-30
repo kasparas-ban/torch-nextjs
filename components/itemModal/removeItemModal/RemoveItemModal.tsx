@@ -11,6 +11,7 @@ import { countAssociatedTasks } from "@/api/utils/helpers"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useToast } from "@/components/ui/use-toast"
 import ConfirmAction from "@/components/confirmAction/ConfirmAction"
+import useTimerForm from "@/components/timer/hooks/useTimerForm"
 import TimerIcon from "@/public/icons/navigationIcons/timer.svg"
 
 import {
@@ -100,6 +101,8 @@ export default function RemoveItemModal({ children }: { children: ReactNode }) {
   const { toast } = useToast()
   const { editItem, setEditItem } = useEditItem()
   const { data } = useItemsList()
+  const { setFocusOn } = useTimerForm()
+
   const { open, setOpen } = useModalState()
   const closeModal = () => setOpen(false)
 
@@ -149,6 +152,8 @@ export default function RemoveItemModal({ children }: { children: ReactNode }) {
         .then(() => {
           closeModal()
           setEditItem(undefined)
+          setFocusOn(null)
+
           toast({
             title: `${capitalize(editItem.type)} deleted`,
             description: `It will be removed from the ${editItem.type.toLowerCase()} list.`,
@@ -280,7 +285,7 @@ export default function RemoveItemModal({ children }: { children: ReactNode }) {
                     <div className="text-lg font-semibold">
                       {selectOptions[itemType].allSelection.title}
                     </div>
-                    <div className="text-wrap whitespace-normal font-medium text-gray-500">
+                    <div className="whitespace-normal text-wrap font-medium text-gray-500">
                       {selectOptions[itemType].allSelection.description[action]}
                     </div>
                   </div>

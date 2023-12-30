@@ -1,37 +1,48 @@
-import { motion } from "framer-motion"
+import { forwardRef } from "react"
+import { AnimatePresence, motion } from "framer-motion"
 import { ItemOptionType } from "@/types/itemTypes"
 import { formatPercentages, formatTimeSpent } from "@/lib/utils"
 import NumberAnimator from "@/components/numberAnimator/NumberAnimator"
 import TimerIcon from "@/public/icons/navigationIcons/timer.svg"
 import TimerBoldIcon from "@/public/icons/timerBold.svg"
 
-function TimerFocusInfo({ focusOn }: { focusOn: ItemOptionType }) {
-  const info =
-    focusOn.type === "TASK" ? (
-      <TaskInfo focusOn={focusOn} />
+import useTimerForm from "../hooks/useTimerForm"
+
+function TimerFocusInfo() {
+  const { focusOn } = useTimerForm()
+
+  const getFocusInfo = (focusItem: ItemOptionType) =>
+    focusItem.type === "TASK" ? (
+      <TaskInfo focusOn={focusItem} />
     ) : (
-      <ParentInfo focusOn={focusOn} />
+      <ParentInfo focusOn={focusItem} />
     )
 
   return (
-    <motion.div
-      layout
-      className="relative mt-4 flex flex-col justify-center"
-      initial={{ opacity: 0 }}
-      animate={{
-        opacity: 1,
-        transition: { duration: 0.6 },
-      }}
-      exit={{ opacity: 0, y: 20, transition: { duration: 0.1 } }}
-    >
-      <motion.div
-        layout
-        className="mx-auto max-w-2xl px-6 text-center text-xl font-semibold [text-wrap:balance]"
-      >
-        {focusOn?.label}
-      </motion.div>
-      {info}
-    </motion.div>
+    <AnimatePresence mode="popLayout">
+      {focusOn && (
+        <motion.div
+          layout
+          className="relative mt-4 flex flex-col justify-center"
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: 1,
+            transition: { duration: 0.6 },
+          }}
+          exit={{ opacity: 0, y: 20, transition: { duration: 0.1 } }}
+        >
+          <motion.div
+            layout
+            className="mx-auto max-w-2xl px-6 text-center text-xl font-semibold [text-wrap:balance]"
+          >
+            <NumberAnimator value={focusOn.label}>
+              {focusOn.label}
+            </NumberAnimator>
+          </motion.div>
+          {getFocusInfo(focusOn)}
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
 
@@ -144,4 +155,4 @@ const ParentInfo = ({ focusOn }: { focusOn: ItemOptionType }) => {
   )
 }
 
-export default TimerFocusInfo
+export default forwardRef(TimerFocusInfo)
