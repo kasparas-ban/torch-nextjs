@@ -35,7 +35,7 @@ export function NavigationLink({
         <div
           className={cn(
             "peer flex flex-col rounded-lg px-3 py-2 hover:cursor-pointer max-[600px]:pb-1",
-            !mobile && "hover:bg-slate-300 max-[450px]:hidden"
+            !mobile && "hover:bg-red-100 max-[450px]:hidden"
           )}
         >
           <Icon className="mx-auto h-6 w-6 text-slate-800" alt="Nav icon" />
@@ -44,7 +44,7 @@ export function NavigationLink({
       )}
       {!mobile && (
         <div className="relative z-30 hidden translate-y-5 peer-hover:block">
-          <div className="absolute z-50 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-red-200 p-1 shadow-lg">
+          <div className="absolute z-50 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-red-100 p-1 shadow-lg">
             {linkName}
           </div>
         </div>
@@ -74,7 +74,7 @@ export const TimerLink = ({ mobile }: { mobile?: boolean }) => {
 
   return (
     <motion.div
-      className="bg-multi-color bg-multi-color-delay peer rounded-full p-2 brightness-150 transition-all hover:cursor-pointer hover:brightness-100"
+      className="bg-multi-color bg-multi-color-delay peer rounded-full p-2 shadow-md brightness-150 transition-all hover:cursor-pointer hover:brightness-100"
       animate={{ scale }}
     >
       <TimerIcon
