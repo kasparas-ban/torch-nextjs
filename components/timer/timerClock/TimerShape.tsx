@@ -2,6 +2,8 @@ import { AnimatePresence, motion } from "framer-motion"
 
 import "@/styles/timer.css"
 
+import { cn } from "@/lib/utils"
+
 export const TimerShape = ({
   initialTime,
   currentTime,
@@ -20,7 +22,12 @@ export const TimerShape = ({
   const strokeLinecap = "round"
 
   return (
-    <div className="timer-shape absolute max-w-xs">
+    <div
+      className={cn(
+        "timer-shape absolute max-w-xs",
+        "before:absolute before:z-[-1] before:h-full before:w-full before:scale-125 before:rounded-full before:bg-white before:opacity-90 before:blur-lg"
+      )}
+    >
       <AnimatePresence initial={false}>
         <motion.svg
           style={{ width: "inherit", height: "inherit" }}

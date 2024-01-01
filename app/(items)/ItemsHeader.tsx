@@ -176,7 +176,7 @@ function ItemsTypeDropdown() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -40 }}
             >
-              {capitalizeString(itemType)}
+              {`${capitalizeString(itemType)}s`}
             </motion.h1>
           </AnimatePresence>
           <ArrowIcon className="relative top-5 ml-1 h-6 w-6 stroke-[0.5] text-gray-500 transition-transform group-data-[state=open]:rotate-180" />
